@@ -4,6 +4,8 @@ import LoginPage from "../../pages/auth/LoginPage";
 import AuthLayout from "../../layouts/AuthLayout";
 import Topbar2 from "../../widgets/topbar_2/Topbar2";
 import { createBrowserRouter, Navigate } from "react-router-dom";
+import SotuvQoshish from "@/pages/components/SotuvQoshish";
+import SotuvlarRoyhati from "@/pages/components/SotuvlarRoyhati";
 
 export const router = createBrowserRouter([
   {
@@ -20,7 +22,15 @@ export const router = createBrowserRouter([
     children: [{ path: "login", element: <LoginPage /> }],
   },
   {
-    path: "/topbar_2",
+    path: "/topbar2",
     element: <Topbar2 />,
+  },
+  {
+    path: "/SotuvQoshish",
+    element: <SotuvQoshish />,
+  },
+  {
+    path: "/SotuvlarRoyhati",
+    element: <SotuvlarRoyhati />,
   },
 ]);
