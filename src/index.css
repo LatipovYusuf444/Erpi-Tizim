@@ -9,7 +9,6 @@ body,
 
 /* ✅ Tailwind @apply ishlatmaymiz (v4 da ko‘p muammo beradi) */
 body {
-  background: #0F2A1D;
   /* slate-100 */
   color: #0f172a;
   /* slate-900 */
@@ -32,4 +31,15 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 16px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.10);
+}
+.navbar2-button-color{
+  background: linear-gradient(90deg, #1C96C8 0%, #334F9D 100%);
+transition: all 0.3s ease;
+color:white;
+}
+h1{
+color:black;}
+h2{
+color:black;
+font-size:18px;
 }
