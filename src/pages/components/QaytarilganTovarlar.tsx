@@ -1,6 +1,6 @@
 import Navbar2 from "@/widgets/topbar_2/Topbar2";
 
-export default function SotuvlarRoyhati() {
+export default function QaytarilganTovarlar() {
   const data = [
     {
       id: 1,
@@ -12,6 +12,7 @@ export default function SotuvlarRoyhati() {
       sanasi: "18.10.2025",
       miqdori: "2000",
       narxi: "800 000",
+      status: "Brak",
     },
     {
       id: 2,
@@ -23,6 +24,7 @@ export default function SotuvlarRoyhati() {
       sanasi: "14.04.2025",
       miqdori: "8000",
       narxi: "400 000",
+      status: "Singan",
     },
     {
       id: 3,
@@ -34,6 +36,7 @@ export default function SotuvlarRoyhati() {
       sanasi: "17.08.2025",
       miqdori: "7400",
       narxi: "890 000",
+      status: "Shikastlangan",
     },
     {
       id: 4,
@@ -45,6 +48,7 @@ export default function SotuvlarRoyhati() {
       sanasi: "11.08.2025",
       miqdori: "7100",
       narxi: "100 000",
+      status: "Brak",
     },
     {
       id: 5,
@@ -56,6 +60,7 @@ export default function SotuvlarRoyhati() {
       sanasi: "19.01.2025",
       miqdori: "7900",
       narxi: "10 000",
+      status: "Shikastlangan",
     },
     {
       id: 6,
@@ -67,6 +72,7 @@ export default function SotuvlarRoyhati() {
       sanasi: "10.09.2025",
       miqdori: "700",
       narxi: "190 000",
+      status: "Shikastlangan",
     },
     {
       id: 7,
@@ -78,6 +84,7 @@ export default function SotuvlarRoyhati() {
       sanasi: "15.05.2025",
       miqdori: "5200",
       narxi: "790 000",
+      status: "Brak",
     },
     {
       id: 8,
@@ -89,6 +96,7 @@ export default function SotuvlarRoyhati() {
       sanasi: "01.02.2025",
       miqdori: "750",
       narxi: "790 000",
+      status: "Yetib kelmagan",
     },
     {
       id: 9,
@@ -100,6 +108,7 @@ export default function SotuvlarRoyhati() {
       sanasi: "08.08.2025",
       miqdori: "8520",
       narxi: "495 000",
+      status: "Brak",
     },
     {
       id: 10,
@@ -111,6 +120,7 @@ export default function SotuvlarRoyhati() {
       sanasi: "08.12.2025",
       miqdori: "8550",
       narxi: "1 900 000",
+      status: "Brak",
     },
   ];
 
@@ -163,7 +173,7 @@ export default function SotuvlarRoyhati() {
                   <td className="py-4">{row.sanasi}</td>
                   <td className="py-4 text-right">
                     <button className="text-[#1C96C8] hover:underline">
-                      Tasdiqlangan
+                      {row.status}
                     </button>
                   </td>
                 </tr>

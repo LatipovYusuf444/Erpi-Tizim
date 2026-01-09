@@ -32,7 +32,7 @@ const chartData = [
 const chartConfig = {
   value: {
     label: "Tovar 1",
-    color: "#007E6E",
+    color: "#53629E",
   },
 } satisfies ChartConfig;
 
@@ -40,7 +40,7 @@ const kTick = (v: number) => `${Math.round(v / 1000)}k`;
 
 export default function ChartCard() {
   return (
-    <section className="p-6 w-[420px]  rounded-2xl bg-white">
+    <section className="p-6 w-[420px] rounded-2xl bg-white">
       <div className="flex items-start justify-between">
         <div className="text-xl font-semibold text-black">2025</div>
       </div>
