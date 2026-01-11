@@ -6,6 +6,8 @@ import Topbar2 from "../../widgets/topbar_2/Topbar2";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import SotuvQoshish from "@/pages/components/SotuvQoshish";
 import SotuvlarRoyhati from "@/pages/components/SotuvlarRoyhati";
+import TolovOynasi from "@/pages/components/TolovOynasi";
+import QaytarilganTovarlar from "@/pages/components/QaytarilganTovarlar";
 
 export const router = createBrowserRouter([
   {
@@ -32,5 +34,13 @@ export const router = createBrowserRouter([
   {
     path: "/SotuvlarRoyhati",
     element: <SotuvlarRoyhati />,
+  },
+  {
+    path: "/TolovOynasi",
+    element: <TolovOynasi />,
+  },
+  {
+    path: "/QaytarilganTovarlar",
+    element: <QaytarilganTovarlar />,
   },
 ]);
