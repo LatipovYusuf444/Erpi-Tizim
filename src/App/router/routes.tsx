@@ -3,11 +3,15 @@ import DashboardPage from "../../pages/Dashboard/DashboardPage";
 import LoginPage from "../../pages/auth/LoginPage";
 import AuthLayout from "../../layouts/AuthLayout";
 import Topbar2 from "../../widgets/topbar_2/Topbar2";
+import Topbar3 from "../../widgets/topbar_3/Topbar3";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import SotuvQoshish from "@/pages/components/SotuvQoshish";
 import SotuvlarRoyhati from "@/pages/components/SotuvlarRoyhati";
 import TolovOynasi from "@/pages/components/TolovOynasi";
 import QaytarilganTovarlar from "@/pages/components/QaytarilganTovarlar";
+import Kassa from "@/pages/components/Kassa";
+import Qarzdozlik from "@/pages/components/Qarzdozlik";
+import KunlikYopish from "@/pages/components/KunlikYopish";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +32,10 @@ export const router = createBrowserRouter([
     element: <Topbar2 />,
   },
   {
+    path: "/topbar3",
+    element: <Topbar3 />,
+  },
+  {
     path: "/SotuvQoshish",
     element: <SotuvQoshish />,
   },
@@ -42,5 +50,17 @@ export const router = createBrowserRouter([
   {
     path: "/QaytarilganTovarlar",
     element: <QaytarilganTovarlar />,
+  },
+  {
+    path: "/Kassa",
+    element: <Kassa />,
+  },
+  {
+    path: "/KunlikYopish",
+    element: <KunlikYopish />,
+  },
+  {
+    path: "/Qarzdozlik",
+    element: <Qarzdozlik />,
   },
 ]);

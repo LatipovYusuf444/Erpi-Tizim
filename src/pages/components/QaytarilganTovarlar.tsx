@@ -162,7 +162,7 @@ export default function QaytarilganTovarlar() {
                 >
                   <td className="py-4 ">
                     {String(index + 1).padStart(2, "0")}
-                  </td>{" "}
+                  </td>
                   <td className="py-4">{row.sotuvId}</td>
                   <td className="py-4 ">{row.klientNomi}</td>
                   <td className="py-4">{row.klientId}</td>
@@ -172,7 +172,7 @@ export default function QaytarilganTovarlar() {
                   <td className="py-4">{row.narxi}</td>
                   <td className="py-4">{row.sanasi}</td>
                   <td className="py-4 text-right">
-                    <button className="text-[#1C96C8] hover:underline">
+                    <button className="text-[#da1d1d] hover:underline">
                       {row.status}
                     </button>
                   </td>

@@ -152,7 +152,7 @@ export default function SotuvlarRoyhati() {
                 >
                   <td className="py-4 ">
                     {String(index + 1).padStart(2, "0")}
-                  </td>{" "}
+                  </td>
                   <td className="py-4">{row.sotuvId}</td>
                   <td className="py-4 ">{row.klientNomi}</td>
                   <td className="py-4">{row.klientId}</td>

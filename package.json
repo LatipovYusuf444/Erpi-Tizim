@@ -24,6 +24,7 @@
     "react-router-dom": "^7.11.0",
     "react-select": "^5.10.2",
     "recharts": "^2.15.4",
+    "scichart": "^4.0.923",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
     "zustand": "^5.0.9"

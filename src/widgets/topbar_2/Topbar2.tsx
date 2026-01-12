@@ -19,7 +19,7 @@ export default function Navbar2({ defaultActiveTo }: Navbar2Props) {
   const { pathname } = useLocation();
   const hasActiveTab = tabs.some((t) => pathname.startsWith(t.to));
   return (
-    <>
+    <div className="px-8">
       <nav className=" w-full max-w-[1402px] h-auto flex gap-2 border border-[#6049E3] rounded-3xl px-3 py-2 bg-muted mt-4">
         {tabs.map((t) => {
           const isDefaultActive = !hasActiveTab && defaultActiveTo === t.to;
@@ -52,6 +52,6 @@ export default function Navbar2({ defaultActiveTo }: Navbar2Props) {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
