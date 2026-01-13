@@ -60,7 +60,7 @@ function CustomTooltip({
 export default function SkyChart() {
   return (
     <section className="w-[670px]  rounded-2xl mt-8">
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-t from-[#1C96C8] to-[#334F9D] p-6 text-white">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-[#1C96C8] to-[#c1c6d1] p-6 text-white">
         <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-black/20 blur-3xl" />
 

@@ -12,6 +12,7 @@ import QaytarilganTovarlar from "@/pages/components/QaytarilganTovarlar";
 import Kassa from "@/pages/components/Kassa";
 import Qarzdozlik from "@/pages/components/Qarzdozlik";
 import KunlikYopish from "@/pages/components/KunlikYopish";
+import SotuvQoshishRight from "@/pages/components/SotuvQoshishRight";
 
 export const router = createBrowserRouter([
   {
@@ -62,5 +63,9 @@ export const router = createBrowserRouter([
   {
     path: "/Qarzdozlik",
     element: <Qarzdozlik />,
+  },
+  {
+    path: "/SotuvQoshishRight",
+    element: <SotuvQoshishRight />,
   },
 ]);

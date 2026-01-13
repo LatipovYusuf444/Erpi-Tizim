@@ -8,7 +8,7 @@ const options = [
 
 export function ReactSelectBox() {
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <Select
         options={options}
         placeholder="Tanlang..."

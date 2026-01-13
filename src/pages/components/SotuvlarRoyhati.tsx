@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navbar2 from "@/widgets/topbar_2/Topbar2";
+import SalesList from "./SalesList";
 
 type Row = {
   id: number;
@@ -47,6 +48,50 @@ export default function SotuvlarRoyhati() {
       sanasi: "17.08.2025",
       miqdori: "7400",
       narxi: "890 000",
+    },
+    {
+      id: 4,
+      klientNomi: " Talinov T",
+      klientId: "20202020",
+      sotuvId: "0202020",
+      tovarId: "20202020",
+      tovarNomi: "Vilka",
+      sanasi: "19.01.2025",
+      miqdori: "7200",
+      narxi: "120 000",
+    },
+    {
+      id: 5,
+      klientNomi: " Asilov J",
+      klientId: "20202020",
+      sotuvId: "0202020",
+      tovarId: "20202020",
+      tovarNomi: "Tarelka",
+      sanasi: "29.08.2025",
+      miqdori: "9200",
+      narxi: "920 000",
+    },
+    {
+      id: 6,
+      klientNomi: "Velikov W",
+      klientId: "20202020",
+      sotuvId: "0202020",
+      tovarId: "20202020",
+      tovarNomi: "Tarelka",
+      sanasi: "12.02.2025",
+      miqdori: "42.000",
+      narxi: "1 920 000",
+    },
+    {
+      id: 7,
+      klientNomi: "Werzadov W",
+      klientId: "20202020",
+      sotuvId: "0202020",
+      tovarId: "20202020",
+      tovarNomi: "Tarelka",
+      sanasi: "22.02.2025",
+      miqdori: "420.000",
+      narxi: "1 120 000",
     },
   ];
 
@@ -111,82 +156,11 @@ export default function SotuvlarRoyhati() {
     <div className="container mx-auto px-8">
       <Navbar2 />
 
-      <section className="bg-[#EBF0FA] border border-[#6049E3] rounded-2xl shadow-sm p-6 max-w-[1402px] my-8">
+      <section className="bg-[#EBF0FA] border border-[#6049E3] rounded-3xl shadow-sm p-6 max-w-[1402px] my-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-black">Bugungi savdo</h2>
+          <h2 className="font-bold text-[28px]  text-black">Bugungi savdo</h2>{" "}
+          <SalesList />
         </div>
-
-        <div className="mb-4 grid grid-cols-2 md:grid-cols-4 gap-3">
-          <input
-            className="border border-gray-600 focus:outline-none focus:border-[#6049E3]  rounded-xl px-3 py-2"
-            placeholder="Mijoz Nomi"
-            value={form.klientNomi}
-            onChange={(e) => change("klientNomi", e.target.value)}
-          />
-          <input
-            className="border border-gray-600 focus:outline-none focus:border-[#6049E3] rounded-xl px-3 py-2"
-            placeholder="Mijoz ID"
-            value={form.klientId}
-            onChange={(e) => change("klientId", e.target.value)}
-          />
-          <input
-            className="border  border-gray-600 focus:outline-none focus:border-[#6049E3] rounded-xl px-3 py-2"
-            placeholder="Sotuv ID"
-            value={form.sotuvId}
-            onChange={(e) => change("sotuvId", e.target.value)}
-          />
-          <input
-            className="border border-gray-600 focus:outline-none focus:border-[#6049E3] rounded-xl px-3 py-2"
-            placeholder="Tovar Nomi"
-            value={form.tovarNomi}
-            onChange={(e) => change("tovarNomi", e.target.value)}
-          />
-
-          <input
-            className="border border-gray-600 focus:outline-none focus:border-[#6049E3] rounded-xl px-3 py-2"
-            placeholder="Tovar ID"
-            value={form.tovarId}
-            onChange={(e) => change("tovarId", e.target.value)}
-          />
-          <input
-            className="border border-gray-600 focus:outline-none focus:border-[#6049E3] rounded-xl px-3 py-2"
-            placeholder="Miqdori"
-            value={form.miqdori}
-            onChange={(e) => change("miqdori", e.target.value)}
-          />
-          <input
-            className="border border-gray-600 focus:outline-none focus:border-[#6049E3] rounded-xl px-3 py-2"
-            placeholder="Narxi"
-            value={form.narxi}
-            onChange={(e) => change("narxi", e.target.value)}
-          />
-          <input
-            className="border border-gray-600 focus:outline-none focus:border-[#6049E3] rounded-xl px-3 py-2"
-            placeholder="Sanasi (dd.mm.yyyy)"
-            value={form.sanasi}
-            onChange={(e) => change("sanasi", e.target.value)}
-          />
-
-          <div className="col-span-2 md:col-span-4 flex gap-2 justify-end">
-            {isEdit && (
-              <button
-                type="button"
-                onClick={cancelEdit}
-                className="px-4 py-2 rounded-xl border"
-              >
-                Cancel
-              </button>
-            )}
-            <button
-              type="button"
-              onClick={addOrSave}
-              className="px-5 py-2 rounded-xl navbar2-button-color text-white"
-            >
-              {isEdit ? "Save" : "Add"}
-            </button>
-          </div>
-        </div>
-
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>
