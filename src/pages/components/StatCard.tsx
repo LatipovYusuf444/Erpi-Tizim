@@ -10,7 +10,7 @@ export default function StatCard({
   badge: string;
 }) {
   return (
-    <section className="glass p-5">
+    <section className="glass p-5 ">
       <div className="flex items-start justify-between">
         <div>
           <div className="font-semibold">{title}</div>
@@ -21,8 +21,6 @@ export default function StatCard({
         </span>
       </div>
       <div className="mt-4 text-2xl font-semibold">{value}</div>
-
-      {/* TODO: backend data */}
     </section>
   );
 }

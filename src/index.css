@@ -33,7 +33,7 @@ body {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.10);
 }
 .navbar2-button-color{
-  background: linear-gradient(90deg, #1C96C8 0%, #334F9D 100%);
+  background: linear-gradient(90deg, #1C96C8 #334F9D 0%, 100%);
 transition: all 0.3s ease;
 color:white;
 }
@@ -61,3 +61,4 @@ font-size:18px;
     --chart-5: oklch(0.645 0.246 16.439);
   }
 }
+
