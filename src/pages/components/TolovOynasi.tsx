@@ -130,7 +130,7 @@ export default function TolovOynasi() {
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>
-              <tr className="text-left text-sm text-slate-500">
+              <tr className="text-left text-sm text-[#334F9D]">
                 <th className="py-3 font-medium">S/N</th>
                 <th className="py-3 font-medium">Sotuv ID</th>
                 <th className="py-3 font-medium">Mijoz Nomi</th>
@@ -148,7 +148,7 @@ export default function TolovOynasi() {
               {data.map((row, index) => (
                 <tr
                   key={row.id}
-                  className="border-t border-[#D0D0D0]   text-sm text-slate-700"
+                  className="border-t border-[#D0D0D0]   text-sm text-black"
                 >
                   <td className="py-4 ">
                     {String(index + 1).padStart(2, "0")}

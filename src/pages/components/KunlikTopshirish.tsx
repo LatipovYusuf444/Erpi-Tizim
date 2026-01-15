@@ -1,6 +1,6 @@
 import Navbar3 from "@/widgets/topbar_3/Topbar3";
 
-export default function QaytarilganTovarlar() {
+export default function KunlikTopshirish() {
   const data = [
     {
       id: 1,
@@ -89,7 +89,7 @@ export default function QaytarilganTovarlar() {
                 <th className="py-3 font-medium">Hujjat Raqami </th>
                 <th className="py-3 px-4 font-medium">Sana</th>
                 <th className="py-3 font-medium">Ma'sul Shaxs</th>
-                <th className="py-3 font-medium">Summa</th>
+                <th className="py-3  font-medium">Summa</th>
                 <th className="py-3 font-medium text-right">Status</th>
               </tr>
             </thead>
@@ -103,9 +103,9 @@ export default function QaytarilganTovarlar() {
                   <td className="py-4 px-4">
                     {String(index + 1).padStart(2, "0")}
                   </td>
-                  <td className="py-4 px-2">{row.hujjatNomi}</td>
+                  <td className="py-4 ">{row.hujjatNomi}</td>
                   <td className="py-4 ">{row.sana}</td>
-                  <td className="py-4 px-5">{row.masulShaxs}</td>
+                  <td className="py-4 px-4">{row.masulShaxs}</td>
                   <td className="py-4 px-2">{row.summa}</td>
                   <td className="py-4 text-right">
                     <button className="text-[#1C96C8] hover:underline">
