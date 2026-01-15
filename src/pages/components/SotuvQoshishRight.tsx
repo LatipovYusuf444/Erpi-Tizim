@@ -8,7 +8,6 @@ export default function RightDrawer({
   open: boolean;
   onClose: () => void;
   children: React.ReactNode;
-  title?: string;
 }) {
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -27,17 +26,19 @@ export default function RightDrawer({
     >
       <div
         onClick={onClose}
-        className={`absolute inset-0  transition-opacity duration-200 ${
+        className={`absolute inset-0  transition-opacity duration-300 ${
           open ? "opacity-100" : "opacity-0"
         }`}
       />
 
       <div
-        className={`absolute right-0 top-0 h-full  shadow-xl bg- transition-transform duration-300
-        w-[40vw] max-w-[520px] min-w-[360px]   backdrop-blur-md  bg-black/5
+        className={`absolute right-0 top-0 h-full
+        w-[40vw]  border-l-2 border-[#334F9D] max-w-[520px] min-w-[360px]
+        bg-black/5 backdrop-blur-sm
+        transition-transform duration-300
         ${open ? "translate-x-0" : "translate-x-full"}`}
       >
-        <div className="h-[calc(100%-56px)] overflow-auto ">{children}</div>
+        <div className="h-[calc(100%-56px)] overflow-auto">{children}</div>
       </div>
     </div>
   );

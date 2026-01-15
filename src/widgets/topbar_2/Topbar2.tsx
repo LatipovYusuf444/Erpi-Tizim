@@ -31,7 +31,8 @@ export default function Navbar2({ defaultActiveTo }: Navbar2Props) {
                 cn(
                   "px-3 rounded-2xl text-sm font-medium  transition-all   flex items-center duration-200 h-7 ",
                   !isActive && !isDefaultActive && "text-black",
-                  (isActive || isDefaultActive) && "navbar2-button-color"
+                  (isActive || isDefaultActive) &&
+                    " bg-gradient-to-r from-[#1C96C8] to-[#334F9D] text-white"
                 )
               }
             >

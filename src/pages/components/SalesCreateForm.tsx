@@ -1,112 +1,160 @@
-import { useForm } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 
-type SalesFormValues = {
+export type SalesFormValues = {
   klientNomi: string;
-  klientId: string;
-  sotuvId: string;
-  tovarId: string;
+  klientId: number;
+  sotuvId: number;
+  tovarId: number;
   tovarNomi: string;
   sanasi: string;
-  miqdori: string;
-  narxi: string;
+  miqdori: number;
+  narxi: number;
+  status: string;
 };
 
-export default function SalesCreateForm({ onClose }: { onClose?: () => void }) {
-  const { register, handleSubmit, reset } = useForm<SalesFormValues>();
+export default function SalesCreateForm({
+  onClose,
+  onSubmitForm,
+}: {
+  onClose?: () => void;
+  onSubmitForm: (data: SalesFormValues) => void;
+}) {
+  const { register, handleSubmit, reset } = useForm<SalesFormValues>({
+    mode: "onChange",
+    defaultValues: {
+      sotuvId: undefined as unknown as number,
+      klientNomi: "",
+      klientId: undefined as unknown as number,
+      tovarNomi: "",
+      tovarId: undefined as unknown as number,
+      miqdori: undefined as unknown as number,
+      narxi: undefined as unknown as number,
+      sanasi: "",
+      status: "Tasdiqlangan",
+    },
+  });
 
-  const onSubmit = (data: SalesFormValues) => {
-    console.log("SEND TO BACKEND:", data);
-
+  const onSubmit: SubmitHandler<SalesFormValues> = (data) => {
+    onSubmitForm(data);
     reset();
     onClose?.();
   };
 
   return (
-    <div className=" text-gray-800 p-8 h-full">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 ">
-        <h2 className="text-lg font-semibold">Yangi sotuv qo‘shish</h2>
+    <div className="text-gray-800 p-8 h-full">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <h2
+          className="text-xl rounded-4xl font-semibold text-center 
+    bg-gradient-to-r from-[#1C96C8] to-[#334F9D] text-white p-4"
+        >
+          Yangi sotuv qo‘shish
+        </h2>
+
         <div>
-          <label className="block mb-1 text-sm">Sotuv ID</label>
+          <label className="block mb-1 text-md">Sotuv ID</label>
           <input
             type="number"
-            {...register("sotuvId", { required: true })}
-            className="w-full rounded-lg border px-3 py-2 outline-none focus:border-indigo-500"
+            {...register("sotuvId", { required: true, valueAsNumber: true })}
+            className="w-full rounded-3xl border px-3 py-2 shadow-md focus:shadow-[#334F9D] focus:border-2 outline-none border-[#334F9D]"
             placeholder="7654098"
           />
         </div>
+
         <div>
-          <label className="block mb-1 text-sm">Mijoz nomi</label>
+          <label className="block mb-1 text-md">Mijoz nomi</label>
           <input
+            type="text"
             {...register("klientNomi", { required: true })}
-            className="w-full rounded-lg border px-3 py-2 outline-none focus:border-indigo-500"
+            className="w-full rounded-3xl border px-3 py-2 shadow-md focus:shadow-[#334F9D] focus:border-2 outline-none border-[#334F9D]"
             placeholder="Alibekov K"
           />
         </div>
+
         <div>
-          <label className="block mb-1 text-sm">Mijoz ID</label>
+          <label className="block mb-1 text-md">Mijoz ID</label>
           <input
             type="number"
-            {...register("klientId", { required: true })}
-            className="w-full rounded-lg border px-3 py-2 outline-none focus:border-indigo-500"
+            {...register("klientId", { required: true, valueAsNumber: true })}
+            className="w-full rounded-3xl border px-3 py-2 outline-none shadow-md focus:shadow-[#334F9D] focus:border-2 border-[#334F9D]"
             placeholder="487567"
           />
         </div>
 
         <div>
-          <label className="block mb-1 text-sm">Tovar Nomi</label>
+          <label className="block mb-1 text-md">Tovar Nomi</label>
           <input
+            type="text"
             {...register("tovarNomi", { required: true })}
-            className="w-full rounded-lg border px-3 py-2 outline-none focus:border-indigo-500"
+            className="w-full rounded-3xl border px-3 py-2 outline-none shadow-md focus:shadow-[#334F9D] focus:border-2 border-[#334F9D]"
             placeholder="Tarelka"
-          />
-        </div>
-        <div>
-          <label className="block mb-1 text-sm">Tovar ID</label>
-          <input
-            {...register("tovarId", { required: true })}
-            className="w-full rounded-lg border px-3 py-2 outline-none focus:border-indigo-500"
-            placeholder="7878545"
-          />
-        </div>
-        <div>
-          <label className="block mb-1 text-sm">Miqdori</label>
-          <input
-            type="number"
-            {...register("miqdori", { required: true, min: 1 })}
-            className="w-full rounded-lg border px-3 py-2 outline-none focus:border-indigo-500"
-            placeholder="15.000"
           />
         </div>
 
         <div>
-          <label className="block mb-1 text-sm">Narx</label>
+          <label className="block mb-1 text-md">Tovar ID</label>
           <input
             type="number"
-            {...register("narxi", { required: true })}
-            className="w-full rounded-lg border px-3 py-2 outline-none focus:border-indigo-500"
-            placeholder="$14.250"
+            {...register("tovarId", { required: true, valueAsNumber: true })}
+            className="w-full rounded-3xl border px-3 py-2 outline-none shadow-md focus:shadow-[#334F9D] focus:border-2 border-[#334F9D]"
+            placeholder="7878545"
           />
         </div>
+
         <div>
-          <label className="block mb-1 text-sm">Sanasi</label>
+          <label className="block mb-1 text-md">Miqdori</label>
           <input
             type="number"
-            {...register("narxi", { required: true })}
-            className="w-full rounded-lg border px-3 py-2 outline-none focus:border-indigo-500"
-            placeholder="12.02.2025"
+            {...register("miqdori", {
+              required: true,
+              min: 1,
+              valueAsNumber: true,
+            })}
+            className="w-full rounded-3xl border px-3 py-2 outline-none shadow-md focus:shadow-[#334F9D] focus:border-2 border-[#334F9D]"
+            placeholder="15000"
           />
         </div>
-        <div className="flex justify-end gap-2 pt-3">
+
+        <div>
+          <label className="block mb-1 text-md">Narx</label>
+          <input
+            type="number"
+            {...register("narxi", { required: true, valueAsNumber: true })}
+            className="w-full rounded-3xl border px-3 py-2 outline-none shadow-md focus:shadow-[#334F9D] focus:border-2 border-[#334F9D]"
+            placeholder="14250"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 text-md">Sanasi</label>
+          <input
+            type="date"
+            {...register("sanasi", { required: true })}
+            className="w-full rounded-3xl border px-3 py-2 outline-none shadow-md focus:shadow-[#334F9D] focus:border-2 border-[#334F9D]"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 text-md">Status</label>
+          <input
+            type="text"
+            {...register("status", { required: true })}
+            className="w-full rounded-3xl border px-3 py-2 outline-none shadow-md focus:shadow-[#334F9D] focus:border-2 border-[#334F9D]"
+            placeholder="Tasdiqlangan"
+          />
+        </div>
+
+        <div className="flex justify-start gap-2 pt-3 w-[350px]">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 rounded-lg border text-black border-[#334F9D]"
+            className="px-3 py-2 w-[120px] rounded-3xl h-[43px] cursor-pointer border text-black hover:text-[#334F9D] border-[#334F9D]"
           >
             Bekor qilish
           </button>
+
           <button
             type="submit"
-            className="px-4 py-2 w-[100px] rounded-lg cursor pointer bg-gradient-to-r from-[#1C96C8] to-[#334F9D] text-white"
+            className="px-3 py-2 w-[120px] h-[43px] rounded-3xl cursor-pointer hover:bg-gradient-to-l from-[#1C96C8] to-[#334F9D] bg-gradient-to-r from-[#1C96C8] to-[#334F9D] text-white"
           >
             Saqlash
           </button>

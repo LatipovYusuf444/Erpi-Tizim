@@ -8,25 +8,31 @@ const options = [
 
 export function ReactSelectBox() {
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <Select
         options={options}
         placeholder="Tanlang..."
-        classNamePrefix="rs"
         styles={{
           control: (base, state) => ({
             ...base,
             maxWidth: "494px",
             minHeight: "51px",
             borderRadius: "12px",
-            border: state.isFocused ? "1px solid #6049E3" : "1px solid #D0D0D0",
-            display: "flex",
-            alignItems: "center",
-            paddingLeft: "6px",
-            paddingRight: "16px",
-            boxShadow: "none",
+
+            border: state.isFocused ? "1px solid #334F9D" : "1px solid #D0D0D0",
+
+            boxShadow: state.isFocused
+              ? "0 4px 6px rgba(51, 79, 157, 0.35)"
+              : "none",
+
             outline: "none",
-            background: "#EBF0FA",
+            backgroundColor: "#EBF0FA",
+
+            "&:hover": {
+              border: "1px solid #334F9D",
+            },
+
+            transition: "all 0.2s ease",
           }),
         }}
       />

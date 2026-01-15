@@ -11,8 +11,7 @@ import TolovOynasi from "@/pages/components/TolovOynasi";
 import QaytarilganTovarlar from "@/pages/components/QaytarilganTovarlar";
 import Kassa from "@/pages/components/Kassa";
 import Qarzdozlik from "@/pages/components/Qarzdozlik";
-import KunlikYopish from "@/pages/components/KunlikYopish";
-import SotuvQoshishRight from "@/pages/components/SotuvQoshishRight";
+import KunlikTopshirish from "@/pages/components/KunlikTopshirish";
 
 export const router = createBrowserRouter([
   {
@@ -57,15 +56,11 @@ export const router = createBrowserRouter([
     element: <Kassa />,
   },
   {
-    path: "/KunlikYopish",
-    element: <KunlikYopish />,
+    path: "/KunlikTopshirish",
+    element: <KunlikTopshirish />,
   },
   {
     path: "/Qarzdozlik",
     element: <Qarzdozlik />,
-  },
-  {
-    path: "/SotuvQoshishRight",
-    element: <SotuvQoshishRight />,
   },
 ]);
