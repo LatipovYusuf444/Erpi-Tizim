@@ -11,7 +11,6 @@ import TolovOynasi from "@/pages/components/TolovOynasi";
 import QaytarilganTovarlar from "@/pages/components/QaytarilganTovarlar";
 import Kassa from "@/pages/components/Kassa";
 import Qarzdozlik from "@/pages/components/Qarzdozlik";
-import KunlikYopish from "@/pages/components/KunlikYopish";
 import Navbar4 from "@/widgets/topbar4/Topbar4";
 import Qoldiqlash from "@/pages/components/Qoldiqlash";
 import Kirim from "@/pages/components/Kirim";
