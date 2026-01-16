@@ -38,7 +38,7 @@ export default function SotuvQoshish() {
     <div className="mx-auto container px-8">
       <Navbar2 />
 
-      <div className="w-[1402px] h-[586px] border border-[#6049E3] mt-[29px] rounded-3xl bg-[#EBF0FA]">
+      <div className="w-[1402px] h-[586px] border border-[#334F9D] mt-[29px] rounded-3xl bg-[#EBF0FA] ">
         <h1 className="font-bold text-[28px] p-4">Sotuv qo'shish</h1>
 
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -48,7 +48,7 @@ export default function SotuvQoshish() {
               <input
                 type="text"
                 placeholder="Sizning ismingiz"
-                className="border border-[#D0D0D0] rounded-xl max-w-[404px] min-h-[51px] px-4 outline-none focus:border-[#6049E3]"
+                className="border border-[#D0D0D0] rounded-xl max-w-[404px] min-h-[51px] px-4 outline-none focus:border-[#334F9D] focus:shadow-[#334F9D] focus:shadow-md"
                 {...register("clientName", { required: "Mijoz nomi majburiy" })}
               />
               {errors.clientName && (
@@ -63,7 +63,7 @@ export default function SotuvQoshish() {
               <input
                 type="text"
                 placeholder="Tovar"
-                className="border border-[#D0D0D0] rounded-xl max-w-[404px] min-h-[51px] px-4 outline-none focus:border-[#6049E3]"
+                className="border border-[#D0D0D0] rounded-xl max-w-[404px] min-h-[51px] px-4 outline-none focus:border-[#334F9D] focus:shadow-[#334F9D] focus:shadow-md"
                 {...register("product", { required: "Mahsulot majburiy" })}
               />
               {errors.product && (
@@ -87,7 +87,7 @@ export default function SotuvQoshish() {
                 <h2>Topshirish muddati</h2>
                 <input
                   type="date"
-                  className="border border-[#D0D0D0] rounded-xl w-[404px] min-h-[51px] px-4 outline-none focus:border-[#6049E3]"
+                  className="border border-[#D0D0D0] rounded-xl w-[404px] min-h-[51px] px-4 outline-none focus:border-[#334F9D] focus:shadow-[#334F9D] focus:shadow-md"
                   {...register("deliveryDate", { required: "Sana majburiy" })}
                 />
                 {errors.deliveryDate && (
@@ -102,7 +102,7 @@ export default function SotuvQoshish() {
                 <textarea
                   placeholder="Fikringiz..."
                   rows={8}
-                  className="border border-[#D0D0D0] rounded-xl w-[911px] min-h-[230px] px-5 py-3 outline-none focus:border-[#6049E3] resize-none"
+                  className="border border-[#D0D0D0] rounded-xl w-[911px] min-h-[230px] px-5 py-3 outline-none focus:border-[#334F9D] focus:shadow-[#334F9D] focus:shadow-md resize-none"
                   {...register("note")}
                 />
               </div>
@@ -116,7 +116,7 @@ export default function SotuvQoshish() {
                 type="text"
                 inputMode="numeric"
                 placeholder="7447474"
-                className="border border-[#D0D0D0] rounded-xl w-[187px] min-h-[51px] px-4 outline-none focus:border-[#6049E3]"
+                className="border border-[#D0D0D0] rounded-xl w-[187px] min-h-[51px] px-4 outline-none focus:border-[#334F9D] focus:shadow-[#334F9D] focus:shadow-md"
                 {...register("clientId", { required: "Mijoz ID majburiy" })}
               />
               {errors.clientId && (
@@ -132,7 +132,7 @@ export default function SotuvQoshish() {
                 type="text"
                 inputMode="numeric"
                 placeholder="8485867"
-                className="border border-[#D0D0D0] rounded-xl w-[187px] min-h-[51px] px-4 outline-none focus:border-[#6049E3]"
+                className="border border-[#D0D0D0] rounded-xl w-[187px] min-h-[51px] px-4 outline-none focus:border-[#334F9D] focus:shadow-[#334F9D] focus:shadow-md"
                 {...register("saleId", { required: "Sotuv ID majburiy" })}
               />
               {errors.saleId && (

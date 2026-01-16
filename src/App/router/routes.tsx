@@ -16,6 +16,7 @@ import Navbar4 from "@/widgets/topbar4/Topbar4";
 import Qoldiqlash from "@/pages/components/Qoldiqlash";
 import Kirim from "@/pages/components/Kirim";
 import Kochirish from "@/pages/components/Kochirish"
+import KunlikTopshirish from "@/pages/components/KunlikTopshirish";
 
 export const router = createBrowserRouter([
   {
@@ -64,8 +65,8 @@ export const router = createBrowserRouter([
     element: <Kassa />,
   },
   {
-    path: "/KunlikYopish",
-    element: <KunlikYopish />,
+    path: "/KunlikTopshirish",
+    element: <KunlikTopshirish />,
   },
   {
     path: "/Qarzdozlik",
