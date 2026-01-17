@@ -1,11 +1,51 @@
-import { LayoutDashboard, Calendar, Mail, MessageCircle, KanbanSquare, User } from "lucide-react";
+import {
+  LayoutDashboard,
+  ShoppingCart,
+  Warehouse,
+  Wallet,
+  Users,
+  Bell,
+} from "lucide-react";
 
-export const sidebarItems = [
-  { to: "/dashboard", label: "Dashboard 1", icon: LayoutDashboard },
-  { to: "/dashboard?mode=2", label: "Dashboard 2", icon: LayoutDashboard },
-  { to: "/chat", label: "Chat", icon: MessageCircle },
-  { to: "/calendar", label: "Calendar", icon: Calendar },
-  { to: "/email", label: "Email", icon: Mail },
-  { to: "/kanban", label: "Kanban", icon: KanbanSquare },
-  { to: "/profile", label: "User Profile", icon: User },
+export type SidebarItemType = {
+  to: string;
+  label: string;
+  icon: any;
+  badge?: string | number;
+  disabled?: boolean;
+};
+
+export const sidebarItems: SidebarItemType[] = [
+  {
+    to: "/dashboard",
+    label: "Dashboard",
+    icon: LayoutDashboard, // 📊 boshqaruv paneli
+  },
+  {
+    to: "/sotuv",
+    label: "Sotuv",
+    icon: ShoppingCart, // 🛒 sotuv / savdo
+    badge: 3,
+  },
+  {
+    to: "/ombor",
+    label: "Ombor",
+    icon: Warehouse, // 🏬 omborxona
+  },
+  {
+    to: "/moliya",
+    label: "Moliya",
+    icon: Wallet, // 💳 moliya / pul
+    badge: 12,
+  },
+  {
+    to: "/staff",
+    label: "Staff",
+    icon: Users, // 👥 xodimlar
+  },
+  {
+    to: "/notifications",
+    label: "Xabarlar",
+    icon: Bell, // 🔔 bildirishnomalar
+  },
 ];

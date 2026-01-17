@@ -55,4 +55,7 @@ export default function Navbar2({ defaultActiveTo }: Navbar2Props) {
       )}
     </div>
   );
+  function Topbar() {
+    return <div className="text-black">Topbar2</div>;
+  }
 }
