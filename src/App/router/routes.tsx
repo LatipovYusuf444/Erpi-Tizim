@@ -2,9 +2,10 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import AppLayout from "../../layouts/AppLayout";
 import AuthLayout from "../../layouts/AuthLayout";
-
 import DashboardPage from "../../pages/Dashboard/DashboardPage";
 import LoginPage from "../../pages/auth/LoginPage";
+import Topbar2 from "@/widgets/topbar_2/Topbar2";
+import Topbar3 from "@/widgets/topbar_3/Topbar3";
 
 // pages/components
 import SotuvQoshish from "@/pages/components/SotuvQoshish";
@@ -18,8 +19,9 @@ import Qarzdozlik from "@/pages/components/Qarzdozlik";
 
 import Qoldiqlash from "@/pages/components/Qoldiqlash";
 import Kirim from "@/pages/components/Kirim";
-import Kochirish from "@/pages/components/Kochirish"
+import Kochirish from "@/pages/components/Kochirish";
 import Inventarizatsiya from "@/pages/components/Inventarizatsiya";
+import Navbar4 from "@/widgets/topbar4/Topbar4";
 
 export const router = createBrowserRouter([
   // ✅ APP (hamma asosiy page'lar AppLayout ichida)
@@ -103,16 +105,16 @@ export const router = createBrowserRouter([
     path: "/Qoldiqlash",
     element: <Qoldiqlash />,
   },
-    {
+  {
     path: "/Kirim",
     element: <Kirim />,
   },
-      {
+  {
     path: "/Kochirish",
-    element: <Kochirish/>,
+    element: <Kochirish />,
   },
   {
     path: "/Inventarizatsiya",
-    element: <Inventarizatsiya/>,
-  }
+    element: <Inventarizatsiya />,
+  },
 ]);
