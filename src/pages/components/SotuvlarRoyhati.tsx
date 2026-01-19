@@ -162,7 +162,6 @@ export default function SotuvlarRoyhati() {
 
   function handleUpdate(formData: SalesFormValues) {
     if (!editingRow) return;
-
     setData((prev) =>
       prev.map((r) =>
         r.id === editingRow.id
@@ -189,12 +188,12 @@ export default function SotuvlarRoyhati() {
   }
 
   return (
-    <div className="container mx-auto px-8">
+    <div className="container mx-auto px-8 w-full">
       <Navbar2 />
 
-      <section className="bg-[#EBF0FA] border border-[#6049E3] rounded-3xl shadow-sm p-6 max-w-[1402px] my-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="font-bold text-[28px] text-black">Bugungi savdo</h2>
+      <section className="bg-[#EBF0FA] border border-[#6049E3] rounded-3xl shadow-sm px-6  max-w-[1402px] my-8">
+        <div className="flex items-center justify-between mb-4 mt-1">
+          <h2 className="font-bold text-[28px] text-black">Sotuv Ro'yhati</h2>
 
           <SalesList onCreate={openCreate} />
         </div>
@@ -202,7 +201,7 @@ export default function SotuvlarRoyhati() {
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>
-              <tr className="text-left text-sm text-[#334F9D]">
+              <tr className="text-left text-[#334F9D] text-[18px]">
                 <th className="py-3 px-2 font-medium">S/N</th>
                 <th className="py-3  font-medium">Sotuv ID</th>
                 <th className="py-3 px-3 font-medium">Mijoz Nomi</th>
@@ -212,8 +211,8 @@ export default function SotuvlarRoyhati() {
                 <th className="py-3 font-medium">Miqdori</th>
                 <th className="py-3 px-2 font-medium">Narxi</th>
                 <th className="py-3 px-2 font-medium">Sanasi</th>
-                <th className="py-3 font-medium text-right">Status</th>
-                <th className="py-3 font-medium text-right">Actions</th>
+                <th className="py-3 pr-4 font-medium text-right">Status</th>
+                <th className="py-3 pr-12 font-medium text-right">Actions</th>
               </tr>
             </thead>
 
@@ -226,16 +225,16 @@ export default function SotuvlarRoyhati() {
                   <td className="py-4 px-4">
                     {String(index + 1).padStart(2, "0")}
                   </td>
-                  <td className="py-4 ">{row.sotuvId}</td>
-                  <td className="py-4 px-4">{row.klientNomi}</td>
+                  <td className="py-4 px-2">{row.sotuvId}</td>
+                  <td className="py-4 px-5">{row.klientNomi}</td>
                   <td className="py-4">{row.klientId}</td>
-                  <td className="py-4 px-2">{row.tovarNomi}</td>
+                  <td className="py-4 px-4">{row.tovarNomi}</td>
                   <td className="py-4">{row.tovarId}</td>
-                  <td className="py-4 px-2">{row.miqdori}</td>
-                  <td className="py-4">{row.narxi}</td>
-                  <td className="py-4 ">{row.sanasi}</td>
+                  <td className="py-4 px-4">{row.miqdori}</td>
+                  <td className="py-4 px-2">{row.narxi}</td>
+                  <td className="py-4">{row.sanasi}</td>
 
-                  <td className="py-4 text-right">
+                  <td className="py-4   text-right">
                     <span className="text-[#1C96C8]">{row.status}</span>
                   </td>
 
@@ -243,7 +242,7 @@ export default function SotuvlarRoyhati() {
                     <button
                       type="button"
                       onClick={() => openEdit(row)}
-                      className="text-[#347433] hover:underline"
+                      className="text-white cursor-pointer bg-gradient-to-b from-[#3E7B27] to-[#387F39] w-[70px] h-[28px] rounded-3xl"
                     >
                       Edit
                     </button>
@@ -251,7 +250,7 @@ export default function SotuvlarRoyhati() {
                     <button
                       type="button"
                       onClick={() => removeRow(row.id)}
-                      className="text-[#DD0303] hover:underline"
+                      className="text-white cursor-pointer  bg-gradient-to-t from-[#D84040] to-[#8A0000] w-[70px] h-[28px] rounded-3xl"
                     >
                       Delete
                     </button>
