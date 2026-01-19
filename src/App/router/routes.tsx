@@ -71,7 +71,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/topbar4",
-    element: <Navbar4 />,
+    element: <Navbar4/>,
   },
   {
     path: "/SotuvQoshish",
