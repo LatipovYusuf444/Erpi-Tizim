@@ -6,7 +6,7 @@ const tabs = [
     { label: "Qoldiqlash", to: "/Qoldiqlash" },
     { label: "Kirim", to: "/Kirim" },
     { label: "Ko‘chirish", to: "/Kochirish" },
-    { label: "Inventarizatsiya", to: "/QaytarilganTovarlar" },
+    { label: "Inventarizatsiya", to: "/Inventarizatsiya" },
 ] as const;
 type Row = {
     id: number

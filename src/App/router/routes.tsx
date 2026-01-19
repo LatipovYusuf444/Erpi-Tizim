@@ -16,6 +16,7 @@ import Qoldiqlash from "@/pages/components/Qoldiqlash";
 import Kirim from "@/pages/components/Kirim";
 import Kochirish from "@/pages/components/Kochirish"
 import KunlikTopshirish from "@/pages/components/KunlikTopshirish";
+import Inventarizatsiya from "@/pages/components/Inventarizatsiya";
 
 export const router = createBrowserRouter([
   {
@@ -83,4 +84,8 @@ export const router = createBrowserRouter([
     path: "/Kochirish",
     element: <Kochirish/>,
   },
+  {
+    path: "/Inventarizatsiya",
+    element: <Inventarizatsiya/>,
+  }
 ]);

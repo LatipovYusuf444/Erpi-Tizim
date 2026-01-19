@@ -27,7 +27,7 @@ const tabs = [
     { label: "Qoldiqlash", to: "/Qoldiqlash" },
     { label: "Kirim", to: "/Kirim" },
     { label: "Ko‘chirish", to: "/Kochirish" },
-    { label: "Inventarizatsiya", to: "/QaytarilganTovarlar" },
+    { label: "Inventarizatsiya", to: "/Inventarizatsiya" },
 ] as const;
 
 type Navbar2Props = {
@@ -118,14 +118,12 @@ export default function Navbar4({ defaultActiveTo }: Navbar2Props) {
             </table>
           </div>
 
-          {/* Footer line (optional) */}
           <div className="px-6 py-4 text-xs text-gray-500">
             Jami: <span className="font-semibold text-gray-700">{data.length}</span> ta tovar
           </div>
         </div>
       </div>
 
-      {/* Custom scrollbar */}
       <style>{`
         .custom-scroll::-webkit-scrollbar { height: 8px; width: 8px; }
         .custom-scroll::-webkit-scrollbar-thumb {
