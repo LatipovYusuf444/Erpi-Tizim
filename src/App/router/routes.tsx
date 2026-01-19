@@ -18,7 +18,8 @@ import Qarzdozlik from "@/pages/components/Qarzdozlik";
 
 import Qoldiqlash from "@/pages/components/Qoldiqlash";
 import Kirim from "@/pages/components/Kirim";
-import Kochirish from "@/pages/components/Kochirish";
+import Kochirish from "@/pages/components/Kochirish"
+import Inventarizatsiya from "@/pages/components/Inventarizatsiya";
 
 export const router = createBrowserRouter([
   // ✅ APP (hamma asosiy page'lar AppLayout ichida)
@@ -58,4 +59,60 @@ export const router = createBrowserRouter([
     element: <AuthLayout />,
     children: [{ path: "login", element: <LoginPage /> }],
   },
+  {
+    path: "/topbar2",
+    element: <Topbar2 />,
+  },
+  {
+    path: "/topbar3",
+    element: <Topbar3 />,
+  },
+  {
+    path: "/topbar4",
+    element: <Navbar4 />,
+  },
+  {
+    path: "/SotuvQoshish",
+    element: <SotuvQoshish />,
+  },
+  {
+    path: "/SotuvlarRoyhati",
+    element: <SotuvlarRoyhati />,
+  },
+  {
+    path: "/TolovOynasi",
+    element: <TolovOynasi />,
+  },
+  {
+    path: "/QaytarilganTovarlar",
+    element: <QaytarilganTovarlar />,
+  },
+  {
+    path: "/Kassa",
+    element: <Kassa />,
+  },
+  {
+    path: "/KunlikTopshirish",
+    element: <KunlikTopshirish />,
+  },
+  {
+    path: "/Qarzdozlik",
+    element: <Qarzdozlik />,
+  },
+  {
+    path: "/Qoldiqlash",
+    element: <Qoldiqlash />,
+  },
+    {
+    path: "/Kirim",
+    element: <Kirim />,
+  },
+      {
+    path: "/Kochirish",
+    element: <Kochirish/>,
+  },
+  {
+    path: "/Inventarizatsiya",
+    element: <Inventarizatsiya/>,
+  }
 ]);
