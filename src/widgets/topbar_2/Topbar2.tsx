@@ -4,7 +4,6 @@ import { NavLink, useLocation } from "react-router-dom";
 import ChartCard2 from "@/pages/components/ChartCard2";
 import ChartCard3 from "@/pages/components/ChartCard3";
 import TodaySalesTable from "@/pages/components/Navbar2Table";
-
 const tabs = [
   { label: "Sotuv qo'shish", to: "/SotuvQoshish" },
   { label: "Sotuvlar ro'yhati", to: "/SotuvlarRoyhati" },
@@ -55,7 +54,4 @@ export default function Navbar2({ defaultActiveTo }: Navbar2Props) {
       )}
     </div>
   );
-  function Topbar() {
-    return <div className="text-black">Topbar2</div>;
-  }
 }

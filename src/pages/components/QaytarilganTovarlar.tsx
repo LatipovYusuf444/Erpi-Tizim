@@ -4,6 +4,7 @@ import SalesList from "./SalesList";
 import QaytarilganTovarlarRight from "./QaytarilganTovarlarRight3";
 import { useState } from "react";
 import type { SalesFormValues } from "./SalesCreateForm";
+
 type Row = {
   id: number;
   klientNomi: string;

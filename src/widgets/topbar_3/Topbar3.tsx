@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { NavLink, useLocation } from "react-router-dom";
 import SkyChart from "@/pages/components/SkiCart";
+import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
 
 // Tabs (UI o'zgarmaydi)
 const tabs = [
@@ -56,7 +57,13 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
               </div>
 
               <div className="inline-flex gap-2 rounded-sm bg-green-100 p-1 text-green-600 dark:bg-green-700 dark:text-green-50">
-                <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="size-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -75,7 +82,13 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
               </div>
 
               <div className="inline-flex gap-2 rounded-sm bg-green-100 p-1 text-green-600 dark:bg-green-700 dark:text-green-50">
-                <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="size-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -94,7 +107,13 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
               </div>
 
               <div className="inline-flex gap-2 rounded-sm bg-red-600 p-1 text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="size-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -113,7 +132,13 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
               </div>
 
               <div className="inline-flex gap-2 rounded-sm bg-red-600 p-1 text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="size-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -135,9 +160,23 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
               <div>
                 {/* 75% */}
                 <div className="text-center">
-                  <div className="relative mx-auto size-32" role="progressbar" aria-valuenow={75} aria-valuemin={0} aria-valuemax={100}>
+                  <div
+                    className="relative mx-auto size-32"
+                    role="progressbar"
+                    aria-valuenow={75}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                  >
                     <svg className="size-full" viewBox="0 0 100 100">
-                      <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth={8} className="text-gray-200" />
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="45"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={8}
+                        className="text-gray-200"
+                      />
                       <circle
                         cx="50"
                         cy="50"
@@ -152,7 +191,9 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
                     </svg>
 
                     <div className="absolute inset-0 grid place-content-center">
-                      <span className="text-xl font-semibold text-gray-900">75%</span>
+                      <span className="text-xl font-semibold text-gray-900">
+                        75%
+                      </span>
                     </div>
                   </div>
                   <p className="mt-2 text-md text-gray-700">Plus</p>
@@ -160,9 +201,23 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
 
                 {/* 45% */}
                 <div className="text-center">
-                  <div className="relative mx-auto size-32" role="progressbar" aria-valuenow={45} aria-valuemin={0} aria-valuemax={100}>
+                  <div
+                    className="relative mx-auto size-32"
+                    role="progressbar"
+                    aria-valuenow={45}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                  >
                     <svg className="size-full" viewBox="0 0 100 100">
-                      <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth={8} className="text-gray-200" />
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="45"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={8}
+                        className="text-gray-200"
+                      />
                       <circle
                         cx="50"
                         cy="50"
@@ -177,7 +232,9 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
                     </svg>
 
                     <div className="absolute inset-0 grid place-content-center">
-                      <span className="text-xl font-semibold text-gray-900">45%</span>
+                      <span className="text-xl font-semibold text-gray-900">
+                        45%
+                      </span>
                     </div>
                   </div>
                   <p className="mt-2 text-md text-gray-700">Minus</p>
@@ -185,9 +242,23 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
 
                 {/* 25% */}
                 <div className="text-center">
-                  <div className="relative mx-auto size-32" role="progressbar" aria-valuenow={25} aria-valuemin={0} aria-valuemax={100}>
+                  <div
+                    className="relative mx-auto size-32"
+                    role="progressbar"
+                    aria-valuenow={25}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                  >
                     <svg className="size-full" viewBox="0 0 100 100">
-                      <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth={8} className="text-gray-200" />
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="45"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={8}
+                        className="text-gray-200"
+                      />
                       <circle
                         cx="50"
                         cy="50"
@@ -202,7 +273,9 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
                     </svg>
 
                     <div className="absolute inset-0 grid place-content-center">
-                      <span className="text-xl font-semibold text-gray-900">25%</span>
+                      <span className="text-xl font-semibold text-gray-900">
+                        25%
+                      </span>
                     </div>
                   </div>
                   <p className="mt-2 text-sm text-gray-700">Qoshimcha</p>
@@ -219,7 +292,13 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
 
                   <div className="flex flex-col gap-3">
                     <div className="inline-flex gap-2 rounded-sm bg-green-100 p-1 text-green-600 dark:bg-green-700 dark:text-green-50">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="size-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -241,7 +320,13 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
 
                   <div className="flex flex-col gap-3">
                     <div className="inline-flex gap-2 rounded-sm bg-red-600 p-1 text-white">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="size-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -263,7 +348,13 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
 
                   <div className="flex flex-col gap-3">
                     <div className="inline-flex gap-2 rounded-sm bg-red-600 p-1 text-white">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="size-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
