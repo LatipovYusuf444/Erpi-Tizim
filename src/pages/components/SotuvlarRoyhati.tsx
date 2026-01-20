@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Navbar2 from "@/widgets/topbar_2/Topbar2";
 // import SotuvQoshishRight from "./SotuvQoshishRight";
 import SalesCreateForm from "./SalesCreateForm";
 import SalesList from "./SalesList";
@@ -189,8 +188,6 @@ export default function SotuvlarRoyhati() {
 
   return (
     <div className="container mx-auto px-8 w-full">
-      <Navbar2 />
-
       <section className="bg-[#EBF0FA] border border-[#6049E3] rounded-3xl shadow-sm px-6  max-w-[1402px] my-8">
         <div className="flex items-center justify-between mb-4 mt-1">
           <h2 className="font-bold text-[28px] text-black">Sotuv Ro'yhati</h2>

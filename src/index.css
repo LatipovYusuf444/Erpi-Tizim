@@ -7,14 +7,11 @@ body,
   height: 100%;
 }
 
-/* ✅ Tailwind @apply ishlatmaymiz (v4 da ko‘p muammo beradi) */
 body {
-  /* slate-100 */
   color: #0f172a;
-  /* slate-900 */
 }
 
-/* Glass utility: @apply ishlatsa ham bo‘ladi, lekin hozir 100% CSS qilamiz */
+/* Glass */
 .glass {
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(18px);
@@ -32,6 +29,7 @@ body {
   border-radius: 16px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.10);
 }
+
 .navbar2-button-color {
   background-color: #6049E3;
   color: white;
@@ -43,6 +41,22 @@ color:black;}
 h2{
 color:black;
 font-size:18px;
+=======
+
+.navbar2-button-color {
+  background: linear-gradient(90deg, #1c96c8 0%, #334f9d 100%);
+  transition: all 0.3s ease;
+  color: white;
+}
+
+h1 {
+  color: black;
+}
+
+h2 {
+  color: black;
+  font-size: 18px;
+
 }
 
 @layer base {
@@ -62,4 +76,3 @@ font-size:18px;
     --chart-5: oklch(0.645 0.246 16.439);
   }
 }
-

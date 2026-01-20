@@ -1,4 +1,3 @@
-import Navbar2 from "@/widgets/topbar_2/Topbar2";
 import SalesCreateForm2 from "./SalesCreateForm2";
 import SalesList from "./SalesList";
 import TolovOynasiRight from "./TolovOynasiRight";
@@ -172,8 +171,6 @@ export default function TolovOynasi() {
 
   return (
     <div className=" container mx-auto px-8 ">
-      <Navbar2 />
-
       <section className="bg-[#EBF0FA] border border-[#6049E3] rounded-3xl shadow-sm px-6 py-3 my-8 max-w-[1402px] ">
         <div className="flex items-center justify-between -mt-[9px] mb-3">
           <h2 className="text-[28px] font-bold text-black">Tolov Oynasi</h2>

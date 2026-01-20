@@ -1,4 +1,4 @@
-import Navbar3 from "@/widgets/topbar_3/Topbar3";
+
 
 export default function KunlikTopshirish() {
   const data = [
@@ -78,8 +78,6 @@ export default function KunlikTopshirish() {
 
   return (
     <div className=" container mx-auto px-8 ">
-      <Navbar3 />
-
       <section className="bg-[#EBF0FA] border border-[#6049E3] rounded-2xl shadow-sm p-6 max-w-[1402px] my-8">
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">

@@ -1,9 +1,9 @@
-import Navbar2 from "@/widgets/topbar_2/Topbar2";
 import SalesCreateForm3 from "./SalesCreateForm3";
 import SalesList from "./SalesList";
 import QaytarilganTovarlarRight from "./QaytarilganTovarlarRight3";
 import { useState } from "react";
 import type { SalesFormValues } from "./SalesCreateForm";
+
 type Row = {
   id: number;
   klientNomi: string;
@@ -16,6 +16,7 @@ type Row = {
   narxi: string;
   status: string;
 };
+
 export default function QaytarilganTovarlar() {
   const [data, setData] = useState<Row[]>([
     {
@@ -25,7 +26,7 @@ export default function QaytarilganTovarlar() {
       sotuvId: "0202020",
       tovarId: "20202020",
       tovarNomi: "tarelka",
-      sanasi: "18.10.2025",
+      sanasi: "2025-06-26",
       miqdori: "2000",
       narxi: "800 000",
       status: "Brak",
@@ -37,7 +38,7 @@ export default function QaytarilganTovarlar() {
       sotuvId: "0202020",
       tovarId: "20202020",
       tovarNomi: "Vilka",
-      sanasi: "14.04.2025",
+      sanasi: "2025-04-24",
       miqdori: "8000",
       narxi: "400 000",
       status: "Singan",
@@ -49,7 +50,7 @@ export default function QaytarilganTovarlar() {
       sotuvId: "0202020",
       tovarId: "20202020",
       tovarNomi: "Tarelka",
-      sanasi: "17.08.2025",
+      sanasi: "2025-10-19",
       miqdori: "7400",
       narxi: "890 000",
       status: "Shikastlangan",
@@ -61,7 +62,7 @@ export default function QaytarilganTovarlar() {
       sotuvId: "0202020",
       tovarId: "20202020",
       tovarNomi: "Qoshiq",
-      sanasi: "11.08.2025",
+      sanasi: "2025-03-18",
       miqdori: "7100",
       narxi: "100 000",
       status: "Brak",
@@ -73,7 +74,7 @@ export default function QaytarilganTovarlar() {
       sotuvId: "0202020",
       tovarId: "20202020",
       tovarNomi: "Qoshiq",
-      sanasi: "19.01.2025",
+      sanasi: "2025-05-25",
       miqdori: "7900",
       narxi: "10 000",
       status: "Shikastlangan",
@@ -85,7 +86,7 @@ export default function QaytarilganTovarlar() {
       sotuvId: "0202020",
       tovarId: "20202020",
       tovarNomi: "Konteyner",
-      sanasi: "10.09.2025",
+      sanasi: "2024-01-25",
       miqdori: "700",
       narxi: "190 000",
       status: "Shikastlangan",
@@ -97,7 +98,7 @@ export default function QaytarilganTovarlar() {
       sotuvId: "0202020",
       tovarId: "20202020",
       tovarNomi: "Qoshiq",
-      sanasi: "15.05.2025",
+      sanasi: "2025-05-15",
       miqdori: "5200",
       narxi: "790 000",
       status: "Brak",
@@ -109,25 +110,29 @@ export default function QaytarilganTovarlar() {
       sotuvId: "0202020",
       tovarId: "20202020",
       tovarNomi: "Tarelka",
-      sanasi: "01.02.2025",
+      sanasi: "2025-01-05",
       miqdori: "750",
       narxi: "790 000",
       status: "Yetib kelmagan",
     },
   ]);
+
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [mode, setMode] = useState<"create" | "edit">("create");
   const [editingRow, setEditingRow] = useState<Row | null>(null);
+
   function openCreate() {
     setMode("create");
     setEditingRow(null);
     setDrawerOpen(true);
   }
+
   function openEdit(row: Row) {
     setMode("edit");
     setEditingRow(row);
     setDrawerOpen(true);
   }
+
   function handleCreate(formData: SalesFormValues) {
     const newRow: Row = {
       id: Date.now(),
@@ -143,41 +148,72 @@ export default function QaytarilganTovarlar() {
     };
     setData((prev) => [newRow, ...prev]);
   }
+
   function handleUpdate(formData: SalesFormValues) {
     if (!editingRow) return;
+
     setData((prev) =>
       prev.map((r) =>
         r.id === editingRow.id
           ? {
-              ...r,
-              klientNomi: formData.klientNomi,
-              klientId: String(formData.klientId),
-              sotuvId: String(formData.sotuvId),
-              tovarId: String(formData.tovarId),
-              tovarNomi: formData.tovarNomi,
-              sanasi: formData.sanasi,
-              miqdori: String(formData.miqdori),
-              narxi: String(formData.narxi),
-              status: formData.status,
-            }
+            ...r,
+            klientNomi: formData.klientNomi,
+            klientId: String(formData.klientId),
+            sotuvId: String(formData.sotuvId),
+            tovarId: String(formData.tovarId),
+            tovarNomi: formData.tovarNomi,
+            sanasi: formData.sanasi,
+            miqdori: String(formData.miqdori),
+            narxi: String(formData.narxi),
+            status: formData.status,
+          }
           : r
       )
     );
   }
+
   function removeRow(id: number) {
     if (!confirm("O'chirasizmi?")) return;
     setData((prev) => prev.filter((x) => x.id !== id));
   }
 
-  return (
-    <div className=" container mx-auto px-8 ">
-      <Navbar2 />
+  // ✅ CREATE paytida ham initialValues bo‘lishi uchun default values
+  const emptyInitialValues: SalesFormValues = {
+    klientNomi: "",
+    klientId: 0,
+    sotuvId: 0,
+    tovarId: 0,
+    tovarNomi: "",
+    sanasi: "",
+    miqdori: 0,
+    narxi: 0,
+    status: "Brak", // xohlasang defaultni o‘zgartir
+  };
 
+  const initialValues: SalesFormValues = editingRow
+    ? {
+      klientNomi: editingRow.klientNomi,
+      klientId: Number(editingRow.klientId),
+      sotuvId: Number(editingRow.sotuvId),
+      tovarId: Number(editingRow.tovarId),
+      tovarNomi: editingRow.tovarNomi,
+      sanasi: editingRow.sanasi,
+      miqdori: Number(editingRow.miqdori),
+      // ⚠️ narxi "800 000" ko‘rinishida bo‘lgani uchun Number() -> NaN bo‘ladi
+      // shuning uchun bo‘sh joyni olib tashlaymiz:
+      narxi: Number(String(editingRow.narxi).replace(/\s/g, "")) || 0,
+      status: editingRow.status,
+    }
+    : emptyInitialValues;
+
+  return (
+    <div className="container mx-auto px-8">
       <section className="bg-[#EBF0FA] border border-[#6049E3] rounded-3xl shadow-sm px-6 py-3 max-w-[1402px] my-8">
         <div className="flex items-center justify-between -mt-[9px] mb-3">
           <h2 className="text-[28px] font-bold text-black">
             Qaytarilgan tovarlar
           </h2>
+
           <SalesList onCreate={openCreate} />
         </div>
 
@@ -194,8 +230,8 @@ export default function QaytarilganTovarlar() {
                 <th className="py-3 font-medium">Miqdori</th>
                 <th className="py-3 px-2 font-medium">Narxi</th>
                 <th className="py-3 px-2 font-medium">Sanasi</th>
-                <th className="py-3  font-medium text-right">Status</th>
-                <th className="py-3 font-medium  flex justify-end pr-12">
+                <th className="py-3 font-medium text-right">Status</th>
+                <th className="py-3 font-medium flex justify-end pr-12">
                   Actions
                 </th>
               </tr>
@@ -205,7 +241,7 @@ export default function QaytarilganTovarlar() {
               {data.map((row, index) => (
                 <tr
                   key={row.id}
-                  className="border-t border-[#D0D0D0]   text-sm text-black"
+                  className="border-t border-[#D0D0D0] text-sm text-black"
                 >
                   <td className="py-4 px-4">
                     {String(index + 1).padStart(2, "0")}
@@ -214,13 +250,14 @@ export default function QaytarilganTovarlar() {
                   <td className="py-4 px-2">{row.klientNomi}</td>
                   <td className="py-4 px-2">{row.klientId}</td>
                   <td className="py-4 px-6">{row.tovarNomi}</td>
-                  <td className="py-4  px-1">{row.tovarId}</td>
+                  <td className="py-4 px-1">{row.tovarId}</td>
                   <td className="py-4 px-4">{row.miqdori}</td>
                   <td className="py-4 px-2">{row.narxi}</td>
                   <td className="py-4 px-1">{row.sanasi}</td>
                   <td className="py-4 text-right pr-2">
-                    <button className="text-[#D84040] ">{row.status}</button>
+                    <button className="text-[#D84040]">{row.status}</button>
                   </td>
+
                   <td className="py-4 text-right space-x-3">
                     <button
                       type="button"
@@ -233,13 +270,14 @@ export default function QaytarilganTovarlar() {
                     <button
                       type="button"
                       onClick={() => removeRow(row.id)}
-                      className="text-white cursor-pointer  bg-gradient-to-t from-[#D84040] to-[#8A0000] w-[70px] h-[28px] rounded-3xl"
+                      className="text-white cursor-pointer bg-gradient-to-t from-[#D84040] to-[#8A0000] w-[70px] h-[28px] rounded-3xl"
                     >
                       Delete
                     </button>
                   </td>
                 </tr>
               ))}
+
               {data.length === 0 && (
                 <tr>
                   <td colSpan={11} className="text-center py-6 text-slate-500">
@@ -251,27 +289,14 @@ export default function QaytarilganTovarlar() {
           </table>
         </div>
       </section>
+
       <QaytarilganTovarlarRight
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
       >
         <SalesCreateForm3
           mode={mode}
-          initialValues={
-            editingRow
-              ? {
-                  klientNomi: editingRow.klientNomi,
-                  klientId: Number(editingRow.klientId),
-                  sotuvId: Number(editingRow.sotuvId),
-                  tovarId: Number(editingRow.tovarId),
-                  tovarNomi: editingRow.tovarNomi,
-                  sanasi: editingRow.sanasi,
-                  miqdori: Number(editingRow.miqdori),
-                  narxi: Number(editingRow.narxi),
-                  status: editingRow.status,
-                }
-              : undefined
-          }
+          initialValues={initialValues} // ✅ endi undefined emas
           onClose={() => setDrawerOpen(false)}
           onSubmitForm={(formData) => {
             if (mode === "edit") handleUpdate(formData);

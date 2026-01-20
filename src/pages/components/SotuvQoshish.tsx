@@ -1,4 +1,3 @@
-import Navbar2 from "@/widgets/topbar_2/Topbar2";
 import { ReactSelectBox } from "./ReactSelect";
 import { useForm, type SubmitHandler } from "react-hook-form";
 
@@ -36,8 +35,6 @@ export default function SotuvQoshish() {
 
   return (
     <div className="mx-auto container px-8">
-      <Navbar2 />
-
       <div className="w-[1402px] h-[586px] border border-[#334F9D] mt-[29px] rounded-3xl bg-[#EBF0FA] ">
         <h1 className="font-bold text-[28px] px-6 py-5">Sotuv qo'shish</h1>
 

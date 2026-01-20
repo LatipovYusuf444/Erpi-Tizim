@@ -3,23 +3,21 @@ import type { SidebarItemType } from "./Sidebar.data";
 
 export default function SidebarItem({ item }: { item: SidebarItemType }) {
   return (
-    <NavLink to={item.to}>
+    <NavLink to={item.to} end={item.to === "/dashboard"}>
       {({ isActive }) => (
         <div
           className={[
-            // ✅ item height bir xil
             "h-[52px] w-full",
             "rounded-2xl",
             "flex items-center",
             "transition-all duration-300",
-            // active / hover background
             isActive
               ? "bg-blue-600/10 shadow-[0_10px_26px_rgba(37,99,235,0.12)]"
               : "hover:bg-slate-900/5",
           ].join(" ")}
         >
-          {/* Left: Icon */}
-          <div className="w-[72px] flex items-center justify-center">
+          {/* icon */}
+          <div className="w-[72px] shrink-0 flex items-center justify-center">
             <div
               className={[
                 "w-[44px] h-[44px] rounded-[16px]",
@@ -40,7 +38,7 @@ export default function SidebarItem({ item }: { item: SidebarItemType }) {
             </div>
           </div>
 
-          {/* Right: Label (faqat hover/expanded paytda ko‘rinadi) */}
+          {/* label */}
           <div className="min-w-0 flex-1 pr-4">
             <span
               className={[

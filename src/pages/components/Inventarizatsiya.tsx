@@ -1,3 +1,4 @@
+
 import { cn } from "@/lib/utils";
 import { NavLink, useLocation } from "react-router-dom";
 type Row = {
@@ -21,6 +22,11 @@ const statusLabel = (s: DeliveryRow["status"]) => {
     case "bekor_qilingan": return "Bekor qilingan"
     case "qaytarilgan": return "Qaytarilgan"
   }
+=======
+export default function Inventarizatsiya() {
+  return (
+    <div>Inventarizatsiya</div>
+  )
 }
 
 const statusBadge = (s: DeliveryRow["status"]) => {
