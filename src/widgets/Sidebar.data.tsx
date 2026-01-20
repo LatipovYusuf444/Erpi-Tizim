@@ -28,7 +28,7 @@ export const sidebarItems: SidebarItemType[] = [
     badge: 3,
   },
   {
-    to: "/ombor",
+    to: "/topbar4",
     label: "Ombor",
     icon: Warehouse,
   },

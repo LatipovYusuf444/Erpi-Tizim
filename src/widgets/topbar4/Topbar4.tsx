@@ -29,17 +29,20 @@ export default function Navbar4({ defaultActiveTo }: Navbar2Props) {
                             key={t.to}
                             className={({ isActive }) =>
                                 cn(
-                                    "px-3 rounded-2xl text-sm font-medium  transition-all   flex items-center duration-200 h-7 ",
-                                    !isActive && !isDefaultActive && "text-black",
-                                    (isActive || isDefaultActive) && "navbar2-button-color"
+                                    "px-3 h-7 rounded-2xl text-sm font-medium flex items-center transition-all duration-200",
+                                    isActive || isDefaultActive
+                                        ? "bg-[#6049E3] text-white"
+                                        : "text-black hover:bg-[#6049E3]/10"
                                 )
                             }
                         >
                             {t.label}
                         </NavLink>
+
                     );
                 })}
             </nav>
+
             {!hasActiveTab && (
                 <div className="w-350.5 h-193.75 bg-[#EBF0FA] border border-[#6049E3] rounded-2xl mt-7.25 ">
                     <div className="flex flex-row gap-8 mx-auto container px-8 py-8">
