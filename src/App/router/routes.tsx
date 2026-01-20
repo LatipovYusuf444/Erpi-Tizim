@@ -22,7 +22,7 @@ import Kochirish from "@/pages/components/Kochirish"
 import Inventarizatsiya from "@/pages/components/Inventarizatsiya";
 import Topbar2 from '@/widgets/topbar_2/Topbar2'
 import Topbar3 from '@/widgets/topbar_3/Topbar3'
-  import Navbar4 from "@/widgets/topbar4/Topbar4";
+  import Navbar4 from "@/widgets/topbar4/Topbar4";  
 
 export const router = createBrowserRouter([
   // ✅ APP (hamma asosiy page'lar AppLayout ichida)
