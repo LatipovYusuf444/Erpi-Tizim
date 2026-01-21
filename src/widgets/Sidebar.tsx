@@ -69,21 +69,12 @@ export default function Sidebar() {
             <div className="text-sm font-semibold truncate">Mike</div>
             <div className="text-xs text-slate-500 truncate">Admin</div>
           </div>
-
-<<<<<<< HEAD
           <Link to="/auth/login">
             <button onClick={onLogout} className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xs px-3 py-1.5 rounded-xl bg-slate-900/5 hover:bg-slate-900/10">
               Logout
             </button>
           </Link>
-=======
-          <button
-            type="button"
-            className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xs px-3 py-1.5 rounded-xl bg-slate-900/5 hover:bg-slate-900/10"
-          >
-            Logout
-          </button>
->>>>>>> d4c988bea0cd0745e9f253dcf81898afbda18f0c
+
         </div>
       </div>
     </aside>
