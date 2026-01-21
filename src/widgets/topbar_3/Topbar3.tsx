@@ -1,51 +1,45 @@
 import { cn } from "@/lib/utils";
 import { NavLink, useLocation } from "react-router-dom";
 import SkyChart from "@/pages/components/SkiCart";
-import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
+// import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone"
 
-// Tabs (UI o'zgarmaydi)
 const tabs = [
-  { label: "Kassa", to: "/Kassa" },
-  { label: "Kunlik Topshirish", to: "/KunlikTopshirish" },
-  { label: "Qarzdozlik", to: "/Qarzdozlik" },
+  { label: "Kassa-Dashboard", to: "." }, // /moliya
+  { label: "Kassa jadvali", to: "kassa" }, // /moliya/kassa
+  { label: "Kunlik yopish", to: "kunlik-yopish" },
+  { label: "Qarzdorlik", to: "qarzdorlik" },
 ] as const;
 
-type Navbar3Props = {
-  defaultActiveTo?: (typeof tabs)[number]["to"];
-};
+export default function Navbar3() {
+  const location = useLocation();
 
-export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
-  const { pathname } = useLocation();
-
-  // Qaysidir tab active bo'lsa true
-  const hasActiveTab = tabs.some((t) => pathname.startsWith(t.to));
+  const hasActiveTab = tabs.some((t) => {
+    if (t.to === ".") return false;
+    return location.pathname.endsWith(`/moliya/${t.to}`);
+  });
 
   return (
     <div className="mx-auto container">
-      <nav className="w-full max-w-[1402px] h-auto flex gap-2 border border-[#6049E3] rounded-3xl px-3 py-2 bg-muted mt-4">
-        {tabs.map((t) => {
-          const isDefaultActive = !hasActiveTab && defaultActiveTo === t.to;
-
-          return (
-            <NavLink
-              to={t.to}
-              key={t.to}
-              className={({ isActive }) =>
-                cn(
-                  "px-3 rounded-2xl text-sm font-medium transition-all flex items-center duration-200 h-7",
-                  !isActive && !isDefaultActive && "text-black",
-                  (isActive || isDefaultActive) &&
-                    "bg-gradient-to-r from-[#1C96C8] to-[#334F9D] text-white"
-                )
-              }
-            >
-              {t.label}
-            </NavLink>
-          );
-        })}
+      <nav className="w-full max-w-[1402px] h-auto flex flex-wrap gap-2 border border-[#334F9Dss] rounded-3xl px-3 py-2 bg-muted mt-4">
+        {tabs.map((t) => (
+          <NavLink
+            key={t.label}
+            to={t.to}
+            end={t.to === "."}
+            className={({ isActive }) =>
+              cn(
+                "px-3 rounded-2xl text-sm font-medium transition-all flex items-center duration-200 h-7",
+                !isActive && "text-black",
+                isActive &&
+                  "bg-gradient-to-r from-[#1C96C8] to-[#334F9D] text-white"
+              )
+            }
+          >
+            {t.label}
+          </NavLink>
+        ))}
       </nav>
 
-      {/* Agar hech biri active bo'lmasa - dashboard content */}
       {!hasActiveTab && (
         <div className="w-[1402px] h-[775px] rounded-2xl mt-[20px] mx-auto container">
           {/* Top stat cards */}
@@ -151,14 +145,11 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
             </article>
           </div>
 
-          {/* Chart + right side */}
           <div className="flex gap-6 ml-32">
             <SkyChart />
 
             <div className="flex gap-4 items-start">
-              {/* Progress circles */}
               <div>
-                {/* 75% */}
                 <div className="text-center">
                   <div
                     className="relative mx-auto size-32"
@@ -189,7 +180,6 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
                         className="origin-center text-green-600"
                       />
                     </svg>
-
                     <div className="absolute inset-0 grid place-content-center">
                       <span className="text-xl font-semibold text-gray-900">
                         75%
@@ -199,7 +189,6 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
                   <p className="mt-2 text-md text-gray-700">Plus</p>
                 </div>
 
-                {/* 45% */}
                 <div className="text-center">
                   <div
                     className="relative mx-auto size-32"
@@ -230,7 +219,6 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
                         className="origin-center text-red-600"
                       />
                     </svg>
-
                     <div className="absolute inset-0 grid place-content-center">
                       <span className="text-xl font-semibold text-gray-900">
                         45%
@@ -240,7 +228,6 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
                   <p className="mt-2 text-md text-gray-700">Minus</p>
                 </div>
 
-                {/* 25% */}
                 <div className="text-center">
                   <div
                     className="relative mx-auto size-32"
@@ -271,7 +258,6 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
                         className="origin-center text-blue-600"
                       />
                     </svg>
-
                     <div className="absolute inset-0 grid place-content-center">
                       <span className="text-xl font-semibold text-gray-900">
                         25%
@@ -282,7 +268,6 @@ export default function Navbar3({ defaultActiveTo }: Navbar3Props) {
                 </div>
               </div>
 
-              {/* Right big cards */}
               <div className="flex flex-col gap-3 items-end mt-3">
                 <article className="m-4 flex items-end justify-between bg-gradient-to-t from-[#1C96C8] to-[#334F9D] p-6 w-[400px] rounded-2xl">
                   <div>

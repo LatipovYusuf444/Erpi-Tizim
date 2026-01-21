@@ -5,18 +5,20 @@ export default function Sidebar() {
   return (
     <aside
       className={[
-        // layout + positioning
+        // ✅ sidebar flexda qisilib qolmasin
+        "shrink-0",
+        // layout
         "sticky top-4 h-[calc(100vh-2rem)]",
         "flex flex-col",
         // premium look
         "glass-strong rounded-[28px]",
         // ✅ default: icon-only, hover: full
         "w-[96px] hover:w-[292px]",
-        // smooth
+        // smooth width
         "transition-[width] duration-300 ease-out",
-        // ✅ content chiqib ketmasin
+        // ✅ ichidagi narsalar chiqib ketmasin
         "overflow-hidden",
-        // group for label animation
+        // ✅ label animatsiya uchun group
         "group",
       ].join(" ")}
     >
@@ -57,7 +59,10 @@ export default function Sidebar() {
             <div className="text-xs text-slate-500 truncate">Admin</div>
           </div>
 
-          <button className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xs px-3 py-1.5 rounded-xl bg-slate-900/5 hover:bg-slate-900/10">
+          <button
+            type="button"
+            className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xs px-3 py-1.5 rounded-xl bg-slate-900/5 hover:bg-slate-900/10"
+          >
             Logout
           </button>
         </div>

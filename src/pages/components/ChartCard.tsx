@@ -15,18 +15,18 @@ import {
 } from "@/components/ui/chart";
 
 const chartData = [
-  { month: "Jan", value: 330000 },
-  { month: "Feb", value: 540000 },
-  { month: "Mar", value: 500000 },
+  { month: "Yan", value: 730000 },
+  { month: "Fev", value: 540000 },
+  { month: "Mart", value: 500000 },
   { month: "Apr", value: 420000 },
   { month: "May", value: 440000 },
-  { month: "Jun", value: 380000 },
-  { month: "Jul", value: 500000 },
-  { month: "Aug", value: 430000 },
-  { month: "Sep", value: 340000 },
+  { month: "Iyun", value: 680000 },
+  { month: "Iyul", value: 500000 },
+  { month: "Avg", value: 430000 },
+  { month: "Sen", value: 240000 },
   { month: "Oct", value: 540000 },
-  { month: "Nov", value: 500000 },
-  { month: "Dec", value: 600000 },
+  { month: "Noy", value: 300000 },
+  { month: "Dek", value: 600000 },
 ];
 
 const chartConfig = {
@@ -40,9 +40,9 @@ const kTick = (v: number) => `${Math.round(v / 1000)}k`;
 
 export default function ChartCard() {
   return (
-    <section className="p-6 w-[420px]  rounded-2xl bg-white">
+    <section className="p-6 max-w-[360px] rounded-2xl bg-white">
       <div className="flex items-start justify-between">
-        <div className="text-xl font-semibold text-black">2025</div>
+        <div className="text-xl font-semibold text-[#007E6E]">2025-02-11</div>
       </div>
 
       <ChartContainer config={chartConfig} className="mt-4 h-[220px] w-full">
@@ -72,7 +72,7 @@ export default function ChartCard() {
             align="right"
             verticalAlign="top"
             iconType="circle"
-            wrapperStyle={{ paddingBottom: 8 }}
+            wrapperStyle={{ paddingBottom: 4 }}
           />
 
           <Tooltip content={<ChartTooltipContent />} />

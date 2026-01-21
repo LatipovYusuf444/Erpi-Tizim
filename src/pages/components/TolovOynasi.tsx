@@ -1,4 +1,3 @@
-import Navbar2 from "@/widgets/topbar_2/Topbar2";
 import SalesCreateForm2 from "./SalesCreateForm2";
 import SalesList from "./SalesList";
 import TolovOynasiRight from "./TolovOynasiRight";
@@ -172,8 +171,6 @@ export default function TolovOynasi() {
 
   return (
     <div className=" container mx-auto px-8 ">
-      <Navbar2 />
-
       <section className="bg-[#EBF0FA] border border-[#6049E3] rounded-3xl shadow-sm px-6 py-3 my-8 max-w-[1402px] ">
         <div className="flex items-center justify-between -mt-[9px] mb-3">
           <h2 className="text-[28px] font-bold text-black">Tolov Oynasi</h2>
@@ -208,7 +205,7 @@ export default function TolovOynasi() {
                 >
                   <td className="py-4 px-4">
                     {String(index + 1).padStart(2, "0")}
-                  </td>{" "}
+                  </td>
                   <td className="py-4">{row.sotuvId}</td>
                   <td className="py-4 px-4">{row.klientNomi}</td>
                   <td className="py-4 px-4">{row.klientId}</td>
@@ -232,7 +229,7 @@ export default function TolovOynasi() {
                     <button
                       type="button"
                       onClick={() => removeRow(row.id)}
-                      className="text-white cursor-pointer  bg-gradient-to-t from-[#D84040] to-[#8A0000] w-[70px] h-[28px] rounded-3xl"
+                      className="text-white cursor-pointer  bg-linear-to-t from-[#D84040] to-[#8A0000] w-[70px] h-[28px] rounded-3xl"
                     >
                       Delete
                     </button>
