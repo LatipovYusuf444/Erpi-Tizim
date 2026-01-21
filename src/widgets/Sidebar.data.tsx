@@ -19,33 +19,34 @@ export const sidebarItems: SidebarItemType[] = [
   {
     to: "/dashboard",
     label: "Dashboard",
-    icon: LayoutDashboard, // 📊 boshqaruv paneli
+    icon: LayoutDashboard,
   },
   {
-    to: "/sotuv",
+    to: "/sotuv", // ✅ sotuv modul root
     label: "Sotuv",
-    icon: ShoppingCart, // 🛒 sotuv / savdo
+    icon: ShoppingCart,
     badge: 3,
   },
   {
-    to: "/ombor",
+    to: "/topbar4",
     label: "Ombor",
-    icon: Warehouse, // 🏬 omborxona
+    icon: Warehouse,
   },
   {
-    to: "/moliya",
+    to: "/moliya", // ✅ moliya modul root
     label: "Moliya",
-    icon: Wallet, // 💳 moliya / pul
+    icon: Wallet,
     badge: 12,
   },
   {
     to: "/staff",
     label: "Xodimlar",
     icon: Users, // 👥 xodimlar
+
   },
   {
     to: "/notifications",
     label: "Xabarlar",
-    icon: Bell, // 🔔 bildirishnomalar
+    icon: Bell,
   },
 ];

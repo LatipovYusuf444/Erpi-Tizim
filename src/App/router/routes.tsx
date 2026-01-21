@@ -26,6 +26,7 @@ import Inventarizatsiya from "@/pages/components/Inventarizatsiya"
 
 export const router = createBrowserRouter([
   // 🔒 PROTECTED APP (faqat login bo‘lsa)
+
   {
     element: <ProtectedRoute />,
     children: [
@@ -43,6 +44,7 @@ export const router = createBrowserRouter([
           { path: "qarzdorlik", element: <Qarzdozlik /> },
 
           // Sotuv
+
           { path: "sotuv-qoshish", element: <SotuvQoshish /> },
           { path: "sotuvlar-royhati", element: <SotuvlarRoyhati /> },
           { path: "tolov-oynasi", element: <TolovOynasi /> },
@@ -61,6 +63,7 @@ export const router = createBrowserRouter([
   },
 
   // 🔓 AUTH (faqat login bo‘lmaganlar ko‘radi)
+
   {
     element: <PublicOnlyRoute />,
     children: [
@@ -78,3 +81,4 @@ export const router = createBrowserRouter([
   // fallback
   { path: "*", element: <Navigate to="/dashboard" replace /> },
 ])
+
