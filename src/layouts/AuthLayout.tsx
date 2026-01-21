@@ -1,27 +1,63 @@
 import { Outlet } from "react-router-dom"
 import { useEffect, useRef } from "react"
 
+function loadScriptOnce(src: string, id: string) {
+  return new Promise<void>((resolve, reject) => {
+    const existing = document.getElementById(id) as HTMLScriptElement | null
+    if (existing) {
+      // oldin yuklangan bo‘lsa
+      if ((existing as any)._loaded) return resolve()
+      existing.addEventListener("load", () => resolve(), { once: true })
+      existing.addEventListener("error", () => reject(), { once: true })
+      return
+    }
+
+    const s = document.createElement("script")
+    s.id = id
+    s.src = src
+    s.async = true
+
+    s.addEventListener(
+      "load",
+      () => {
+        ; (s as any)._loaded = true
+        resolve()
+      },
+      { once: true }
+    )
+    s.addEventListener("error", () => reject(), { once: true })
+
+    document.body.appendChild(s)
+  })
+}
+
 export default function AuthLayout() {
   const vantaRef = useRef<HTMLDivElement | null>(null)
   const vantaEffectRef = useRef<any>(null)
 
   useEffect(() => {
-    const threeScript = document.createElement("script")
-    threeScript.src =
-      "https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"
-    threeScript.async = true
+    let cancelled = false
 
-    const vantaScript = document.createElement("script")
-    vantaScript.src =
-      "https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"
-    vantaScript.async = true
+    const init = async () => {
+      // ✅ 1) Ikkalasi ham tayyor bo‘lsin
+      await loadScriptOnce(
+        "https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js",
+        "three-r134"
+      )
+      await loadScriptOnce(
+        "https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js",
+        "vanta-waves"
+      )
 
-    document.body.appendChild(threeScript)
-    document.body.appendChild(vantaScript)
+      if (cancelled) return
+      if (!vantaRef.current) return
 
-    vantaScript.onload = () => {
+      // ✅ 2) Oldingi effect bo‘lsa destroy qilib qayta init
+      vantaEffectRef.current?.destroy?.()
+      vantaEffectRef.current = null
+
       // @ts-ignore
-      if (window.VANTA && vantaRef.current && !vantaEffectRef.current) {
+      if (window.VANTA) {
         // @ts-ignore
         vantaEffectRef.current = window.VANTA.WAVES({
           el: vantaRef.current,
@@ -45,22 +81,23 @@ export default function AuthLayout() {
       }
     }
 
+    init().catch(() => { })
+
     return () => {
+      cancelled = true
+      // ✅ scriptlarni O‘CHIRMAYMIZ
+      // faqat effectni tozalaymiz
       vantaEffectRef.current?.destroy?.()
-      if (document.body.contains(threeScript)) document.body.removeChild(threeScript)
-      if (document.body.contains(vantaScript)) document.body.removeChild(vantaScript)
+      vantaEffectRef.current = null
     }
   }, [])
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
-      {/* 3D background */}
       <div ref={vantaRef} className="absolute inset-0 -z-10" />
 
-      {/* Premium overlay */}
       <div className="absolute inset-0 -z-9 bg-gradient-to-r from-[#14ADD6]/20 to-[#384295]/70 backdrop-blur-[10px]" />
 
-      {/* Auth pages */}
       <div className="relative z-10 min-h-screen w-full">
         <Outlet />
       </div>

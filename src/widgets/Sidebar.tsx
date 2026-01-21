@@ -1,8 +1,18 @@
 import { Link } from "react-router-dom";
 import { sidebarItems } from "./Sidebar.data";
 import SidebarItem from "./SidebarItem";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
+
+  const navigate = useNavigate()
+
+  const onLogout = () => {
+    localStorage.removeItem("erp_auth")
+    toast.info("Tizimdan chiqdingiz")
+    navigate("/auth/login", { replace: true })
+  }
   return (
     <aside
       className={[
@@ -59,7 +69,7 @@ export default function Sidebar() {
           </div>
 
           <Link to="/auth/login">
-            <button className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xs px-3 py-1.5 rounded-xl bg-slate-900/5 hover:bg-slate-900/10">
+            <button onClick={onLogout} className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xs px-3 py-1.5 rounded-xl bg-slate-900/5 hover:bg-slate-900/10">
               Logout
             </button>
           </Link>

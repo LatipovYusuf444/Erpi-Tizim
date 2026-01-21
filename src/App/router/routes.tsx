@@ -7,6 +7,7 @@ import DashboardPage from "../../pages/Dashboard/DashboardPage"
 import LoginPage from "../../pages/auth/LoginPage"
 
 import ProtectedRoute from "@/pages/auth/ProtectedRoute"
+import PublicOnlyRoute from "@/pages/auth/PublicOnlyRoute"
 
 // pages/components
 import SotuvQoshish from "@/pages/components/SotuvQoshish"
@@ -24,9 +25,9 @@ import Kochirish from "@/pages/components/Kochirish"
 import Inventarizatsiya from "@/pages/components/Inventarizatsiya"
 
 export const router = createBrowserRouter([
-  // 🔒 PROTECTED APP
+  // 🔒 PROTECTED APP (faqat login bo‘lsa)
   {
-    element: <ProtectedRoute isAuthenticated={true} />,
+    element: <ProtectedRoute />,
     children: [
       {
         path: "/",
@@ -59,16 +60,21 @@ export const router = createBrowserRouter([
     ],
   },
 
-  // 🔓 AUTH
+  // 🔓 AUTH (faqat login bo‘lmaganlar ko‘radi)
   {
-    path: "/auth",
-    element: <AuthLayout />,
+    element: <PublicOnlyRoute />,
     children: [
-      { index: true, element: <Navigate to="/auth/login" replace /> },
-      { path: "login", element: <LoginPage /> },
+      {
+        path: "/auth",
+        element: <AuthLayout />,
+        children: [
+          { index: true, element: <Navigate to="/auth/login" replace /> },
+          { path: "login", element: <LoginPage /> },
+        ],
+      },
     ],
   },
 
-  // Global fallback
-  { path: "*", element: <Navigate to="/auth/login" replace /> },
+  // fallback
+  { path: "*", element: <Navigate to="/dashboard" replace /> },
 ])
