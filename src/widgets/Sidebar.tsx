@@ -13,7 +13,7 @@ export default function Sidebar() {
         // premium look
         "glass-strong rounded-[28px]",
         // ✅ default: icon-only, hover: full
-        "w-[96px] hover:w-[292px]",
+        "w-24 hover:w-73",
         // smooth width
         "transition-[width] duration-300 ease-out",
         // ✅ ichidagi narsalar chiqib ketmasin

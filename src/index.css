@@ -36,12 +36,14 @@ body {
 }
 
 
-h1{
-color:black;}
-h2{
-color:black;
-font-size:18px;
-=======
+h1 {
+  color: black;
+}
+
+h2 {
+  color: black;
+  font-size: 18px;
+}
 
 .navbar2-button-color {
   background: linear-gradient(90deg, #1c96c8 0%, #334f9d 100%);

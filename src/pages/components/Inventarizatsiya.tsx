@@ -1,6 +1,3 @@
-
-import { cn } from "@/lib/utils";
-import { NavLink, useLocation } from "react-router-dom";
 type Row = {
   id: number
   tovarId: string
@@ -22,13 +19,7 @@ const statusLabel = (s: DeliveryRow["status"]) => {
     case "bekor_qilingan": return "Bekor qilingan"
     case "qaytarilgan": return "Qaytarilgan"
   }
-=======
-export default function Inventarizatsiya() {
-  return (
-    <div>Inventarizatsiya</div>
-  )
 }
-
 const statusBadge = (s: DeliveryRow["status"]) => {
   switch (s) {
     case "qabul_qilingan": return "bg-emerald-50 text-emerald-700 ring-emerald-200"
@@ -48,17 +39,7 @@ const STATUS_OPTIONS: { value: "all" | DeliveryRow["status"]; label: string }[] 
   { value: "qaytarilgan", label: "Qaytarilgan" },
 ]
 
-const tabs = [
-  { label: "Qoldiqlash", to: "/Qoldiqlash" },
-  { label: "Kirim", to: "/Kirim" },
-  { label: "Ko‘chirish", to: "/Kochirish" },
-  { label: "Inventarizatsiya", to: "/Inventarizatsiya" },
-] as const;
-
-type Navbar2Props = {
-  defaultActiveTo?: (typeof tabs)[number]["to"];
-};
-export default function Navbar4({ defaultActiveTo }: Navbar2Props) {
+export default function Navbar4() {
   const [query, setQuery] = useState("")
   const [status, setStatus] = useState<"all" | DeliveryRow["status"]>("all")
   const [page, setPage] = useState(1)
@@ -105,32 +86,11 @@ export default function Navbar4({ defaultActiveTo }: Navbar2Props) {
     narhi: "1 000 000",
     status: i === 0 ? "bor" : "kam",
   }))
-  const { pathname } = useLocation();
-  const hasActiveTab = tabs.some((t) => pathname.startsWith(t.to));
   return (
     <div className="px-8">
-      <nav className=" w-full max-w-350.5 h-auto flex gap-2 border border-[#6049E3] rounded-3xl px-3 py-2 bg-muted mt-4">
-        {tabs.map((t) => {
-          const isDefaultActive = !hasActiveTab && defaultActiveTo === t.to;
-          return (
-            <NavLink
-              to={t.to}
-              key={t.to}
-              className={({ isActive }) =>
-                cn(
-                  "px-3 rounded-2xl text-sm font-medium  transition-all   flex items-center duration-200 h-7 ",
-                  !isActive && !isDefaultActive && "text-black",
-                  (isActive || isDefaultActive) && "navbar2-button-color"
-                )
-              }
-            >
-              {t.label}
-            </NavLink>
-          );
-        })}
-      </nav>
+
       <div className="max-w-full mt-10  mx-auto">
-        <div className="relative rounded-3xl p-[1px] bg-gradient-to-r from-[#6C63FF] to-[#00C2FF] shadow-xl">
+        <div className="relative rounded-3xl p-px bg-linear-to-r from-[#6C63FF] to-[#00C2FF] shadow-xl">
           <div className="rounded-3xl bg-[#F6F8FF]">
             <div className="px-6 pt-6 pb-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
               <div>
@@ -160,7 +120,7 @@ export default function Navbar4({ defaultActiveTo }: Navbar2Props) {
               </div>
             </div>
 
-            <div className="max-h-[480px] overflow-auto rounded-3xl custom-scroll">
+            <div className="max-h-120 overflow-auto rounded-3xl custom-scroll">
               <table className="w-full text-sm">
                 <thead className="sticky top-0 z-10 bg-[#F6F8FF]/95 backdrop-blur border-y text-gray-500">
                   <tr>
@@ -266,13 +226,6 @@ export default function Navbar4({ defaultActiveTo }: Navbar2Props) {
         .custom-scroll::-webkit-scrollbar-track { background: transparent; }
       `}</style>
       </div>
-      {!hasActiveTab && (
-        <div className="w-350.5 h-193.75 bg-[#EBF0FA] border border-[#6049E3] rounded-2xl mt-7.25 ">
-          <div className="flex flex-row gap-8 mx-auto container px-8 py-8">
-            <h1>Hello</h1>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

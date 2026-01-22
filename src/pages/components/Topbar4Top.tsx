@@ -89,11 +89,11 @@ export default function Topbar4Top() {
 
             <CardContent className="pt-2">
                 {isLoading && (
-                    <div className="h-[220px] rounded-xl bg-white/60 animate-pulse" />
+                    <div className="h-55 rounded-xl bg-white/60 animate-pulse" />
                 )}
 
                 {isError && (
-                    <div className="h-[220px] flex items-center justify-center text-sm text-red-600">
+                    <div className="h-55 flex items-center justify-center text-sm text-red-600">
                         Chart data olishda xatolik
                     </div>
                 )}

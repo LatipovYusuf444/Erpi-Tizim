@@ -22,9 +22,14 @@ import Qoldiqlash from "@/pages/components/Qoldiqlash";
 import Kirim from "@/pages/components/Kirim";
 import Kochirish from "@/pages/components/Kochirish";
 import Inventarizatsiya from "@/pages/components/Inventarizatsiya";
+import QoldiqlashLayout from "@/pages/components/Qoldiqlash"
+import QoldiqlashProduct from "@/pages/components/Qoldiqlaw1"
+import QoldiqlashIngredient from "@/pages/components/qoldiqlash2"
+
+
 import Topbar2 from '@/widgets/topbar_2/Topbar2'
 import Topbar3 from '@/widgets/topbar_3/Topbar3'
-  import Navbar4 from "@/widgets/topbar4/Topbar4";  
+import Navbar4 from "@/widgets/topbar4/Topbar4";
 
 // Finance module
 import MoliyaLayout from "@/pages/finance/FinanceLayout";
@@ -80,6 +85,35 @@ export const router = createBrowserRouter([
       { path: "*", element: <Navigate to="dashboard" replace /> },
     ],
   },
+{
+  path: "ombor",
+  element: <Navbar4 />,
+  children: [
+    { index: true, element: <Navigate to="qoldiqlash" replace /> },
+
+    {
+      path: "qoldiqlash",
+      element: <QoldiqlashLayout />,
+      children: [
+        { index: true, element: <Navigate to="product" replace /> }, // ✅ default
+        { index: true, element: <Navigate to="ingredient" replace /> }, // ✅ default
+        { path: "product", element: <QoldiqlashProduct /> },         // ✅ Qoldiqlaw1
+        { path: "ingredient", element: <QoldiqlashIngredient /> },   // ✅ Qoldiqlaw2
+      ],
+    },
+
+    { path: "kirim", element: <Kirim /> },
+    { path: "kochirish", element: <Kochirish /> },
+    { path: "inventarizatsiya", element: <Inventarizatsiya /> },
+  ],
+},
+
+
+  // ✅ eski pathlar redirect (YECHIM 1)
+  { path: "qoldiqlash", element: <Navigate to="/ombor/qoldiqlash" replace /> },
+  { path: "kirim", element: <Navigate to="/ombor/kirim" replace /> },
+  { path: "kochirish", element: <Navigate to="/ombor/kochirish" replace /> },
+  { path: "inventarizatsiya", element: <Navigate to="/ombor/inventarizatsiya" replace /> },
 
   // Auth (no sidebar)
   {
