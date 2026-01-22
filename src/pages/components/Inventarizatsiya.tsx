@@ -1,7 +1,20 @@
+
+type Row = {
+  id: number
+  tovarId: string
+  tovarNomi: string
+  soni: number
+  narhi: string
+  status: "bor" | "kam" | "tugagan"
+}
+import { useEffect, useMemo, useState } from "react"
+import { deliveryData, type DeliveryRow } from "@/data/delivery-data"
+=======
 import { cn } from "@/lib/utils";
 import { NavLink, useLocation } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import { deliveryData, type DeliveryRow } from "@/data/delivery-data";
+
 
 const formatSum = (n: number) => new Intl.NumberFormat("ru-RU").format(n);
 
@@ -18,8 +31,9 @@ const statusLabel = (s: DeliveryRow["status"]) => {
     case "qaytarilgan":
       return "Qaytarilgan";
   }
-};
 
+}
+};
 const statusBadge = (s: DeliveryRow["status"]) => {
   switch (s) {
     case "qabul_qilingan":
@@ -45,6 +59,12 @@ const STATUS_OPTIONS: { value: "all" | DeliveryRow["status"]; label: string }[] 
     { value: "qaytarilgan", label: "Qaytarilgan" },
   ];
 
+
+export default function Navbar4() {
+  const [query, setQuery] = useState("")
+  const [status, setStatus] = useState<"all" | DeliveryRow["status"]>("all")
+  const [page, setPage] = useState(1)
+  const perPage = 10
 const tabs = [
   { label: "Qoldiqlash", to: "/qoldiqlash" },
   { label: "Kirim", to: "/kirim" },
@@ -99,7 +119,19 @@ export default function Inventarizatsiya({ defaultActiveTo }: NavbarProps) {
   useEffect(() => {
     setPage(1);
   }, [query, status]);
+  const data: Row[] = Array.from({ length: 12 }).map((_, i) => ({
+    id: i + 1,
+    tovarId: "20202020",
+    tovarNomi: "Tarelka",
+    soni: 20,
+    narhi: "1 000 000",
+    status: i === 0 ? "bor" : "kam",
+  }))
+  return (
+    <div className="px-8">
 
+      <div className="max-w-full mt-10  mx-auto">
+        <div className="relative rounded-3xl p-px bg-linear-to-r from-[#6C63FF] to-[#00C2FF] shadow-xl">
   return (
     <div className="px-8">
       {/* Tabs */}
@@ -163,7 +195,7 @@ export default function Inventarizatsiya({ defaultActiveTo }: NavbarProps) {
               </div>
             </div>
 
-            <div className="max-h-[480px] overflow-auto rounded-3xl custom-scroll">
+            <div className="max-h-120 overflow-auto rounded-3xl custom-scroll">
               <table className="w-full text-sm">
                 <thead className="sticky top-0 z-10 bg-[#F6F8FF]/95 backdrop-blur border-y text-gray-500">
                   <tr>

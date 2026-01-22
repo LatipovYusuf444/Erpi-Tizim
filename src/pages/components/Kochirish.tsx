@@ -3,17 +3,6 @@ import { NavLink, useLocation } from "react-router-dom"
 import { useEffect, useMemo, useState } from "react"
 import { transferData, type TransferRow } from "@/data/data"
 
-const tabs = [
-    { label: "Qoldiqlash", to: "/Qoldiqlash" },
-    { label: "Kirim", to: "/Kirim" },
-    { label: "Ko‘chirish", to: "/Kochirish" },
-    { label: "Inventarizatsiya", to: "/Inventarizatsiya" },
-] as const
-
-type Navbar2Props = {
-    defaultActiveTo?: (typeof tabs)[number]["to"]
-}
-
 const formatSum = (n: number) => new Intl.NumberFormat("ru-RU").format(n)
 
 const statusLabel = (s: TransferRow["status"]) => {
@@ -55,9 +44,7 @@ const STATUS_OPTIONS: { value: "all" | TransferRow["status"]; label: string }[] 
     { value: "qaytarilgan", label: "Qaytarilgan" },
 ]
 
-export default function Navbar4({ defaultActiveTo }: Navbar2Props) {
-    const { pathname } = useLocation()
-    const hasActiveTab = tabs.some((t) => pathname.startsWith(t.to))
+export default function Navbar4() {
 
     const [query, setQuery] = useState("")
     const [status, setStatus] = useState<"all" | TransferRow["status"]>("all")
@@ -102,27 +89,7 @@ export default function Navbar4({ defaultActiveTo }: Navbar2Props) {
 
     return (
         <div className="px-8">
-            <nav className="w-full max-w-350.5 h-auto flex gap-2 border border-[#6049E3] rounded-3xl px-3 py-2 bg-muted mt-4">
-                {tabs.map((t) => {
-                    const isDefaultActive = !hasActiveTab && defaultActiveTo === t.to
 
-                    return (
-                        <NavLink
-                            to={t.to}
-                            key={t.to}
-                            className={({ isActive }) =>
-                                cn(
-                                    "px-3 rounded-2xl text-sm font-medium transition-all flex items-center duration-200 h-7",
-                                    !isActive && !isDefaultActive && "text-black",
-                                    (isActive || isDefaultActive) && "navbar2-button-color"
-                                )
-                            }
-                        >
-                            {t.label}
-                        </NavLink>
-                    )
-                })}
-            </nav>
 
             <div className="max-w-full mx-auto mt-6">
                 <div className="relative rounded-3xl p-[1px] bg-gradient-to-r from-[#6C63FF] to-[#00C2FF] shadow-xl">
@@ -264,14 +231,6 @@ export default function Navbar4({ defaultActiveTo }: Navbar2Props) {
           .custom-scroll::-webkit-scrollbar-track { background: transparent; }
         `}</style>
             </div>
-
-            {!hasActiveTab && (
-                <div className="w-350.5 h-193.75 bg-[#EBF0FA] border border-[#6049E3] rounded-2xl mt-7.25 ">
-                    <div className="flex flex-row gap-8 mx-auto container px-8 py-8">
-                        <h1>Hello</h1>
-                    </div>
-                </div>
-            )}
         </div>
     )
 }
