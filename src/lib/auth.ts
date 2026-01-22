@@ -1,13 +1,25 @@
-export const AUTH_KEY = "erp_auth"
+const ACCESS_KEY = "access_token"
+const REFRESH_KEY = "refresh_token"
 
-export function isAuthenticated(): boolean {
-  return localStorage.getItem(AUTH_KEY) === "true"
+export function isAuthenticated() {
+  return (
+    localStorage.getItem("erp_auth") === "true" ||
+    !!localStorage.getItem(ACCESS_KEY)
+  )
 }
 
-export function loginSuccess() {
-  localStorage.setItem(AUTH_KEY, "true")
+export function setTokens(access: string, refresh?: string) {
+  localStorage.setItem(ACCESS_KEY, access)
+  if (refresh) localStorage.setItem(REFRESH_KEY, refresh)
+  localStorage.setItem("erp_auth", "true")
 }
 
-export function logout() {
-  localStorage.removeItem(AUTH_KEY)
+export function clearAuth() {
+  localStorage.removeItem("erp_auth")
+  localStorage.removeItem(ACCESS_KEY)
+  localStorage.removeItem(REFRESH_KEY)
+}
+
+export function getAccessToken() {
+  return localStorage.getItem(ACCESS_KEY) || ""
 }

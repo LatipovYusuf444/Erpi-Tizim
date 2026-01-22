@@ -9,34 +9,32 @@ import LoginPage from "@/pages/auth/LoginPage"
 import ProtectedRoute from "@/pages/auth/ProtectedRoute"
 import PublicOnlyRoute from "@/pages/auth/PublicOnlyRoute"
 
-// Sotuv module
+// Sotuv
 import SotuvLayout from "@/pages/sotuv/SotuvLayout"
 import SotuvDashboard from "@/pages/sotuv/SotuvDashboard"
-
-// Sotuv pages
 import SotuvQoshish from "@/pages/components/SotuvQoshish"
 import SotuvlarRoyhati from "@/pages/components/SotuvlarRoyhati"
 import TolovOynasi from "@/pages/components/TolovOynasi"
 import QaytarilganTovarlar from "@/pages/components/QaytarilganTovarlar"
 
-// Finance pages
+// ✅ MOLIYA (modul)
+import FinanceLayout from "@/pages/finance/FinanceLayout"
+import FinanceDashboard from "@/pages/finance/FinanceDashboard"
 import Kassa from "@/pages/components/Kassa"
 import KunlikTopshirish from "@/pages/components/KunlikTopshirish"
 import Qarzdozlik from "@/pages/components/Qarzdozlik"
 
-// Ombor pages
-import Kirim from "@/pages/components/Kirim"
+// ✅ OMBOR (modul)
+import OmborLayout from "@/pages/ombor/OmborLayout"
+import QoldiqlashLayout from "@/pages/ombor/QoldiqlashLayout"
+import ProductForm from "@/pages/ombor/ProductForm"
+import IngredientForm from "@/pages/ombor/IngredientForm"
+import KirimForm from "@/pages/ombor/KirimForm"
+import Inventarizatsiya from "@/pages/ombor/Inventarizatsiya"
 import Kochirish from "@/pages/components/Kochirish"
-import Inventarizatsiya from "@/pages/components/Inventarizatsiya"
-import Qoldiqlash from "@/pages/components/Qoldiqlash"
-
-// Ombor layout/pages (seniki)
-import Navbar4 from "@/widgets/topbar4/Topbar4" 
-import QoldiqlashProduct from "@/pages/components/Qoldiqlaw1"
-import QoldiqlashIngredient from "@/pages/components/qoldiqlash2"
 
 export const router = createBrowserRouter([
-  // 🔒 PROTECTED APP
+  // 🔒 Protected
   {
     element: <ProtectedRoute />,
     children: [
@@ -44,70 +42,79 @@ export const router = createBrowserRouter([
         path: "/",
         element: <AppLayout />,
         children: [
-          { index: true, element: <Navigate to="/dashboard" replace /> },
-
+          { index: true, element: <Navigate to="dashboard" replace /> },
           { path: "dashboard", element: <DashboardPage /> },
 
-          // Finance
-          { path: "kassa", element: <Kassa /> },
-          { path: "kunlik-yopish", element: <KunlikTopshirish /> },
-          { path: "qarzdorlik", element: <Qarzdozlik /> },
+          // ✅ MOLIYA
+          {
+            path: "moliya",
+            element: <FinanceLayout />, // ichida <Outlet/>
+            children: [
+              { index: true, element: <FinanceDashboard /> }, // birinchi ochiladigan dashboard
+              { path: "kassa", element: <Kassa /> },
+              { path: "kunlik-yopish", element: <KunlikTopshirish /> },
+              { path: "qarzdorlik", element: <Qarzdozlik /> },
+              { path: "*", element: <Navigate to="/moliya" replace /> },
+            ],
+          },
 
-          // ✅ SOTUV (nested)
+          // ✅ eski finance url’lar sinmasin
+          { path: "kassa", element: <Navigate to="/moliya/kassa" replace /> },
+          { path: "kunlik-yopish", element: <Navigate to="/moliya/kunlik-yopish" replace /> },
+          { path: "qarzdorlik", element: <Navigate to="/moliya/qarzdorlik" replace /> },
+
+          // ✅ SOTUV
           {
             path: "sotuv",
             element: <SotuvLayout />,
             children: [
               { index: true, element: <SotuvDashboard /> },
-
               { path: "sotuv-qoshish", element: <SotuvQoshish /> },
               { path: "sotuvlar-royhati", element: <SotuvlarRoyhati /> },
               { path: "tolov-oynasi", element: <TolovOynasi /> },
               { path: "qaytarilgan-tovarlar", element: <QaytarilganTovarlar /> },
-
-              { path: "*", element: <Navigate to="/sotuv" replace /> }
-            ]
+              { path: "*", element: <Navigate to="/sotuv" replace /> },
+            ],
           },
 
-          // ✅ OMBOR (nested)
+          // ✅ OMBOR
           {
             path: "ombor",
-            element: <Navbar4 />, // ⚠️ Navbar4 ichida <Outlet/> bo‘lishi shart
+            element: <OmborLayout />, // ichida <Outlet/>
             children: [
               { index: true, element: <Navigate to="qoldiqlash" replace /> },
 
               {
                 path: "qoldiqlash",
-                element: <Qoldiqlash />, // ⚠️ layout ichida ham <Outlet/> bo‘lsin
+                element: <QoldiqlashLayout />, // ichida <Outlet/>
                 children: [
-                  { index: true, element: <Navigate to="product" replace /> }, // ✅ bitta default
-                  { path: "product", element: <QoldiqlashProduct /> },
-                  { path: "ingredient", element: <QoldiqlashIngredient /> }
-                ]
+                  { index: true, element: <Navigate to="product" replace /> },
+                  { path: "product", element: <ProductForm /> },
+                  { path: "ingredient", element: <IngredientForm /> },
+                ],
               },
 
-              { path: "kirim", element: <Kirim /> },
+              { path: "kirim", element: <KirimForm /> },
               { path: "kochirish", element: <Kochirish /> },
               { path: "inventarizatsiya", element: <Inventarizatsiya /> },
 
-              { path: "*", element: <Navigate to="/ombor" replace /> }
-            ]
+              { path: "*", element: <Navigate to="/ombor" replace /> },
+            ],
           },
 
-          // ✅ eski pathlar redirect
+          // ✅ eski ombor url’lar sinmasin
           { path: "qoldiqlash", element: <Navigate to="/ombor/qoldiqlash" replace /> },
           { path: "kirim", element: <Navigate to="/ombor/kirim" replace /> },
           { path: "kochirish", element: <Navigate to="/ombor/kochirish" replace /> },
           { path: "inventarizatsiya", element: <Navigate to="/ombor/inventarizatsiya" replace /> },
 
-          // app fallback
-          { path: "*", element: <Navigate to="/dashboard" replace /> }
-        ]
-      }
-    ]
+          { path: "*", element: <Navigate to="/dashboard" replace /> },
+        ],
+      },
+    ],
   },
 
-  // 🔓 AUTH
+  // 🔓 Auth
   {
     element: <PublicOnlyRoute />,
     children: [
@@ -115,13 +122,12 @@ export const router = createBrowserRouter([
         path: "/auth",
         element: <AuthLayout />,
         children: [
-          { index: true, element: <Navigate to="/auth/login" replace /> },
-          { path: "login", element: <LoginPage /> }
-        ]
-      }
-    ]
+          { index: true, element: <Navigate to="login" replace /> },
+          { path: "login", element: <LoginPage /> },
+        ],
+      },
+    ],
   },
 
-  // global fallback
-  { path: "*", element: <Navigate to="/dashboard" replace /> }
+  { path: "*", element: <Navigate to="/dashboard" replace /> },
 ])
