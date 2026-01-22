@@ -205,7 +205,7 @@ export default function TolovOynasi() {
                 >
                   <td className="py-4 px-4">
                     {String(index + 1).padStart(2, "0")}
-                  </td>{" "}
+                  </td>
                   <td className="py-4">{row.sotuvId}</td>
                   <td className="py-4 px-4">{row.klientNomi}</td>
                   <td className="py-4 px-4">{row.klientId}</td>
@@ -229,7 +229,7 @@ export default function TolovOynasi() {
                     <button
                       type="button"
                       onClick={() => removeRow(row.id)}
-                      className="text-white cursor-pointer  bg-gradient-to-t from-[#D84040] to-[#8A0000] w-[70px] h-[28px] rounded-3xl"
+                      className="text-white cursor-pointer  bg-linear-to-t from-[#D84040] to-[#8A0000] w-[70px] h-[28px] rounded-3xl"
                     >
                       Delete
                     </button>

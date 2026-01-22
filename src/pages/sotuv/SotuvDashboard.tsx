@@ -1,8 +1,9 @@
 import ChartCard from "@/pages/components/ChartCard";
 import ChartCard2 from "@/pages/components/ChartCard2";
 import ChartCard3 from "@/pages/components/ChartCard3";
-import TodaySalesTable from "@/pages/components/Navbar2Table";
-
+// import TodaySalesTable from "@/pages/components/Navbar2Table";
+// import * as echarts from "echarts";
+import BarRaceChart from "@/pages/BarChard";
 export default function SotuvDashboard() {
   return (
     <div className="w-full max-w-[1402px] mx-auto px-8 mt-6">
@@ -13,8 +14,9 @@ export default function SotuvDashboard() {
           <ChartCard3 />
         </div>
 
-        <div className="mt-6">
-          <TodaySalesTable />
+        <div className="mt-6 w-full h-[500px] rounded-2xl">
+          {/* <TodaySalesTable /> */}
+          <BarRaceChart />
         </div>
       </div>
     </div>
