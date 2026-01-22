@@ -7,7 +7,7 @@ export default function SidebarItem({ item }: { item: SidebarItemType }) {
       {({ isActive }) => (
         <div
           className={[
-            "h-[52px] w-full",
+            "h-13 w-full",
             "rounded-2xl",
             "flex items-center",
             "transition-all duration-300",
@@ -17,10 +17,10 @@ export default function SidebarItem({ item }: { item: SidebarItemType }) {
           ].join(" ")}
         >
           {/* icon */}
-          <div className="w-[72px] shrink-0 flex items-center justify-center">
+          <div className="w-18 shrink-0 flex items-center justify-center">
             <div
               className={[
-                "w-[44px] h-[44px] rounded-[16px]",
+                "w-11 h-11 rounded-3xl",
                 "flex items-center justify-center",
                 "transition-all duration-300",
                 isActive
