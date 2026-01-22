@@ -1,7 +1,18 @@
+import { Link } from "react-router-dom";
 import { sidebarItems } from "./Sidebar.data";
 import SidebarItem from "./SidebarItem";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
+
+  const navigate = useNavigate()
+
+  const onLogout = () => {
+    localStorage.removeItem("erp_auth")
+    toast.info("Tizimdan chiqdingiz")
+    navigate("/auth/login", { replace: true })
+  }
   return (
     <aside
       className={[
@@ -29,7 +40,7 @@ export default function Sidebar() {
 
           {/* Text only when expanded */}
           <div className="min-w-0 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-            <div className="font-semibold leading-5 truncate">ERPI Admin</div>
+            <div className="font-semibold leading-5 truncate">ERP Admin</div>
             <div className="text-xs text-slate-500 truncate">Luxury UI</div>
           </div>
         </div>
@@ -58,13 +69,12 @@ export default function Sidebar() {
             <div className="text-sm font-semibold truncate">Mike</div>
             <div className="text-xs text-slate-500 truncate">Admin</div>
           </div>
+          <Link to="/auth/login">
+            <button onClick={onLogout} className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xs px-3 py-1.5 rounded-xl bg-slate-900/5 hover:bg-slate-900/10">
+              Logout
+            </button>
+          </Link>
 
-          <button
-            type="button"
-            className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xs px-3 py-1.5 rounded-xl bg-slate-900/5 hover:bg-slate-900/10"
-          >
-            Logout
-          </button>
         </div>
       </div>
     </aside>
