@@ -9,11 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
-<<<<<<< HEAD
   "dependencies": {
-=======
-  "dependencies": 
->>>>>>> a123ec2e422f84a7ef00fe2147dda70b626b3db9
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.7",
