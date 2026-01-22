@@ -1,13 +1,5 @@
-import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
 
-const tabs = [
-    { label: "Qoldiqlash", to: "/Qoldiqlash" },
-    { label: "Kirim", to: "/Kirim" },
-    { label: "Ko‘chirish", to: "/Kochirish" },
-    { label: "Inventarizatsiya", to: "/Inventarizatsiya" },
-] as const;
 type Row = {
     id: number
     tovarId: string
@@ -21,10 +13,7 @@ type Row = {
 
 const STORAGE_KEY = "confirmed_rows"
 
-type Navbar2Props = {
-    defaultActiveTo?: (typeof tabs)[number]["to"];
-};
-export default function Navbar4({ defaultActiveTo }: Navbar2Props) {
+export default function Navbar4() {
     const [confirmedIds, setConfirmedIds] = useState<number[]>([])
 
     // 🔹 demo data
@@ -56,30 +45,8 @@ export default function Navbar4({ defaultActiveTo }: Navbar2Props) {
 
     const isConfirmed = (id: number) => confirmedIds.includes(id)
 
-    const { pathname } = useLocation();
-    const hasActiveTab = tabs.some((t) => pathname.startsWith(t.to));
     return (
         <div className="px-8">
-            <nav className=" w-full max-w-350.5 h-auto flex gap-2 border border-[#6049E3] rounded-3xl px-3 py-2 bg-muted mt-4">
-                {tabs.map((t) => {
-                    const isDefaultActive = !hasActiveTab && defaultActiveTo === t.to;
-                    return (
-                        <NavLink
-                            to={t.to}
-                            key={t.to}
-                            className={({ isActive }) =>
-                                cn(
-                                    "px-3 rounded-2xl text-sm font-medium  transition-all   flex items-center duration-200 h-7 ",
-                                    !isActive && !isDefaultActive && "text-black",
-                                    (isActive || isDefaultActive) && "navbar2-button-color"
-                                )
-                            }
-                        >
-                            {t.label}
-                        </NavLink>
-                    );
-                })}
-            </nav>
             <div className="max-w-full pt-10 mx-auto">
                 <div className="rounded-3xl p-px bg-linear-to-r from-[#6C63FF] to-[#00C2FF] shadow-xl">
                     <div className="rounded-3xl bg-[#F6F8FF] max-h-134 overflow-auto">
@@ -155,13 +122,6 @@ export default function Navbar4({ defaultActiveTo }: Navbar2Props) {
                     </div>
                 </div>
             </div>
-            {!hasActiveTab && (
-                <div className="w-350.5 h-193.75 bg-[#EBF0FA] border border-[#6049E3] rounded-2xl mt-7.25 ">
-                    <div className="flex flex-row gap-8 mx-auto container px-8 py-8">
-                        <h1>Hello</h1>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }
