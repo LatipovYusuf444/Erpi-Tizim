@@ -40,8 +40,9 @@ export const sidebarItems: SidebarItemType[] = [
   },
   {
     to: "/staff",
-    label: "Staff",
-    icon: Users,
+    label: "Xodimlar",
+    icon: Users, // 👥 xodimlar
+
   },
   {
     to: "/notifications",
