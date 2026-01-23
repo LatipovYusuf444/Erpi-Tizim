@@ -1,19 +1,19 @@
-import { NavLink, Outlet } from "react-router-dom"
-import { cn } from "@/lib/utils"
+import { NavLink, Outlet } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 const links = [
   { to: "/ombor/qoldiqlash", label: "Qoldiqlash" },
   { to: "/ombor/kirim", label: "Kirim" },
   { to: "/ombor/kochirish", label: "Ko‘chirish" },
   { to: "/ombor/inventarizatsiya", label: "Inventarizatsiya" },
-]
+];
 
 export default function OmborLayout() {
   return (
     <div className="px-8 space-y-8">
       {/* ✅ kapsula navbar */}
-      <div className="relative rounded-[28px] p-[2px] bg-gradient-to-r from-[#6C63FF] to-[#00C2FF]">
-        <div className="rounded-[26px] bg-white px-3 py-3">
+      <div className="relative rounded-3xl  border border-[#334F9D] px-3 py-2  ">
+        <div className="">
           <nav className="flex flex-wrap items-center gap-2">
             {links.map((l) => (
               <NavLink
@@ -21,10 +21,10 @@ export default function OmborLayout() {
                 to={l.to}
                 className={({ isActive }) =>
                   cn(
-                    "h-10 px-5 rounded-full text-sm font-semibold transition-all duration-200",
+                    "px-3 rounded-2xl text-sm font-medium transition-all flex items-center duration-200 h-7",
                     isActive
-                      ? "bg-[#6049E3] text-white shadow-md"
-                      : "text-gray-700 hover:bg-slate-100"
+                      ? "bg-linear-to-r from-[#1C96C8] to-[#334F9D] text-white shadow-md"
+                      : "text-black "
                   )
                 }
               >
@@ -37,5 +37,5 @@ export default function OmborLayout() {
 
       <Outlet />
     </div>
-  )
+  );
 }

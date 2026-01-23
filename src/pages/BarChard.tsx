@@ -19,18 +19,18 @@ export default function BarRaceChart() {
     // 🔹 DATA (key = frame / year / month)
     const frames: FrameData = {
       "2023": [
-        { name: "Kassa", value: 80_000 },
-        { name: "Tasdiqlangan", value: 30_000 },
-        { name: "Qarzdorlik", value: 60_000 },
+        { name: "Kassa", value: 87_000 },
+        { name: "Tasdiqlangan", value: 32_000 },
+        { name: "Qarzdorlik", value: 65_000 },
       ],
       "2024": [
-        { name: "Kassa", value: 100_000 },
-        { name: " Tasdiqlangan", value: 50_000 },
-        { name: "Qarzdorlik", value: 40_000 },
+        { name: "Kassa", value: 110_000 },
+        { name: " Tasdiqlangan", value: 58_000 },
+        { name: "Qarzdorlik", value: 44_000 },
       ],
       "2025": [
-        { name: "Kassa", value: 160_000 },
-        { name: "Tasdiqlangan", value: 110_000 },
+        { name: "Kassa", value: 64_000 },
+        { name: "Tasdiqlangan", value: 85_000 },
         { name: "Qarzdorlik", value: 25_000 },
       ],
     };
@@ -80,7 +80,7 @@ export default function BarRaceChart() {
           },
         ],
         animationDuration: 0,
-        animationDurationUpdate: 1000,
+        animationDurationUpdate: 900,
         animationEasing: "linear",
       });
     };
@@ -90,7 +90,7 @@ export default function BarRaceChart() {
     const timer = setInterval(() => {
       index = (index + 1) % keys.length;
       render(keys[index]);
-    }, 2000);
+    }, 3000);
 
     window.addEventListener("resize", chart.resize);
 
@@ -101,5 +101,7 @@ export default function BarRaceChart() {
     };
   }, []);
 
-  return <div ref={chartRef} className="w-full" style={{ height: 420 }} />;
+  return (
+    <div ref={chartRef} className="max-w-[1200px]" style={{ height: 420 }} />
+  );
 }
