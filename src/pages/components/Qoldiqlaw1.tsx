@@ -3,22 +3,22 @@ export default function Navbar4() {
   return (
     <div className="px-8">
 
-      <div className="relative rounded-3xl p-px bg-linear-to-r from-[#6C63FF] to-[#00C2FF] shadow-xl">
-        <div className="rounded-3xl bg-[#F6F8FF] p-10 min-h-130">
+      <div className="relative max-w-400 rounded-3xl p-px bg-linear-to-r from-[#6C63FF] to-[#00C2FF] shadow-xl">
+        <div className="rounded-3xl bg-[#F6F8FF] p-10 min-h-110">
           <h1 className="text-4xl font-extrabold tracking-tight text-black">
-            Sotuv qo‘shish
+            Product qo‘shish
           </h1>
 
           <div className="mt-14 grid grid-cols-12 gap-10">
             {/* LEFT */}
             <div className="col-span-12 lg:col-span-5 space-y-7">
-              <Field label="Mijoz nomi">
-                <input className="inp" placeholder="Sizning ismingiz" />
+              <Field label="Maxsulot">
+                <input className="inp" placeholder="Maxsulot nomi" />
               </Field>
 
               <Field label="Topshirish muddati">
                 <div className="relative">
-                  <input className="inp pr-12" placeholder="mm/dd/yyyy" />
+                  <input type="date" className="inp pr-12" placeholder="mm/dd/yyyy" />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 opacity-70">📅</span>
                 </div>
               </Field>
