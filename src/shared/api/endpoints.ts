@@ -1,6 +1,11 @@
 export const endpoints = {
-  dashboard: {
-    stats: "/dashboard/stats", // TODO: backend endpoint
-    orders: "/orders",         // TODO
-  },
-};
+  /**
+   * ✅ Backend ulaganda:
+   * DRF: GET /api/dashboard/  (yoki /api/dashboard)
+   * FastAPI: GET /api/dashboard
+   *
+   * Natija (JSON) -> DashboardResponse formatida bo‘lsin:
+   * { stats:[], productRank:[], customers:[], warehouse:[], sales:[] }
+   */
+  dashboard: "/dashboard",
+}
