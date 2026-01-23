@@ -1,4 +1,4 @@
-import { ReactSelectBox } from "./ReactSelect";
+// import { ReactSelectBox } from "./ReactSelect";
 import { useForm, type SubmitHandler } from "react-hook-form";
 
 type SotuvFormValues = {
@@ -73,7 +73,7 @@ export default function SotuvQoshish() {
             <div className="flex flex-col gap-2">
               <h2>Miqdori</h2>
 
-              <ReactSelectBox />
+              {/* <ReactSelectBox /> */}
               {errors.quantity && (
                 <p className="text-sm text-red-600 ">
                   {errors.quantity.message}
@@ -143,7 +143,7 @@ export default function SotuvQoshish() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="rounded-xl mt-8 w-full max-w-[356px] min-h-[51px] flex  items-center justify-center cursor-pointer bg-gradient-to-t from-[#1C96C8] text-[18px] text-white to-[#334F9D]  disabled:opacity-60"
+              className="rounded-xl mt-8 w-full max-w-[356px] min-h-[51px] flex items-center justify-center cursor-pointer bg-gradient-to-t from-[#1C96C8] text-[18px] text-white to-[#334F9D]  disabled:opacity-60"
             >
               {isSubmitting ? "Yuborilmoqda..." : "Yaratish"}
             </button>
