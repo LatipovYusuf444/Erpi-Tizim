@@ -1,3 +1,4 @@
+import type { LucideIcon } from "lucide-react"
 import {
   LayoutDashboard,
   ShoppingCart,
@@ -5,15 +6,15 @@ import {
   Wallet,
   Users,
   Bell,
-} from "lucide-react";
+} from "lucide-react"
 
 export type SidebarItemType = {
-  to: string;
-  label: string;
-  icon: any;
-  badge?: string | number;
-  disabled?: boolean;
-};
+  to: string
+  label: string
+  icon: LucideIcon
+  badge?: string | number
+  disabled?: boolean
+}
 
 export const sidebarItems: SidebarItemType[] = [
   {
@@ -22,18 +23,18 @@ export const sidebarItems: SidebarItemType[] = [
     icon: LayoutDashboard,
   },
   {
-    to: "/sotuv", // ✅ sotuv modul root
+    to: "/sotuv",
     label: "Sotuv",
     icon: ShoppingCart,
     badge: 3,
   },
   {
-    to: "/topbar4",
+    to: "/ombor", // ✅ TO‘G‘RI
     label: "Ombor",
     icon: Warehouse,
   },
   {
-    to: "/moliya", // ✅ moliya modul root
+    to: "/moliya", // avval "/moliya" edi
     label: "Moliya",
     icon: Wallet,
     badge: 12,
@@ -41,12 +42,11 @@ export const sidebarItems: SidebarItemType[] = [
   {
     to: "/staff",
     label: "Xodimlar",
-    icon: Users, // 👥 xodimlar
-
+    icon: Users,
   },
   {
     to: "/notifications",
     label: "Xabarlar",
     icon: Bell,
   },
-];
+]
