@@ -1,39 +1,59 @@
-import { NavLink } from "react-router-dom";
-import type { SidebarItemType } from "./Sidebar.data";
+import { NavLink } from "react-router-dom"
+import type { SidebarItemType } from "./Sidebar.data"
+import { cn } from "@/lib/utils"
 
 export default function SidebarItem({ item }: { item: SidebarItemType }) {
   return (
-    <NavLink to={item.to} end={item.to === "/dashboard"}>
+    <NavLink to={item.to} end={item.to === "/dashboard"} className="block">
       {({ isActive }) => (
         <div
-          className={[
-            "h-13 w-full",
-            "rounded-2xl",
-            "flex items-center",
+          className={cn(
+            "relative w-full h-14 rounded-2xl flex items-center",
             "transition-all duration-300",
+            "hover:translate-x-[2px]",
             isActive
-              ? "bg-blue-600/10 shadow-[0_10px_26px_rgba(37,99,235,0.12)]"
-              : "hover:bg-slate-900/5",
-          ].join(" ")}
+              ? "bg-gradient-to-r from-blue-600/10 to-indigo-600/10 ring-1 ring-blue-500/15 shadow-[0_18px_55px_-30px_rgba(37,99,235,0.65)]"
+              : "hover:bg-slate-900/5"
+          )}
         >
+          {/* left active indicator */}
+          <div
+            className={cn(
+              "absolute left-0 top-1/2 -translate-y-1/2",
+              "h-8 w-1.5 rounded-full",
+              "bg-gradient-to-b from-sky-400 to-indigo-600",
+              "opacity-0",
+              isActive && "opacity-100"
+            )}
+          />
+
           {/* icon */}
-          <div className="w-18 shrink-0 flex items-center justify-center">
+          <div className="w-16 shrink-0 flex items-center justify-center">
             <div
-              className={[
-                "w-11 h-11 rounded-3xl",
-                "flex items-center justify-center",
+              className={cn(
+                "relative w-11 h-11 rounded-2xl flex items-center justify-center",
                 "transition-all duration-300",
                 isActive
-                  ? "bg-blue-600/15 shadow-[0_12px_28px_rgba(37,99,235,0.30)]"
-                  : "bg-white/80 shadow-[0_6px_18px_rgba(15,23,42,0.10)]",
-              ].join(" ")}
+                  ? "bg-blue-600/15 shadow-[0_16px_38px_-22px_rgba(37,99,235,0.75)] ring-1 ring-blue-400/25"
+                  : "bg-white/80 shadow-[0_10px_25px_-18px_rgba(15,23,42,0.25)]"
+              )}
             >
+              {/* soft halo */}
+              <div
+                className={cn(
+                  "pointer-events-none absolute inset-0 rounded-2xl blur-xl",
+                  "opacity-0",
+                  isActive && "opacity-100",
+                  "bg-gradient-to-br from-sky-400/30 to-indigo-500/25"
+                )}
+              />
+
               <item.icon
                 size={20}
-                className={[
-                  "transition-colors duration-300",
-                  isActive ? "text-blue-600" : "text-slate-700",
-                ].join(" ")}
+                className={cn(
+                  "relative transition-colors duration-300",
+                  isActive ? "text-blue-600" : "text-slate-700"
+                )}
               />
             </div>
           </div>
@@ -41,13 +61,13 @@ export default function SidebarItem({ item }: { item: SidebarItemType }) {
           {/* label */}
           <div className="min-w-0 flex-1 pr-4">
             <span
-              className={[
-                "block truncate font-medium text-sm",
+              className={cn(
+                "block truncate font-semibold text-sm",
                 "opacity-0 translate-x-2",
                 "group-hover:opacity-100 group-hover:translate-x-0",
                 "transition-all duration-300",
-                isActive ? "text-blue-700" : "text-slate-700",
-              ].join(" ")}
+                isActive ? "text-blue-700" : "text-slate-700"
+              )}
             >
               {item.label}
             </span>
@@ -55,5 +75,5 @@ export default function SidebarItem({ item }: { item: SidebarItemType }) {
         </div>
       )}
     </NavLink>
-  );
+  )
 }
