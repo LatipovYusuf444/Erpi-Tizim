@@ -74,8 +74,8 @@ export default function KassaPage() {
     },
   ];
   return (
-    <div className=" container mx-auto  ">
-      <section className="bg-[#EBF0FA] border border-[#6049E3] rounded-2xl shadow-sm  max-w-[1400px]">
+    <div className=" container mx-auto  px-8 ">
+      <section className="bg-[#EBF0FA] border border-[#6049E3] rounded-2xl shadow-sm p-6  max-w-[1400px] my-8">
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>

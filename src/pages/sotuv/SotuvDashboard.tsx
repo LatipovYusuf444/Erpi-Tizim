@@ -14,7 +14,7 @@ export default function SotuvDashboard() {
           <ChartCard3 />
         </div>
 
-        <div className="mt-6 w-full h-[500px] rounded-2xl">
+        <div className="mt-6 max-w-[800px] max-h-[500px] rounded-2xl">
           {/* <TodaySalesTable /> */}
           <BarRaceChart />
         </div>
