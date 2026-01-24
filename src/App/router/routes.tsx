@@ -37,15 +37,6 @@ import Notification from "@/pages/notification/notification";
 import VolumePage from "@/pages/notification/VolumePage"
 import NotificationPage from "@/pages/notification/notification"
 
-// ...
-import OmborLayout from "@/pages/ombor/OmborLayout"
-import QoldiqlashLayout from "@/pages/ombor/QoldiqlashLayout"
-import ProductForm from "@/pages/ombor/ProductForm"
-import IngredientForm from "@/pages/ombor/IngredientForm"
-import KirimForm from "@/pages/ombor/KirimForm"
-import Inventarizatsiya from "@/pages/ombor/Inventarizatsiya"
-import Kochirish from "@/pages/components/Kochirish"
-
 // ✅ XODIMLAR
 import Xodimlar from "@/pages/xodimlar/Xodimlar"
 import Form from "@/pages/xodimlar/Form"

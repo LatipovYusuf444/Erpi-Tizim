@@ -10,7 +10,7 @@ export default function NotificationPage() {
 
     useEffect(() => {
         refresh()
-
+// hhsdahsdjajd
         const onChanged = () => refresh()
         window.addEventListener("app:notifications_changed", onChanged)
 

@@ -1,11 +1,5 @@
-
-import { cn } from "@/lib/utils";
-import { NavLink, useLocation } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import { transferData, type TransferRow } from "@/data/data";
-
-import { useEffect, useMemo, useState } from "react"
-import { transferData, type TransferRow } from "@/data/data"
 
 const formatSum = (n: number) => new Intl.NumberFormat("ru-RU").format(n);
 
