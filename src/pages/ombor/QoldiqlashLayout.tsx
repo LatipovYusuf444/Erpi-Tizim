@@ -21,7 +21,7 @@ export default function QoldiqlashLayout() {
                   cn(
                     "px-3 rounded-3xl text-sm font-medium transition-all flex items-center w-auto h-7 ",
                     isActive
-                      ? "bg-white text-black  bg-linear-to-r from-[#1C96C8] to-[#334F9D] text-white"
+                      ? "bg-white text-black   bg-linear-to-r from-[#1C96C8] to-[#334F9D] text-white"
                       : "text-gray-600  "
                   )
                 }

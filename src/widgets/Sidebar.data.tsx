@@ -34,19 +34,20 @@ export const sidebarItems: SidebarItemType[] = [
     icon: Warehouse,
   },
   {
-    to: "/moliya", // avval "/moliya" edi
+    to: "/moliya",
     label: "Moliya",
     icon: Wallet,
     badge: 12,
   },
   {
-    to: "/staff",
+    to: "/xodimlar", // ✅ TO‘G‘RI
     label: "Xodimlar",
     icon: Users,
   },
   {
-    to: "/notifications",
+    to: "/xabarlar", // hozircha page yo‘q bo‘lsa disable
     label: "Xabarlar",
     icon: Bell,
+    disabled: true,
   },
 ]

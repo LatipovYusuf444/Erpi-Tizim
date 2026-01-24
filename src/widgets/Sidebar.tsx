@@ -1,11 +1,9 @@
-import { Link } from "react-router-dom";
-import { sidebarItems } from "./Sidebar.data";
-import SidebarItem from "./SidebarItem";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { sidebarItems } from "./Sidebar.data"
+import SidebarItem from "./SidebarItem"
+import { toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
 
 export default function Sidebar() {
-
   const navigate = useNavigate()
 
   const onLogout = () => {
@@ -13,6 +11,7 @@ export default function Sidebar() {
     toast.info("Tizimdan chiqdingiz")
     navigate("/auth/login", { replace: true })
   }
+
   return (
     <aside
       className={[
@@ -21,6 +20,8 @@ export default function Sidebar() {
         "flex flex-col",
         "glass-strong rounded-[28px]",
         "w-24 hover:w-73",
+        // default: icon-only, hover: full (✅ tailwindga to‘g‘ri)
+        "w-24 hover:w-[292px]", // yoki hover:w-72
         "transition-[width] duration-300 ease-out",
         "overflow-hidden",
         "group",
@@ -57,14 +58,16 @@ export default function Sidebar() {
             <div className="text-sm font-semibold truncate">Mike</div>
             <div className="text-xs text-slate-500 truncate">Admin</div>
           </div>
-          <Link to="/auth/login">
-            <button onClick={onLogout} className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xs px-3 py-1.5 rounded-xl bg-slate-900/5 hover:bg-slate-900/10">
-              Logout
-            </button>
-          </Link>
 
+          <button
+            type="button"
+            onClick={onLogout}
+            className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xs px-3 py-1.5 rounded-xl bg-slate-900/5 hover:bg-slate-900/10"
+          >
+            Logout
+          </button>
         </div>
       </div>
     </aside>
-  );
+  )
 }
