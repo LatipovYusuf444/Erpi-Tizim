@@ -1,14 +1,14 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { unknown } from "zod";
 
 export type SalesFormValues = {
+  sotuvId: string;
   klientNomi: string;
-  klientId: number;
-  sotuvId: number;
-  tovarId: number;
   tovarNomi: string;
   sanasi: string;
   miqdori: number;
   narxi: number;
+  ndsNarxi: number;
   status: string;
 };
 
@@ -22,13 +22,12 @@ export default function SalesCreateForm({
   const { register, handleSubmit, reset } = useForm<SalesFormValues>({
     mode: "onChange",
     defaultValues: {
-      sotuvId: undefined as unknown as number,
+      sotuvId: "",
       klientNomi: "",
-      klientId: undefined as unknown as number,
       tovarNomi: "",
-      tovarId: undefined as unknown as number,
       miqdori: undefined as unknown as number,
       narxi: undefined as unknown as number,
+      ndsNarxi: undefined as unknown as number,
       sanasi: "",
       status: "Tasdiqlangan",
     },
@@ -71,32 +70,12 @@ export default function SalesCreateForm({
         </div>
 
         <div>
-          <label className="block mb-1 text-md">Mijoz ID</label>
-          <input
-            type="number"
-            {...register("klientId", { required: true, valueAsNumber: true })}
-            className="w-full rounded-3xl border px-3 py-2 outline-none shadow-md focus:shadow-[#334F9D] focus:border-2 border-[#334F9D]"
-            placeholder="487567"
-          />
-        </div>
-
-        <div>
           <label className="block mb-1 text-md">Tovar Nomi</label>
           <input
             type="text"
             {...register("tovarNomi", { required: true })}
             className="w-full rounded-3xl border px-3 py-2 outline-none shadow-md focus:shadow-[#334F9D] focus:border-2 border-[#334F9D]"
             placeholder="Tarelka"
-          />
-        </div>
-
-        <div>
-          <label className="block mb-1 text-md">Tovar ID</label>
-          <input
-            type="number"
-            {...register("tovarId", { required: true, valueAsNumber: true })}
-            className="w-full rounded-3xl border px-3 py-2 outline-none shadow-md focus:shadow-[#334F9D] focus:border-2 border-[#334F9D]"
-            placeholder="7878545"
           />
         </div>
 
@@ -124,6 +103,15 @@ export default function SalesCreateForm({
           />
         </div>
 
+        <div>
+          <label className="block mb-1 text-md">NDS Narx</label>
+          <input
+            type="number"
+            {...register("narxi", { required: true, valueAsNumber: true })}
+            className="w-full rounded-3xl border px-3 py-2 outline-none shadow-md focus:shadow-[#334F9D] focus:border-2 border-[#334F9D]"
+            placeholder="14250"
+          />
+        </div>
         <div>
           <label className="block mb-1 text-md">Sanasi</label>
           <input

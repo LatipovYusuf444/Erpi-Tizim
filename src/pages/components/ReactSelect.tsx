@@ -1,41 +1,28 @@
 import Select from "react-select";
+import { Controller, Control } from "react-hook-form";
 
-const options = [
-  { label: "2000", value: "2000" },
-  { label: "1500", value: "1500" },
-  { label: "5500", value: "5500" },
-];
+type Option = { label: string; value: string };
 
-export function ReactSelectBox() {
+type RSelectProps = {
+  control: Control<any>;
+  name: string;
+  options: Option[];
+  placeholder?: string;
+};
+
+export function RSelect({ control, name, options, placeholder }: RSelectProps) {
   return (
-    <div className="w-full">
-      <Select
-        options={options}
-        placeholder="Tanlang..."
-        styles={{
-          control: (base, state) => ({
-            ...base,
-            maxWidth: "494px",
-            minHeight: "51px",
-            borderRadius: "12px",
-
-            border: state.isFocused ? "1px solid #334F9D" : "1px solid #D0D0D0",
-
-            boxShadow: state.isFocused
-              ? "0 4px 6px rgba(51, 79, 157, 0.35)"
-              : "none",
-
-            outline: "none",
-            backgroundColor: "#EBF0FA",
-
-            "&:hover": {
-              border: "1px solid #334F9D",
-            },
-
-            transition: "all 0.2s ease",
-          }),
-        }}
-      />
-    </div>
+    <Controller
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <Select
+          options={options}
+          placeholder={placeholder}
+          value={options.find((o) => o.value === field.value) ?? null}
+          onChange={(v) => field.onChange(v?.value)}
+        />
+      )}
+    />
   );
 }

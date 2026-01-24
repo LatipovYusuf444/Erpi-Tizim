@@ -4,25 +4,21 @@ import SalesList from "./SalesList";
 import SotuvQoshishRight from "./SotuvQoshishRight";
 type SalesFormValues = {
   klientNomi: string;
-  klientId: number;
-  sotuvId: number;
-  tovarId: number;
   tovarNomi: string;
   sanasi: string;
   miqdori: number;
   narxi: number;
+  ndsNarxi: string;
   status: string;
 };
 type Row = {
   id: number;
   klientNomi: string;
-  klientId: string;
-  sotuvId: string;
-  tovarId: string;
   tovarNomi: string;
   sanasi: string;
   miqdori: string;
   narxi: string;
+  ndsNarxi: string;
   status: string;
 };
 
@@ -31,97 +27,81 @@ export default function SotuvlarRoyhati() {
     {
       id: 1,
       klientNomi: "Alibekov K",
-      klientId: "20202020",
-      sotuvId: "0202020",
-      tovarId: "20202020",
       tovarNomi: "Konteyner",
       sanasi: "18.10.2025",
       miqdori: "2000",
       narxi: "800 000",
+      ndsNarxi: "12%",
       status: "Tasdiqlangan",
     },
     {
       id: 2,
       klientNomi: "Alijanov R",
-      klientId: "20202020",
-      sotuvId: "0202020",
-      tovarId: "20202020",
       tovarNomi: "Vilka",
       sanasi: "14.04.2025",
       miqdori: "8000",
       narxi: "400 000",
+      ndsNarxi: "1%",
       status: "Tasdiqlangan",
     },
     {
       id: 3,
       klientNomi: "Jasurov T",
-      klientId: "20202020",
-      sotuvId: "0202020",
-      tovarId: "20202020",
       tovarNomi: "Tarelka",
       sanasi: "17.08.2025",
       miqdori: "7400",
       narxi: "890 000",
+      ndsNarxi: "17%",
       status: "Tasdiqlangan",
     },
     {
       id: 4,
       klientNomi: "Behruzov W",
-      klientId: "20202020",
-      sotuvId: "0202020",
-      tovarId: "20202020",
       tovarNomi: "Qoshiq",
       sanasi: "11.08.2025",
       miqdori: "7100",
       narxi: "100 000",
+      ndsNarxi: "8%",
       status: "Tasdiqlangan",
     },
     {
       id: 5,
       klientNomi: "Behruzjonov M",
-      klientId: "20202020",
-      sotuvId: "0202020",
-      tovarId: "20202020",
       tovarNomi: "Qoshiq",
       sanasi: "19.01.2025",
       miqdori: "7900",
       narxi: "10 000",
+      ndsNarxi: "0.5%",
       status: "Tasdiqlangan",
     },
     {
       id: 6,
       klientNomi: "Baburov K",
-      klientId: "20202020",
-      sotuvId: "0202020",
-      tovarId: "20202020",
       tovarNomi: "Konteyner",
       sanasi: "10.09.2025",
       miqdori: "700",
       narxi: "190 000",
+      ndsNarxi: "17%",
       status: "Tasdiqlangan",
     },
     {
       id: 7,
       klientNomi: "Asadbekov A",
-      klientId: "20202020",
-      sotuvId: "0202020",
-      tovarId: "20202020",
       tovarNomi: "Qoshiq",
       sanasi: "15.05.2025",
       miqdori: "5200",
       narxi: "790 000",
+      ndsNarxi: "2%",
       status: "Tasdiqlangan",
     },
     {
       id: 8,
       klientNomi: "Kaliev K",
-      klientId: "20202020",
-      sotuvId: "0202020",
-      tovarId: "20202020",
       tovarNomi: "Tarelka",
       sanasi: "01.02.2025",
       miqdori: "750",
       narxi: "790 000",
+      ndsNarxi: "22%",
       status: "Tasdiqlangan",
     },
   ]);
@@ -146,13 +126,11 @@ export default function SotuvlarRoyhati() {
     const newRow: Row = {
       id: Date.now(),
       klientNomi: formData.klientNomi,
-      klientId: String(formData.klientId),
-      sotuvId: String(formData.sotuvId),
-      tovarId: String(formData.tovarId),
       tovarNomi: formData.tovarNomi,
       sanasi: formData.sanasi,
       miqdori: String(formData.miqdori),
       narxi: String(formData.narxi),
+      ndsNarxi: String(formData.ndsNarxi),
       status: formData.status,
     };
     setData((prev) => [newRow, ...prev]);
@@ -166,13 +144,11 @@ export default function SotuvlarRoyhati() {
           ? {
               ...r,
               klientNomi: formData.klientNomi,
-              klientId: String(formData.klientId),
-              sotuvId: String(formData.sotuvId),
-              tovarId: String(formData.tovarId),
               tovarNomi: formData.tovarNomi,
               sanasi: formData.sanasi,
               miqdori: String(formData.miqdori),
               narxi: String(formData.narxi),
+              ndsNarxi: String(formData.ndsNarxi),
               status: formData.status,
             }
           : r
@@ -199,13 +175,11 @@ export default function SotuvlarRoyhati() {
             <thead>
               <tr className="text-left text-[#334F9D] text-[18px]">
                 <th className="py-3 px-2 font-medium">S/N</th>
-                <th className="py-3  font-medium">Sotuv ID</th>
                 <th className="py-3 px-3 font-medium">Mijoz Nomi</th>
-                <th className="py-3  font-medium">Mijoz ID</th>
                 <th className="py-3 font-medium">Tovar Nomi</th>
-                <th className="py-3 font-medium">Tovar ID</th>
                 <th className="py-3 font-medium">Miqdori</th>
                 <th className="py-3 px-2 font-medium">Narxi</th>
+                <th className="py-3 px-2 font-medium">NDS Narxi</th>
                 <th className="py-3 px-2 font-medium">Sanasi</th>
                 <th className="py-3 pr-4 font-medium text-right">Status</th>
                 <th className="py-3 pr-12 font-medium text-right">Actions</th>
@@ -221,34 +195,22 @@ export default function SotuvlarRoyhati() {
                   <td className="py-4 px-4">
                     {String(index + 1).padStart(2, "0")}
                   </td>
-                  <td className="py-4 px-2">{row.sotuvId}</td>
                   <td className="py-4 px-5">{row.klientNomi}</td>
-                  <td className="py-4">{row.klientId}</td>
                   <td className="py-4 px-4">{row.tovarNomi}</td>
-                  <td className="py-4">{row.tovarId}</td>
                   <td className="py-4 px-4">{row.miqdori}</td>
                   <td className="py-4 px-2">{row.narxi}</td>
+                  <td className="py-4 px-8">{row.ndsNarxi}</td>
                   <td className="py-4">{row.sanasi}</td>
-
                   <td className="py-4   text-right">
                     <span className="text-[#1C96C8]">{row.status}</span>
                   </td>
-
-                  <td className="py-4 text-right space-x-3">
+                  <td className=" text-center space-x-3">
                     <button
                       type="button"
                       onClick={() => openEdit(row)}
                       className="text-white cursor-pointer bg-gradient-to-b from-[#3E7B27] to-[#387F39] w-[70px] h-[28px] rounded-3xl"
                     >
                       Edit
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => removeRow(row.id)}
-                      className="text-white cursor-pointer  bg-gradient-to-t from-[#D84040] to-[#8A0000] w-[70px] h-[28px] rounded-3xl"
-                    >
-                      Delete
                     </button>
                   </td>
                 </tr>
@@ -273,9 +235,6 @@ export default function SotuvlarRoyhati() {
             editingRow
               ? {
                   klientNomi: editingRow.klientNomi,
-                  klientId: Number(editingRow.klientId),
-                  sotuvId: Number(editingRow.sotuvId),
-                  tovarId: Number(editingRow.tovarId),
                   tovarNomi: editingRow.tovarNomi,
                   sanasi: editingRow.sanasi,
                   miqdori: Number(editingRow.miqdori),
