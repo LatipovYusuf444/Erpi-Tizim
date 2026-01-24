@@ -8,6 +8,7 @@ import LoginPage from "@/pages/auth/LoginPage"
 
 import ProtectedRoute from "@/pages/auth/ProtectedRoute"
 import PublicOnlyRoute from "@/pages/auth/PublicOnlyRoute"
+import Topbar4 from '@/widgets/topbar4/Topbar4'
 
 // ✅ SOTUV (modul)
 import SotuvLayout from "@/pages/sotuv/SotuvLayout"
@@ -25,6 +26,18 @@ import KunlikTopshirish from "@/pages/components/KunlikTopshirish"
 import Qarzdozlik from "@/pages/components/Qarzdozlik"
 
 // ✅ OMBOR (modul)
+import OmborLayout from "@/pages/ombor/OmborLayout";
+import QoldiqlashLayout from "@/pages/ombor/QoldiqlashLayout";
+import ProductForm from "@/pages/ombor/ProductForm";
+import IngredientForm from "@/pages/ombor/IngredientForm";
+import KirimForm from "@/pages/components/Kirim";
+import Inventarizatsiya from "@/pages/ombor/Inventarizatsiya";
+import Kochirish from "@/pages/components/Kochirish";
+import Notification from "@/pages/notification/notification";
+import VolumePage from "@/pages/notification/VolumePage"
+import NotificationPage from "@/pages/notification/notification"
+
+// ...
 import OmborLayout from "@/pages/ombor/OmborLayout"
 import QoldiqlashLayout from "@/pages/ombor/QoldiqlashLayout"
 import ProductForm from "@/pages/ombor/ProductForm"
@@ -80,9 +93,18 @@ export const router = createBrowserRouter([
 
           // ✅ eski finance url’lar sinmasin
           { path: "kassa", element: <Navigate to="/moliya/kassa" replace /> },
+          {
+            path: "kunlik-yopish",
+            element: <Navigate to="/moliya/kunlik-yopish" replace />,
+          },
+          {
+            path: "qarzdorlik",
+            element: <Navigate to="/moliya/qarzdorlik" replace />,
+          },
+          { path: "volume", element: <VolumePage /> },
+          { path: "notifications", element: <NotificationPage /> },
           { path: "kunlik-yopish", element: <Navigate to="/moliya/kunlik-yopish" replace /> },
           { path: "qarzdorlik", element: <Navigate to="/moliya/qarzdorlik" replace /> },
-
           // ✅ SOTUV
           {
             path: "sotuv",
@@ -118,6 +140,10 @@ export const router = createBrowserRouter([
               { path: "*", element: <Navigate to="/ombor" replace /> },
             ],
           },
+          {
+            path: "notifications",
+            element: <Notification />,
+          },
 
           // ✅ eski ombor url’lar sinmasin
           { path: "qoldiqlash", element: <Navigate to="/ombor/qoldiqlash" replace /> },
@@ -149,6 +175,8 @@ export const router = createBrowserRouter([
       },
     ],
   },
+
+  { path: "topbar4", element: <Topbar4 /> },
 
   { path: "*", element: <Navigate to="/dashboard" replace /> },
 ])
