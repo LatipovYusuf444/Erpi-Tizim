@@ -23,6 +23,8 @@ export default function Navbar2({ defaultActiveTo }: Navbar2Props) {
   return (
     <div className="px-8 ">
       <nav className="w-full max-w-[1402px] h-auto flex gap-2 border border-[#334F9D] rounded-3xl px-3 py-2 bg-muted mt-4">
+    <div className="px-8">
+      <nav className="w-full max-w-350.5 h-auto flex gap-2 border border-[#334F9D] rounded-3xl px-3 py-2 bg-muted mt-4">
         {tabs.map((t) => {
           const isDefaultActive = !hasActiveTab && defaultActiveTo === t.to;
 
@@ -47,6 +49,8 @@ export default function Navbar2({ defaultActiveTo }: Navbar2Props) {
       {!hasActiveTab && (
         <div className="w-full max-w-[1402px] bg-[#EBF0FA] border border-[#334F9D] rounded-2xl mt-[29px] ">
           <div className="flex flex-row gap-8 mx-auto  container px-8 py-8">
+        <div className="w-full max-w-350.5 bg-[#EBF0FA] border border-[#334F9D] rounded-2xl mt-7.25">
+          <div className="flex flex-row gap-8 mx-auto container px-8 py-8">
             <ChartCard />
             <ChartCard2 />
             <ChartCard3 />
