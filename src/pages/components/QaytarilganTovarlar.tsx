@@ -10,7 +10,7 @@ type Row = {
   sanasi: string;
   miqdori: string;
   narxi: string;
-  ndsNarxi: string;
+  ndsFoyzi: string;
   status: string;
 };
 
@@ -23,7 +23,7 @@ export default function QaytarilganTovarlar() {
       sanasi: "2025-06-26",
       miqdori: "2000",
       narxi: "800 000",
-      ndsNarxi: "0.5%",
+      ndsFoyzi: "0.5%",
       status: "Brak",
     },
     {
@@ -33,7 +33,7 @@ export default function QaytarilganTovarlar() {
       sanasi: "2025-04-24",
       miqdori: "8000",
       narxi: "400 000",
-      ndsNarxi: "4.5%",
+      ndsFoyzi: "4.5%",
       status: "Singan",
     },
     {
@@ -43,7 +43,7 @@ export default function QaytarilganTovarlar() {
       sanasi: "2025-10-19",
       miqdori: "7400",
       narxi: "890 000",
-      ndsNarxi: "0.2%",
+      ndsFoyzi: "0.2%",
       status: "Shikastlangan",
     },
     {
@@ -53,7 +53,7 @@ export default function QaytarilganTovarlar() {
       sanasi: "2025-03-18",
       miqdori: "7100",
       narxi: "100 000",
-      ndsNarxi: "25%",
+      ndsFoyzi: "25%",
       status: "Brak",
     },
     {
@@ -63,7 +63,7 @@ export default function QaytarilganTovarlar() {
       sanasi: "2025-05-25",
       miqdori: "7900",
       narxi: "10 000",
-      ndsNarxi: "8.5%",
+      ndsFoyzi: "8.5%",
       status: "Shikastlangan",
     },
     {
@@ -73,7 +73,7 @@ export default function QaytarilganTovarlar() {
       sanasi: "2024-01-25",
       miqdori: "700",
       narxi: "190 000",
-      ndsNarxi: "4.2%",
+      ndsFoyzi: "4.2%",
       status: "Shikastlangan",
     },
     {
@@ -83,7 +83,7 @@ export default function QaytarilganTovarlar() {
       sanasi: "2025-05-15",
       miqdori: "5200",
       narxi: "790 000",
-      ndsNarxi: "5%",
+      ndsFoyzi: "5%",
       status: "Brak",
     },
     {
@@ -93,7 +93,7 @@ export default function QaytarilganTovarlar() {
       sanasi: "2025-01-05",
       miqdori: "750",
       narxi: "790 000",
-      ndsNarxi: "4.3%",
+      ndsFoyzi: "4.3%",
       status: "Yetib kelmagan",
     },
   ]);
@@ -190,7 +190,7 @@ export default function QaytarilganTovarlar() {
                 <th className="py-3 font-medium">Tovar Nomi</th>
                 <th className="py-3 font-medium">Miqdori</th>
                 <th className="py-3 px-2 font-medium">Narxi</th>
-                <th className="py-3 px-2 font-medium">NDS Narxi</th>
+                <th className="py-3 px-2 font-medium">NDS Foyzi</th>
                 <th className="py-3 px-2 font-medium">Sanasi</th>
                 <th className="py-3 font-medium text-right">Status</th>
               </tr>
@@ -209,7 +209,7 @@ export default function QaytarilganTovarlar() {
                   <td className="py-4 px-6">{row.tovarNomi}</td>
                   <td className="py-4 px-4">{row.miqdori}</td>
                   <td className="py-4 px-2">{row.narxi}</td>
-                  <td className="py-4 px-8">{row.ndsNarxi}</td>
+                  <td className="py-4 px-8">{row.ndsFoyzi}</td>
                   <td className="py-4 px-1">{row.sanasi}</td>
                   <td className="py-4 text-right pr-2">
                     <button className="text-[#D84040]">{row.status}</button>

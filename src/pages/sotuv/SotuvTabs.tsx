@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const tabs = [
   { label: "Statistika", to: "/sotuv" },
+  { label: "Sotuv Qoshish Form New", to: "/sotuv/sotuv-qoshish-form-new" },
   { label: "Sotuvlar ro'yhati", to: "/sotuv/sotuvlar-royhati" },
   { label: "Qaytarilgan tovarlar", to: "/sotuv/qaytarilgan-tovarlar" },
 ] as const;
