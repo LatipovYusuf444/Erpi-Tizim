@@ -1,50 +1,54 @@
-import { createBrowserRouter, Navigate, Outlet } from "react-router-dom"
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 
-import AppLayout from "@/layouts/AppLayout"
-import AuthLayout from "@/layouts/AuthLayout"
+import AppLayout from "@/layouts/AppLayout";
+import AuthLayout from "@/layouts/AuthLayout";
 
-import DashboardPage from "@/pages/Dashboard/DashboardPage"
-import LoginPage from "@/pages/auth/LoginPage"
+import DashboardPage from "@/pages/Dashboard/DashboardPage";
+import LoginPage from "@/pages/auth/LoginPage";
 
+import ProtectedRoute from "@/pages/auth/ProtectedRoute";
+import PublicOnlyRoute from "@/pages/auth/PublicOnlyRoute";
+=======
 import ProtectedRoute from "@/pages/auth/ProtectedRoute"
 import PublicOnlyRoute from "@/pages/auth/PublicOnlyRoute"
 import Topbar4 from "@/widgets/topbar4/Topbar4"
 
 // ✅ SOTUV (modul)
-import SotuvLayout from "@/pages/sotuv/SotuvLayout"
-import SotuvDashboard from "@/pages/sotuv/SotuvDashboard"
-import SotuvQoshish from "@/pages/components/SotuvQoshish"
-import SotuvlarRoyhati from "@/pages/components/SotuvlarRoyhati"
-import TolovOynasi from "@/pages/components/TolovOynasi"
-import QaytarilganTovarlar from "@/pages/components/QaytarilganTovarlar"
+
+import TolovOynasi from "@/pages/components/TolovOynasi";
+// Sotuv
+import SotuvLayout from "@/pages/sotuv/SotuvLayout";
+import SotuvDashboard from "@/pages/sotuv/SotuvDashboard";
+import SotuvlarRoyhati from "@/pages/components/SotuvlarRoyhati";
+import SotuvQoshishFormNew from "@/pages/components/SotuvQoshishFormNew";
+import QaytarilganTovarlar from "@/pages/components/QaytarilganTovarlar";
 
 // ✅ MOLIYA (modul)
-import FinanceLayout from "@/pages/finance/FinanceLayout"
-import FinanceDashboard from "@/pages/finance/FinanceDashboard"
-import Kassa from "@/pages/components/Kassa"
-import KunlikTopshirish from "@/pages/components/KunlikTopshirish"
-import Qarzdozlik from "@/pages/components/Qarzdozlik"
+import FinanceLayout from "@/pages/finance/FinanceLayout";
+import FinanceDashboard from "@/pages/finance/FinanceDashboard";
+import Kassa from "@/pages/components/Kassa";
+import KunlikTopshirish from "@/pages/components/KunlikTopshirish";
+import Qarzdozlik from "@/pages/components/Qarzdozlik";
 
 // ✅ OMBOR (modul)
-import OmborLayout from "@/pages/ombor/OmborLayout"
-import QoldiqlashLayout from "@/pages/ombor/QoldiqlashLayout"
-import ProductForm from "@/pages/ombor/ProductForm"
-import IngredientForm from "@/pages/ombor/IngredientForm"
-import KirimForm from "@/pages/components/Kirim"
-import Inventarizatsiya from "@/pages/ombor/Inventarizatsiya"
-import Kochirish from "@/pages/components/Kochirish"
-
+import OmborLayout from "@/pages/ombor/OmborLayout";
+import QoldiqlashLayout from "@/pages/ombor/QoldiqlashLayout";
+import ProductForm from "@/pages/ombor/ProductForm";
+import IngredientForm from "@/pages/ombor/IngredientForm";
+import KirimForm from "@/pages/ombor/KirimForm";
+import Inventarizatsiya from "@/pages/ombor/Inventarizatsiya";
+import Kochirish from "@/pages/components/Kochirish";
 // ✅ NOTIFICATION & VOLUME
 import NotificationPage from "@/pages/notification/notification"
 import VolumePage from "@/pages/notification/VolumePage"
 
 // ✅ XODIMLAR
-import Xodimlar from "@/pages/xodimlar/Xodimlar"
-import Form from "@/pages/xodimlar/Form"
+import Xodimlar from "@/pages/xodimlar/Xodimlar";
+import Form from "@/pages/xodimlar/Form";
 
 // ✅ Simple wrapper (nested route uchun)
 function XodimlarWrapper() {
-  return <Outlet />
+  return <Outlet />;
 }
 
 export const router = createBrowserRouter([
@@ -107,10 +111,20 @@ export const router = createBrowserRouter([
             element: <SotuvLayout />,
             children: [
               { index: true, element: <SotuvDashboard /> },
-              { path: "sotuv-qoshish", element: <SotuvQoshish /> },
+              {
+                path: "sotuv-qoshish-form-new",
+                element: <SotuvQoshishFormNew />,
+              },
               { path: "sotuvlar-royhati", element: <SotuvlarRoyhati /> },
               { path: "tolov-oynasi", element: <TolovOynasi /> },
-              { path: "qaytarilgan-tovarlar", element: <QaytarilganTovarlar /> },
+              {
+                path: "qaytarilgan-tovarlar",
+                element: <QaytarilganTovarlar />,
+              },
+              {
+                path: "qaytarilgan-tovarlar",
+                element: <QaytarilganTovarlar />,
+              },
               { path: "*", element: <Navigate to="/sotuv" replace /> },
             ],
           },
@@ -138,8 +152,15 @@ export const router = createBrowserRouter([
           },
 
           // ✅ eski ombor url’lar sinmasin
-          { path: "qoldiqlash", element: <Navigate to="/ombor/qoldiqlash" replace /> },
+          {
+            path: "qoldiqlash",
+            element: <Navigate to="/ombor/qoldiqlash" replace />,
+          },
           { path: "kirim", element: <Navigate to="/ombor/kirim" replace /> },
+          {
+            path: "kochirish",
+            element: <Navigate to="/ombor/kochirish" replace />,
+          },
           { path: "kochirish", element: <Navigate to="/ombor/kochirish" replace /> },
           {
             path: "inventarizatsiya",
@@ -175,4 +196,4 @@ export const router = createBrowserRouter([
   { path: "topbar4", element: <Topbar4 /> },
 
   { path: "*", element: <Navigate to="/dashboard" replace /> },
-])
+]);

@@ -7,7 +7,7 @@ import BarRaceChart from "@/pages/BarChard";
 export default function SotuvDashboard() {
   return (
     <div className="w-full max-w-[1402px] mx-auto px-8 mt-6">
-      <div className="bg-[#EBF0FA] border border-[#6049E3] rounded-2xl p-6">
+      <div className="bg-[#EBF0FA] border border-[#334F9D] rounded-2xl p-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <ChartCard />
           <ChartCard2 />

@@ -1,16 +1,8 @@
+// import SalesList from "./SalesList";
 import { useState } from "react";
-import SalesCreateForm from "./SalesCreateForm";
-import SalesList from "./SalesList";
-import SotuvQoshishRight from "./SotuvQoshishRight";
-type SalesFormValues = {
-  klientNomi: string;
-  tovarNomi: string;
-  sanasi: string;
-  miqdori: number;
-  narxi: number;
-  ndsNarxi: string;
-  status: string;
-};
+// import SalesCreateFormNew from "./SalesCreateFormNew";
+// import { useCreateSale } from "@/features/sales/sales.queries";
+// import type { SaleFormValues } from "@/features/sales/sales.schema";
 type Row = {
   id: number;
   klientNomi: string;
@@ -18,12 +10,11 @@ type Row = {
   sanasi: string;
   miqdori: string;
   narxi: string;
-  ndsNarxi: string;
-  status: string;
+  ndsFoyzi: string;
 };
 
 export default function SotuvlarRoyhati() {
-  const [data, setData] = useState<Row[]>([
+  const [data] = useState<Row[]>([
     {
       id: 1,
       klientNomi: "Alibekov K",
@@ -31,8 +22,7 @@ export default function SotuvlarRoyhati() {
       sanasi: "18.10.2025",
       miqdori: "2000",
       narxi: "800 000",
-      ndsNarxi: "12%",
-      status: "Tasdiqlangan",
+      ndsFoyzi: "12%",
     },
     {
       id: 2,
@@ -41,8 +31,7 @@ export default function SotuvlarRoyhati() {
       sanasi: "14.04.2025",
       miqdori: "8000",
       narxi: "400 000",
-      ndsNarxi: "1%",
-      status: "Tasdiqlangan",
+      ndsFoyzi: "1%",
     },
     {
       id: 3,
@@ -51,8 +40,7 @@ export default function SotuvlarRoyhati() {
       sanasi: "17.08.2025",
       miqdori: "7400",
       narxi: "890 000",
-      ndsNarxi: "17%",
-      status: "Tasdiqlangan",
+      ndsFoyzi: "17%",
     },
     {
       id: 4,
@@ -61,8 +49,7 @@ export default function SotuvlarRoyhati() {
       sanasi: "11.08.2025",
       miqdori: "7100",
       narxi: "100 000",
-      ndsNarxi: "8%",
-      status: "Tasdiqlangan",
+      ndsFoyzi: "8%",
     },
     {
       id: 5,
@@ -71,8 +58,7 @@ export default function SotuvlarRoyhati() {
       sanasi: "19.01.2025",
       miqdori: "7900",
       narxi: "10 000",
-      ndsNarxi: "0.5%",
-      status: "Tasdiqlangan",
+      ndsFoyzi: "0.5%",
     },
     {
       id: 6,
@@ -81,8 +67,7 @@ export default function SotuvlarRoyhati() {
       sanasi: "10.09.2025",
       miqdori: "700",
       narxi: "190 000",
-      ndsNarxi: "17%",
-      status: "Tasdiqlangan",
+      ndsFoyzi: "17%",
     },
     {
       id: 7,
@@ -91,8 +76,7 @@ export default function SotuvlarRoyhati() {
       sanasi: "15.05.2025",
       miqdori: "5200",
       narxi: "790 000",
-      ndsNarxi: "2%",
-      status: "Tasdiqlangan",
+      ndsFoyzi: "2%",
     },
     {
       id: 8,
@@ -101,73 +85,24 @@ export default function SotuvlarRoyhati() {
       sanasi: "01.02.2025",
       miqdori: "750",
       narxi: "790 000",
-      ndsNarxi: "22%",
-      status: "Tasdiqlangan",
+      ndsFoyzi: "22%",
     },
   ]);
 
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [mode, setMode] = useState<"create" | "edit">("create");
   const [editingRow, setEditingRow] = useState<Row | null>(null);
 
-  function openCreate() {
-    setMode("create");
-    setEditingRow(null);
-    setDrawerOpen(true);
-  }
-
   function openEdit(row: Row) {
-    setMode("edit");
     setEditingRow(row);
-    setDrawerOpen(true);
-  }
 
-  function handleCreate(formData: SalesFormValues) {
-    const newRow: Row = {
-      id: Date.now(),
-      klientNomi: formData.klientNomi,
-      tovarNomi: formData.tovarNomi,
-      sanasi: formData.sanasi,
-      miqdori: String(formData.miqdori),
-      narxi: String(formData.narxi),
-      ndsNarxi: String(formData.ndsNarxi),
-      status: formData.status,
-    };
-    setData((prev) => [newRow, ...prev]);
-  }
-
-  function handleUpdate(formData: SalesFormValues) {
-    if (!editingRow) return;
-    setData((prev) =>
-      prev.map((r) =>
-        r.id === editingRow.id
-          ? {
-              ...r,
-              klientNomi: formData.klientNomi,
-              tovarNomi: formData.tovarNomi,
-              sanasi: formData.sanasi,
-              miqdori: String(formData.miqdori),
-              narxi: String(formData.narxi),
-              ndsNarxi: String(formData.ndsNarxi),
-              status: formData.status,
-            }
-          : r
-      )
-    );
-  }
-
-  function removeRow(id: number) {
-    if (!confirm("O‘chirasizmi?")) return;
-    setData((prev) => prev.filter((x) => x.id !== id));
+    console.log("Edit row:", row);
   }
 
   return (
     <div className="container mx-auto px-8 w-full">
-      <section className="bg-[#EBF0FA] border border-[#334F9D] rounded-3xl shadow-sm px-6  max-w-[1402px] my-8">
-        <div className="flex items-center justify-between mb-4 mt-1">
+      <section className="bg-[#EBF0FA] border border-[#334F9D] rounded-3xl shadow-sm px-6 max-w-[1402px] my-8">
+        <div className="flex items-center justify-between mb-4 mt-6">
           <h2 className="font-bold text-[28px] text-black">Sotuv Ro'yhati</h2>
-
-          <SalesList onCreate={openCreate} />
+          <button>Add</button>
         </div>
 
         <div className="overflow-x-auto">
@@ -179,10 +114,12 @@ export default function SotuvlarRoyhati() {
                 <th className="py-3 font-medium">Tovar Nomi</th>
                 <th className="py-3 font-medium">Miqdori</th>
                 <th className="py-3 px-2 font-medium">Narxi</th>
-                <th className="py-3 px-2 font-medium">NDS Narxi</th>
+                <th className="py-3 px-2 font-medium">NDS Foyzi</th>
                 <th className="py-3 px-2 font-medium">Sanasi</th>
-                <th className="py-3 pr-4 font-medium text-right">Status</th>
-                <th className="py-3 pr-12 font-medium text-right">Actions</th>
+
+                <th className="py-3 pr-2 font-medium flex justify-center">
+                  Actions
+                </th>
               </tr>
             </thead>
 
@@ -190,7 +127,7 @@ export default function SotuvlarRoyhati() {
               {data.map((row, index) => (
                 <tr
                   key={row.id}
-                  className="border-t border-[#D0D0D0] text-sm text-black font-stretch-80%"
+                  className="border-t border-[#D0D0D0] text-sm text-black"
                 >
                   <td className="py-4 px-4">
                     {String(index + 1).padStart(2, "0")}
@@ -199,18 +136,22 @@ export default function SotuvlarRoyhati() {
                   <td className="py-4 px-4">{row.tovarNomi}</td>
                   <td className="py-4 px-4">{row.miqdori}</td>
                   <td className="py-4 px-2">{row.narxi}</td>
-                  <td className="py-4 px-8">{row.ndsNarxi}</td>
+                  <td className="py-4 px-8">{row.ndsFoyzi}</td>
                   <td className="py-4">{row.sanasi}</td>
-                  <td className="py-4   text-right">
-                    <span className="text-[#1C96C8]">{row.status}</span>
-                  </td>
-                  <td className=" text-center space-x-3">
+                  <td className="py-4 justify-center gap-2 flex">
                     <button
                       type="button"
                       onClick={() => openEdit(row)}
-                      className="text-white cursor-pointer bg-gradient-to-b from-[#3E7B27] to-[#387F39] w-[70px] h-[28px] rounded-3xl"
+                      className="text-white cursor-pointer bg-gradient-to-t from-[#1C96C8] to-[#334F9D] w-[70px] h-[28px] rounded-3xl"
                     >
                       Edit
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => removeRow(row.id)}
+                      className="text-white cursor-pointer bg-gradient-to-l from-[#1C96C8] to-[#334F9D] w-[70px] h-[28px] rounded-3xl"
+                    >
+                      Delete
                     </button>
                   </td>
                 </tr>
@@ -226,30 +167,13 @@ export default function SotuvlarRoyhati() {
             </tbody>
           </table>
         </div>
-      </section>
 
-      <SotuvQoshishRight open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-        <SalesCreateForm
-          mode={mode}
-          initialValues={
-            editingRow
-              ? {
-                  klientNomi: editingRow.klientNomi,
-                  tovarNomi: editingRow.tovarNomi,
-                  sanasi: editingRow.sanasi,
-                  miqdori: Number(editingRow.miqdori),
-                  narxi: Number(editingRow.narxi),
-                  status: editingRow.status,
-                }
-              : undefined
-          }
-          onClose={() => setDrawerOpen(false)}
-          onSubmitForm={(formData) => {
-            if (mode === "edit") handleUpdate(formData);
-            else handleCreate(formData);
-          }}
-        />
-      </SotuvQoshishRight>
+        {editingRow && (
+          <div className="mt-4 text-sm text-slate-600">
+            Editing: <b>{editingRow.klientNomi}</b> — {editingRow.tovarNomi}
+          </div>
+        )}
+      </section>
     </div>
   );
 }
