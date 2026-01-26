@@ -1,14 +1,13 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { unknown } from "zod";
+// import { unknown } from "zod";
 
 export type SalesFormValues = {
-  sotuvId: string;
   klientNomi: string;
   tovarNomi: string;
   sanasi: string;
   miqdori: number;
   narxi: number;
-  ndsNarxi: number;
+  ndsFoyzi: number;
   status: string;
 };
 
@@ -22,12 +21,11 @@ export default function SalesCreateForm({
   const { register, handleSubmit, reset } = useForm<SalesFormValues>({
     mode: "onChange",
     defaultValues: {
-      sotuvId: "",
       klientNomi: "",
       tovarNomi: "",
       miqdori: undefined as unknown as number,
       narxi: undefined as unknown as number,
-      ndsNarxi: undefined as unknown as number,
+      ndsFoyzi: undefined as unknown as number,
       sanasi: "",
       status: "Tasdiqlangan",
     },
@@ -48,16 +46,6 @@ export default function SalesCreateForm({
         >
           Yangi sotuv qo‘shish
         </h2>
-
-        <div>
-          <label className="block mb-1 text-md">Sotuv ID</label>
-          <input
-            type="number"
-            {...register("sotuvId", { required: true, valueAsNumber: true })}
-            className="w-full rounded-3xl border px-3 py-2 shadow-md focus:shadow-[#334F9D] focus:border-2 outline-none border-[#334F9D]"
-            placeholder="7654098"
-          />
-        </div>
 
         <div>
           <label className="block mb-1 text-md">Mijoz nomi</label>
