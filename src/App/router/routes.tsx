@@ -11,12 +11,11 @@ import PublicOnlyRoute from "@/pages/auth/PublicOnlyRoute"
 import Topbar4 from "@/widgets/topbar4/Topbar4"
 
 // ✅ SOTUV (modul)
+
 // Sotuv
 import SotuvLayout from "@/pages/sotuv/SotuvLayout";
 import SotuvDashboard from "@/pages/sotuv/SotuvDashboard";
 import SotuvlarRoyhati from "@/pages/components/SotuvlarRoyhati";
-import SotuvQoshishFormNew from "@/pages/components/SotuvQoshishFormNew";
-import QaytarilganTovarlar from "@/pages/components/QaytarilganTovarlar";
 
 // ✅ MOLIYA (modul)
 import FinanceLayout from "@/pages/finance/FinanceLayout";
@@ -40,6 +39,7 @@ import VolumePage from "@/pages/notification/VolumePage";
 // ✅ XODIMLAR
 import Xodimlar from "@/pages/xodimlar/Xodimlar";
 import Form from "@/pages/xodimlar/Form";
+import SotuvQoshishForm from "@/pages/components/SotuvQoshishFormNew";
 
 // ✅ Simple wrapper (nested route uchun)
 function XodimlarWrapper() {
@@ -109,19 +109,14 @@ export const router = createBrowserRouter([
             element: <SotuvLayout />,
             children: [
               { index: true, element: <SotuvDashboard /> },
-              {
-                path: "sotuv-qoshish-form-new",
-                element: <SotuvQoshishFormNew />,
-              },
+
               { path: "sotuvlar-royhati", element: <SotuvlarRoyhati /> },
               {
                 path: "qaytarilgan-tovarlar",
-                element: <QaytarilganTovarlar />,
+                element: <QaytarilganTovarlarRight3 />,
               },
-              {
-                path: "qaytarilgan-tovarlar",
-                element: <QaytarilganTovarlar />,
-              },
+              { path: "sotuv-qoshish-form", element: <SotuvQoshishForm /> },
+
               { path: "*", element: <Navigate to="/sotuv" replace /> },
             ],
           },
