@@ -7,15 +7,10 @@ import DashboardPage from "@/pages/Dashboard/DashboardPage";
 import LoginPage from "@/pages/auth/LoginPage";
 
 import ProtectedRoute from "@/pages/auth/ProtectedRoute";
-import PublicOnlyRoute from "@/pages/auth/PublicOnlyRoute";
-=======
-import ProtectedRoute from "@/pages/auth/ProtectedRoute"
 import PublicOnlyRoute from "@/pages/auth/PublicOnlyRoute"
 import Topbar4 from "@/widgets/topbar4/Topbar4"
 
 // ✅ SOTUV (modul)
-
-import TolovOynasi from "@/pages/components/TolovOynasi";
 // Sotuv
 import SotuvLayout from "@/pages/sotuv/SotuvLayout";
 import SotuvDashboard from "@/pages/sotuv/SotuvDashboard";
@@ -116,7 +111,6 @@ export const router = createBrowserRouter([
                 element: <SotuvQoshishFormNew />,
               },
               { path: "sotuvlar-royhati", element: <SotuvlarRoyhati /> },
-              { path: "tolov-oynasi", element: <TolovOynasi /> },
               {
                 path: "qaytarilgan-tovarlar",
                 element: <QaytarilganTovarlar />,
