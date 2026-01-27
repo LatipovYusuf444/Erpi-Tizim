@@ -3,6 +3,8 @@ import { useState } from "react";
 // import SalesCreateFormNew from "./SalesCreateFormNew";
 // import { useCreateSale } from "@/features/sales/sales.queries";
 // import type { SaleFormValues } from "@/features/sales/sales.schema";
+import { useNavigate } from "react-router-dom";
+
 type Row = {
   id: number;
   klientNomi: string;
@@ -15,6 +17,8 @@ type Row = {
 };
 
 export default function SotuvlarRoyhati() {
+  const navigate = useNavigate();
+
   const [data] = useState<Row[]>([
     {
       id: 1,
@@ -98,22 +102,14 @@ export default function SotuvlarRoyhati() {
     },
   ]);
 
-  const [editingRow, setEditingRow] = useState<Row | null>(null);
-
-  function openEdit(row: Row) {
-    setEditingRow(row);
-
-    console.log("Edit row:", row);
-  }
-
   return (
     <div className="container mx-auto px-8 w-full">
       <section className="bg-[#EBF0FA] border border-[#334F9D] rounded-3xl shadow-sm px-6 max-w-[1402px] my-8">
         <div className="flex items-center justify-between mb-4 mt-6">
           <h2 className="font-bold text-[28px] text-black">Sotuv Ro'yhati</h2>
           <button
+            onClick={() => navigate("/sotuv/sotuv-qoshish-form")}
             type="button"
-            // onClick={}
             className="text-white cursor-pointer bg-gradient-to-l from-[#1C96C8] to-[#334F9D] w-[110px] h-[34px] rounded-3xl text-[19px] hover:bg-gradient-to-t from-[#1C96C8] to-[#334F9D] "
           >
             Add
@@ -182,12 +178,6 @@ export default function SotuvlarRoyhati() {
             </tbody>
           </table>
         </div>
-
-        {editingRow && (
-          <div className="mt-4 text-sm text-slate-600">
-            Editing: <b>{editingRow.klientNomi}</b> — {editingRow.tovarNomi}
-          </div>
-        )}
       </section>
     </div>
   );

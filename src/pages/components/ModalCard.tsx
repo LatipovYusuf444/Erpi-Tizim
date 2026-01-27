@@ -4,7 +4,7 @@ export const Overlay = styled.div`
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.45);
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(3px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,7 +17,6 @@ export const Card = styled.div`
   max-width: 1200px;
   max-height: 90vh;
   overflow-y: auto;
-
   border-radius: 24px;
   transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
 
@@ -38,7 +37,6 @@ export const Card = styled.div`
     width: 90%;
     height: 90%;
     transform: translateX(-50%);
-    background: #ced8ff;
     border-radius: inherit;
     z-index: -1;
   }
@@ -51,7 +49,6 @@ export const Card = styled.div`
     width: 80%;
     height: 80%;
     transform: translateX(-50%);
-    background: #e7ecff;
     border-radius: inherit;
     z-index: -2;
   }

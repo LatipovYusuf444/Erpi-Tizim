@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronsDown, CircleFadingPlus, X } from "lucide-react";
 import { Overlay, Card } from "./ModalCard";
+import { useNavigate } from "react-router-dom";
+
 const options = ["Jasur", "Asad", "Wer", "Zoxid", "Rozmat"];
 const options2 = ["New Rar", "W.web", "Streat.ko", "Query", "Start"];
 const options3 = ["Kill bite", "H.web", "Lpik.crud", "Query J", "Www Staff"];
@@ -10,6 +12,7 @@ const options9 = ["Naqd", "Karta", "Bank"];
 
 export default function SotuvQoshishForm() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!open) return;
@@ -27,46 +30,45 @@ export default function SotuvQoshishForm() {
       document.body.style.overflow = prevOverflow;
     };
   }, [open]);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") navigate(-1);
+    };
+
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [navigate]);
 
   return (
     <div className="w-full h-[450px] py-4">
-      <button
-        type="button"
-        // onClick={}
-        className="text-white cursor-pointer bg-gradient-to-l from-[#1C96C8] to-[#334F9D] w-[110px] h-[34px] rounded-3xl text-[19px] hover:bg-gradient-to-t from-[#1C96C8] to-[#334F9D] "
-      >
-        Add
-      </button>
-
-      {open && (
-        <Overlay onMouseDown={() => setOpen(false)}>
-          <Card onMouseDown={(e) => e.stopPropagation()}>
-            <div className="content">
-              {/* Header */}
-              <div className="flex items-center justify-between w-full h-auto gap-3">
-                <div>
-                  <h2 className="text-2xl font-semibold">Sotuv qo‘shish</h2>
-                  <p className="text-white/80 text-sm">
-                    Mijoz, mahsulot, narx va to‘lov ma’lumotlarini kiriting
-                  </p>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  className="p-2 rounded-xl bg-white/15 hover:bg-white/25 transition"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+      <Overlay onMouseDown={() => navigate(-1)}>
+        <Card onMouseDown={(e) => e.stopPropagation()}>
+          <div className="content">
+            <div className="flex items-center justify-between w-full h-auto gap-3">
+              <div>
+                <h2 className="text-2xl text-white font-semibold">
+                  Sotuv qo‘shish
+                </h2>
+                <p className="text-white/80 text-sm">
+                  Mijoz, mahsulot, narx va to‘lov ma’lumotlarini kiriting
+                </p>
               </div>
 
-              <div className="scroll">
-                <SotuvQoshishFormNew />
-              </div>
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="p-2 rounded-xl bg-white/15 hover:bg-white/25 transition"
+              >
+                <X className="w-5 h-5" />
+              </button>
             </div>
-          </Card>
-        </Overlay>
-      )}
+
+            <div className="scroll">
+              <SotuvQoshishFormNew />
+            </div>
+          </div>
+        </Card>
+      </Overlay>
     </div>
   );
 }
