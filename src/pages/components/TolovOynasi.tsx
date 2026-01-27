@@ -1,6 +1,6 @@
-import SalesCreateForm2 from "./SalesCreateForm2";
+// import SalesCreateForm2 from "./SalesCreateForm2";
 import SalesList from "./SalesList";
-import TolovOynasiRight from "./TolovOynasiRight";
+// import TolovOynasiRight from "./TolovOynasiRight";
 import { useState } from "react";
 import type { SalesFormValues } from "./SalesCreateForm";
 

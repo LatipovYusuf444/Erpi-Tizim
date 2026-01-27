@@ -165,8 +165,7 @@ export default function QaytarilganTovarlar() {
         tovarNomi: editingRow.tovarNomi,
         sanasi: editingRow.sanasi,
         miqdori: Number(editingRow.miqdori),
-        // ⚠️ narxi "800 000" ko‘rinishida bo‘lgani uchun Number() -> NaN bo‘ladi
-        // shuning uchun bo‘sh joyni olib tashlaymiz:
+
         narxi: Number(String(editingRow.narxi).replace(/\s/g, "")) || 0,
         status: editingRow.status,
       }
