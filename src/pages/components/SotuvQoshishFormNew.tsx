@@ -1,10 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { ChevronsDown, CircleFadingPlus } from "lucide-react";
+import { useMemo } from "react";
 
 const options = ["Jasur", "Asad", "Wer", "Zoxid", "Rozmat"];
 const options2 = ["New Rar", "W.web", "Streat.ko", "Query", "Start"];
 const options3 = ["Kill bite", "H.web", "Lpik.crud", "Query J", "Www Staff"];
 const options4 = ["Vilka", "Qoshiq", "Konteyner", "Paket"];
+const options8 = ["Singan", "Shikastlangan", "Brak"];
+const options9 = ["Naqd", "Karta", "Bank"];
 
 export default function SotuvQoshishFormNew() {
   const [open1, setOpen1] = useState(false);
@@ -19,11 +22,33 @@ export default function SotuvQoshishFormNew() {
   const [open4, setOpen4] = useState(false);
   const [value4, setValue4] = useState(options4[0]);
 
+  const [open9, setOpen9] = useState(false);
+  const [value9, setValue9] = useState(options9[0]);
+
+  const [open8, setOpen8] = useState(false);
+
+  const [value8, setValue8] = useState(options8[0]);
+  const [value10, setValue10] = useState("");
+
+  const [value7, setValue7] = useState("");
+  const [value6, setValue6] = useState("");
+  const [value5, setValue5] = useState("");
+
   const ref1 = useRef<HTMLDivElement>(null);
   const ref2 = useRef<HTMLDivElement>(null);
   const ref3 = useRef<HTMLDivElement>(null);
   const ref4 = useRef<HTMLDivElement>(null);
+  const ref8 = useRef<HTMLDivElement>(null);
+  const ref9 = useRef<HTMLDivElement>(null);
 
+  const priceWithNds = useMemo(() => {
+    const price = Number(value6);
+    const nds = Number(value7);
+
+    if (!price || !nds) return "";
+
+    return (price + (price * nds) / 100).toFixed(2);
+  }, [value6, value7]);
   useEffect(() => {
     const onDoc = (e: MouseEvent) => {
       const t = e.target as Node;
@@ -39,7 +64,7 @@ export default function SotuvQoshishFormNew() {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 mt-8">
+    <div className="container mx-auto min-h-[392px] px-4 mt-8 ">
       <div className="grid grid-cols-4 gap-6">
         {/* 1 */}
         <div ref={ref1} className="relative">
@@ -257,8 +282,98 @@ export default function SotuvQoshishFormNew() {
             </div>
           )}
         </div>
-        <div ref={ref4} className="relative">
-          <label className="text-[18px] pl-8">Miqdori</label>
+        <div className="flex flex-col gap-2 pl-8">
+          <label className=" text-[18px]" htmlFor="  ">
+            Miqdori
+          </label>
+          <input
+            type="text"
+            inputMode="decimal"
+            value={value5}
+            onChange={(e) => {
+              let v = e.target.value;
+
+              if (!/^\d*\.?\d*$/.test(v)) return;
+
+              if (v.length > 1 && v.startsWith("0") && !v.startsWith("0.")) {
+                v = v.replace(/^0+/, "");
+              }
+
+              setValue5(v);
+            }}
+            placeholder="8 000"
+            className="w-full h-11 px-4 pr-10 rounded-xl bg-[#EBF0FA]
+    border border-[#334F9D] outline-none
+    focus:border-[#1C96C8]"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2 pl-8">
+          <label className=" text-[18px]" htmlFor="  ">
+            Narxi
+          </label>
+          <input
+            type="text"
+            inputMode="decimal"
+            value={value6}
+            onChange={(e) => {
+              let v = e.target.value;
+
+              if (!/^\d*\.?\d*$/.test(v)) return;
+
+              if (v.length > 1 && v.startsWith("0") && !v.startsWith("0.")) {
+                v = v.replace(/^0+/, "");
+              }
+
+              setValue6(v);
+            }}
+            placeholder="2 400"
+            className="w-full h-11 px-4 pr-10 rounded-xl bg-[#EBF0FA]
+    border border-[#334F9D] outline-none
+    focus:border-[#1C96C8]"
+          />
+        </div>
+        <div className="flex flex-col gap-2 pl-8">
+          <label className=" text-[18px]" htmlFor="  ">
+            NDS Foyzi
+          </label>
+          <input
+            type="text"
+            inputMode="decimal"
+            value={value7}
+            onChange={(e) => {
+              let v = e.target.value;
+
+              if (!/^\d*\.?\d*$/.test(v)) return;
+
+              if (v.length > 1 && v.startsWith("0") && !v.startsWith("0.")) {
+                v = v.replace(/^0+/, "");
+              }
+
+              setValue7(v);
+            }}
+            placeholder="0.5 %"
+            className="w-full h-11 px-4 pr-10 rounded-xl bg-[#EBF0FA]
+    border border-[#334F9D] outline-none
+    focus:border-[#1C96C8] focus:outline-none"
+          />
+        </div>
+        <div className="flex flex-col gap-2 pl-8">
+          <label className="text-[18px]">
+            Narxi <span className="text-[16px] text-gray-600"> NDS bilan</span>
+          </label>
+          <input
+            type="text"
+            value={priceWithNds}
+            readOnly
+            placeholder="—"
+            className="max-w-full h-11 px-4 rounded-xl bg-[#EBF0FA]
+      border border-[#334F9D] text-[#334F9D]  font-semibold outline-none"
+          />
+        </div>
+
+        <div ref={ref8} className="relative">
+          <label className="text-[18px] pl-8">Statusi</label>
 
           <div className="flex items-center gap-2 mt-2">
             <button
@@ -271,15 +386,16 @@ export default function SotuvQoshishFormNew() {
             <button
               type="button"
               onClick={() => {
-                setOpen4((v) => !v);
+                setOpen8((v) => !v);
                 setOpen1(false);
                 setOpen2(false);
                 setOpen3(false);
+                setOpen4(false);
               }}
               className="w-full h-11 px-4 rounded-xl text-left bg-[#EBF0FA] border border-[#334F9D]
                          flex items-center justify-between"
             >
-              <span>{value4}</span>
+              <span>{value8}</span>
               <ChevronsDown
                 className="w-5 h-5 text-[#334F9D]"
                 strokeWidth={1}
@@ -287,18 +403,18 @@ export default function SotuvQoshishFormNew() {
             </button>
           </div>
 
-          {open4 && (
+          {open8 && (
             <div className="absolute z-50 mt-2 w-full rounded-xl border border-[#334F9D] bg-white shadow-lg overflow-hidden">
-              {options4.map((op) => (
+              {options8.map((op) => (
                 <button
                   key={op}
                   type="button"
                   onClick={() => {
-                    setValue4(op);
-                    setOpen4(false);
+                    setValue8(op);
+                    setOpen8(false);
                   }}
                   className={`w-full text-left px-4 py-2 hover:bg-slate-100 ${
-                    op === value4
+                    op === value8
                       ? "bg-[#EBF0FA] text-[#334F9D] font-semibold"
                       : ""
                   }`}
@@ -309,60 +425,21 @@ export default function SotuvQoshishFormNew() {
             </div>
           )}
         </div>
-        <div ref={ref4} className="relative">
-          <label className="text-[18px] pl-8">Narxi</label>
+        <div className="flex flex-col gap-2 pl-8">
+          <label className="text-[18px]">Sanasi</label>
 
-          <div className="flex items-center gap-2 mt-2">
-            <button
-              type="button"
-              className="cursor-pointer text-[#334F9D] hover:text-[#1C96C8] transition-colors"
-            >
-              <CircleFadingPlus className="w-5 h-5" />
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setOpen4((v) => !v);
-                setOpen1(false);
-                setOpen2(false);
-                setOpen3(false);
-              }}
-              className="w-full h-11 px-4 rounded-xl text-left bg-[#EBF0FA] border border-[#334F9D]
-                         flex items-center justify-between"
-            >
-              <span>{value4}</span>
-              <ChevronsDown
-                className="w-5 h-5 text-[#334F9D]"
-                strokeWidth={1}
-              />
-            </button>
-          </div>
-
-          {open4 && (
-            <div className="absolute z-50 mt-2 w-full rounded-xl border border-[#334F9D] bg-white shadow-lg overflow-hidden">
-              {options4.map((op) => (
-                <button
-                  key={op}
-                  type="button"
-                  onClick={() => {
-                    setValue4(op);
-                    setOpen4(false);
-                  }}
-                  className={`w-full text-left px-4 py-2 hover:bg-slate-100 ${
-                    op === value4
-                      ? "bg-[#EBF0FA] text-[#334F9D] font-semibold"
-                      : ""
-                  }`}
-                >
-                  {op}
-                </button>
-              ))}
-            </div>
-          )}
+          <input
+            type="date"
+            value={value10}
+            onChange={(e) => setValue10(e.target.value)}
+            className="w-full h-11 px-4 rounded-xl bg-[#EBF0FA]
+               border border-[#334F9D] outline-none
+               focus:border-[#1C96C8]"
+          />
         </div>
-        <div ref={ref4} className="relative">
-          <label className="text-[18px] pl-8">NDS Foyzi</label>
+
+        <div ref={ref9} className="relative">
+          <label className="text-[18px] pl-8">To'lov turi</label>
 
           <div className="flex items-center gap-2 mt-2">
             <button
@@ -375,15 +452,17 @@ export default function SotuvQoshishFormNew() {
             <button
               type="button"
               onClick={() => {
-                setOpen4((v) => !v);
+                setOpen9((v) => !v);
                 setOpen1(false);
                 setOpen2(false);
                 setOpen3(false);
+                setOpen4(false);
+                setOpen8(false);
               }}
               className="w-full h-11 px-4 rounded-xl text-left bg-[#EBF0FA] border border-[#334F9D]
                          flex items-center justify-between"
             >
-              <span>{value4}</span>
+              <span>{value9}</span>
               <ChevronsDown
                 className="w-5 h-5 text-[#334F9D]"
                 strokeWidth={1}
@@ -391,122 +470,18 @@ export default function SotuvQoshishFormNew() {
             </button>
           </div>
 
-          {open4 && (
+          {open9 && (
             <div className="absolute z-50 mt-2 w-full rounded-xl border border-[#334F9D] bg-white shadow-lg overflow-hidden">
-              {options4.map((op) => (
+              {options9.map((op) => (
                 <button
                   key={op}
                   type="button"
                   onClick={() => {
-                    setValue4(op);
-                    setOpen4(false);
+                    setValue9(op);
+                    setOpen9(false);
                   }}
                   className={`w-full text-left px-4 py-2 hover:bg-slate-100 ${
-                    op === value4
-                      ? "bg-[#EBF0FA] text-[#334F9D] font-semibold"
-                      : ""
-                  }`}
-                >
-                  {op}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-        <div ref={ref4} className="relative">
-          <label className="text-[18px] pl-8">Status</label>
-
-          <div className="flex items-center gap-2 mt-2">
-            <button
-              type="button"
-              className="cursor-pointer text-[#334F9D] hover:text-[#1C96C8] transition-colors"
-            >
-              <CircleFadingPlus className="w-5 h-5" />
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setOpen4((v) => !v);
-                setOpen1(false);
-                setOpen2(false);
-                setOpen3(false);
-              }}
-              className="w-full h-11 px-4 rounded-xl text-left bg-[#EBF0FA] border border-[#334F9D]
-                         flex items-center justify-between"
-            >
-              <span>{value4}</span>
-              <ChevronsDown
-                className="w-5 h-5 text-[#334F9D]"
-                strokeWidth={1}
-              />
-            </button>
-          </div>
-
-          {open4 && (
-            <div className="absolute z-50 mt-2 w-full rounded-xl border border-[#334F9D] bg-white shadow-lg overflow-hidden">
-              {options4.map((op) => (
-                <button
-                  key={op}
-                  type="button"
-                  onClick={() => {
-                    setValue4(op);
-                    setOpen4(false);
-                  }}
-                  className={`w-full text-left px-4 py-2 hover:bg-slate-100 ${
-                    op === value4
-                      ? "bg-[#EBF0FA] text-[#334F9D] font-semibold"
-                      : ""
-                  }`}
-                >
-                  {op}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>{" "}
-        <div ref={ref4} className="relative">
-          <label className="text-[18px] pl-8">Mahsulot</label>
-
-          <div className="flex items-center gap-2 mt-2">
-            <button
-              type="button"
-              className="cursor-pointer text-[#334F9D] hover:text-[#1C96C8] transition-colors"
-            >
-              <CircleFadingPlus className="w-5 h-5" />
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setOpen4((v) => !v);
-                setOpen1(false);
-                setOpen2(false);
-                setOpen3(false);
-              }}
-              className="w-full h-11 px-4 rounded-xl text-left bg-[#EBF0FA] border border-[#334F9D]
-                         flex items-center justify-between"
-            >
-              <span>{value4}</span>
-              <ChevronsDown
-                className="w-5 h-5 text-[#334F9D]"
-                strokeWidth={1}
-              />
-            </button>
-          </div>
-
-          {open4 && (
-            <div className="absolute z-50 mt-2 w-full rounded-xl border border-[#334F9D] bg-white shadow-lg overflow-hidden">
-              {options4.map((op) => (
-                <button
-                  key={op}
-                  type="button"
-                  onClick={() => {
-                    setValue4(op);
-                    setOpen4(false);
-                  }}
-                  className={`w-full text-left px-4 py-2 hover:bg-slate-100 ${
-                    op === value4
+                    op === value9
                       ? "bg-[#EBF0FA] text-[#334F9D] font-semibold"
                       : ""
                   }`}
