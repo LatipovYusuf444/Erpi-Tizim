@@ -492,10 +492,6 @@ export default function SotuvQoshishFormNew() {
             </div>
           )}
         </div>
-        <div>
-          <button>Add</button>
-          <button></button>
-        </div>
       </div>
     </div>
   );
