@@ -11,6 +11,7 @@ type Row = {
   miqdori: string;
   narxi: string;
   ndsFoyzi: string;
+  ndsNarxi: string;
 };
 
 export default function SotuvlarRoyhati() {
@@ -23,6 +24,7 @@ export default function SotuvlarRoyhati() {
       miqdori: "2000",
       narxi: "800 000",
       ndsFoyzi: "12%",
+      ndsNarxi: "896 000",
     },
     {
       id: 2,
@@ -32,6 +34,7 @@ export default function SotuvlarRoyhati() {
       miqdori: "8000",
       narxi: "400 000",
       ndsFoyzi: "1%",
+      ndsNarxi: "404 000",
     },
     {
       id: 3,
@@ -41,6 +44,7 @@ export default function SotuvlarRoyhati() {
       miqdori: "7400",
       narxi: "890 000",
       ndsFoyzi: "17%",
+      ndsNarxi: "1 041 300",
     },
     {
       id: 4,
@@ -50,6 +54,7 @@ export default function SotuvlarRoyhati() {
       miqdori: "7100",
       narxi: "100 000",
       ndsFoyzi: "8%",
+      ndsNarxi: "108 000",
     },
     {
       id: 5,
@@ -59,6 +64,7 @@ export default function SotuvlarRoyhati() {
       miqdori: "7900",
       narxi: "10 000",
       ndsFoyzi: "0.5%",
+      ndsNarxi: "10 050",
     },
     {
       id: 6,
@@ -68,6 +74,7 @@ export default function SotuvlarRoyhati() {
       miqdori: "700",
       narxi: "190 000",
       ndsFoyzi: "17%",
+      ndsNarxi: "222 300",
     },
     {
       id: 7,
@@ -77,6 +84,7 @@ export default function SotuvlarRoyhati() {
       miqdori: "5200",
       narxi: "790 000",
       ndsFoyzi: "2%",
+      ndsNarxi: "805 800",
     },
     {
       id: 8,
@@ -84,8 +92,9 @@ export default function SotuvlarRoyhati() {
       tovarNomi: "Tarelka",
       sanasi: "01.02.2025",
       miqdori: "750",
-      narxi: "790 000",
+      narxi: "540 000",
       ndsFoyzi: "22%",
+      ndsNarxi: "658 800",
     },
   ]);
 
@@ -102,7 +111,13 @@ export default function SotuvlarRoyhati() {
       <section className="bg-[#EBF0FA] border border-[#334F9D] rounded-3xl shadow-sm px-6 max-w-[1402px] my-8">
         <div className="flex items-center justify-between mb-4 mt-6">
           <h2 className="font-bold text-[28px] text-black">Sotuv Ro'yhati</h2>
-          <button>Add</button>
+          <button
+            type="button"
+            // onClick={}
+            className="text-white cursor-pointer bg-gradient-to-l from-[#1C96C8] to-[#334F9D] w-[110px] h-[34px] rounded-3xl text-[19px] hover:bg-gradient-to-t from-[#1C96C8] to-[#334F9D] "
+          >
+            Add
+          </button>
         </div>
 
         <div className="overflow-x-auto">
@@ -115,6 +130,7 @@ export default function SotuvlarRoyhati() {
                 <th className="py-3 font-medium">Miqdori</th>
                 <th className="py-3 px-2 font-medium">Narxi</th>
                 <th className="py-3 px-2 font-medium">NDS Foyzi</th>
+                <th className="py-3 px-2 font-medium">NDS Narxi</th>
                 <th className="py-3 px-2 font-medium">Sanasi</th>
 
                 <th className="py-3 pr-2 font-medium flex justify-center">
@@ -137,19 +153,18 @@ export default function SotuvlarRoyhati() {
                   <td className="py-4 px-4">{row.miqdori}</td>
                   <td className="py-4 px-2">{row.narxi}</td>
                   <td className="py-4 px-8">{row.ndsFoyzi}</td>
+                  <td className="py-4 px-8">{row.ndsNarxi}</td>
                   <td className="py-4">{row.sanasi}</td>
                   <td className="py-4 justify-center gap-2 flex">
                     <button
                       type="button"
-                      onClick={() => openEdit(row)}
-                      className="text-white cursor-pointer bg-gradient-to-t from-[#1C96C8] to-[#334F9D] w-[70px] h-[28px] rounded-3xl"
+                      className="text-white cursor-pointer bg-gradient-to-t from-[#1C96C8] to-[#334F9D] hover:bg-gradient-to-b from-[#1C96C8] to-[#334F9D] w-[70px] h-[28px] rounded-3xl"
                     >
                       Edit
                     </button>
                     <button
                       type="button"
-                      onClick={() => removeRow(row.id)}
-                      className="text-white cursor-pointer bg-gradient-to-l from-[#1C96C8] to-[#334F9D] w-[70px] h-[28px] rounded-3xl"
+                      className="text-white cursor-pointer bg-gradient-to-l from-[#1C96C8] to-[#334F9D] hover:bg-gradient-to-r from-[#1C96C8] to-[#334F9D] w-[70px] h-[28px] rounded-3xl"
                     >
                       Delete
                     </button>
