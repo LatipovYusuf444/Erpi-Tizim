@@ -111,10 +111,6 @@ export const router = createBrowserRouter([
               { index: true, element: <SotuvDashboard /> },
 
               { path: "sotuvlar-royhati", element: <SotuvlarRoyhati /> },
-              {
-                path: "qaytarilgan-tovarlar",
-                element: <QaytarilganTovarlarRight3 />,
-              },
               { path: "sotuv-qoshish-form", element: <SotuvQoshishForm /> },
 
               { path: "*", element: <Navigate to="/sotuv" replace /> },
