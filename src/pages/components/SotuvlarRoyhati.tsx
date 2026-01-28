@@ -1,106 +1,48 @@
-// import SalesList from "./SalesList";
-import { useState } from "react";
-// import SalesCreateFormNew from "./SalesCreateFormNew";
-// import { useCreateSale } from "@/features/sales/sales.queries";
-// import type { SaleFormValues } from "@/features/sales/sales.schema";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { fetchOrders } from "@/pages/components/ApiOrders";
 
 type Row = {
   id: number;
-  klientNomi: string;
-  tovarNomi: string;
-  sanasi: string;
-  miqdori: string;
-  narxi: string;
-  ndsFoyzi: string;
-  ndsNarxi: string;
+  client_name: string;
+  product_title: string;
+  created_at: string;
+  item_quantity: number;
+  item_price: number;
+  nds_percent: number;
+  price_with_nds: number;
+  total_price: number;
 };
 
 export default function SotuvlarRoyhati() {
   const navigate = useNavigate();
+  const [data, setData] = useState<Row[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    setLoading(true);
+    setError(null);
+    fetchOrders()
+      .then((item) => {
+        const rows: Row[] = item.map((item) => ({
+          id: item.id,
+          client_name: item.client_name,
+          product_title: item.product_title,
+          created_at: String(item.created_at),
+          item_quantity: Number(item.item_quantity),
+          item_price: Number(item.item_price),
+          nds_percent: Number(item.nds_percent),
+          price_with_nds: Number(item.price_with_nds),
+          total_price: Number(item.total_price),
+        }));
 
-  const [data] = useState<Row[]>([
-    {
-      id: 1,
-      klientNomi: "Alibekov K",
-      tovarNomi: "Konteyner",
-      sanasi: "18.10.2025",
-      miqdori: "2000",
-      narxi: "800 000",
-      ndsFoyzi: "12%",
-      ndsNarxi: "896 000",
-    },
-    {
-      id: 2,
-      klientNomi: "Alijanov R",
-      tovarNomi: "Vilka",
-      sanasi: "14.04.2025",
-      miqdori: "8000",
-      narxi: "400 000",
-      ndsFoyzi: "1%",
-      ndsNarxi: "404 000",
-    },
-    {
-      id: 3,
-      klientNomi: "Jasurov T",
-      tovarNomi: "Tarelka",
-      sanasi: "17.08.2025",
-      miqdori: "7400",
-      narxi: "890 000",
-      ndsFoyzi: "17%",
-      ndsNarxi: "1 041 300",
-    },
-    {
-      id: 4,
-      klientNomi: "Behruzov W",
-      tovarNomi: "Qoshiq",
-      sanasi: "11.08.2025",
-      miqdori: "7100",
-      narxi: "100 000",
-      ndsFoyzi: "8%",
-      ndsNarxi: "108 000",
-    },
-    {
-      id: 5,
-      klientNomi: "Behruzjonov M",
-      tovarNomi: "Qoshiq",
-      sanasi: "19.01.2025",
-      miqdori: "7900",
-      narxi: "10 000",
-      ndsFoyzi: "0.5%",
-      ndsNarxi: "10 050",
-    },
-    {
-      id: 6,
-      klientNomi: "Baburov K",
-      tovarNomi: "Konteyner",
-      sanasi: "10.09.2025",
-      miqdori: "700",
-      narxi: "190 000",
-      ndsFoyzi: "17%",
-      ndsNarxi: "222 300",
-    },
-    {
-      id: 7,
-      klientNomi: "Asadbekov A",
-      tovarNomi: "Qoshiq",
-      sanasi: "15.05.2025",
-      miqdori: "5200",
-      narxi: "790 000",
-      ndsFoyzi: "2%",
-      ndsNarxi: "805 800",
-    },
-    {
-      id: 8,
-      klientNomi: "Kaliev K",
-      tovarNomi: "Tarelka",
-      sanasi: "01.02.2025",
-      miqdori: "750",
-      narxi: "540 000",
-      ndsFoyzi: "22%",
-      ndsNarxi: "658 800",
-    },
-  ]);
+        setData(rows);
+      })
+      .catch((e) => {
+        setError(e?.message ?? "Xatolik");
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <div className="container mx-auto px-8 w-full">
@@ -115,69 +57,81 @@ export default function SotuvlarRoyhati() {
             Add
           </button>
         </div>
+        {loading && (
+          <div className="py-8 text-center text-slate-600">yuklanmoqda....</div>
+        )}
+        {!loading && error && (
+          <div className="text-center text-red-700 text-lg">Xatolik{error}</div>
+        )}
+        {!loading && !error && (
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="text-left text-[#334F9D] text-[18px]">
+                  <th className="py-3 px-2 font-medium">S/N</th>
+                  <th className="py-3 px-3 font-medium">Mijoz Nomi</th>
+                  <th className="py-3 font-medium">Tovar Nomi</th>
+                  <th className="py-3 font-medium">Miqdori</th>
+                  <th className="py-3 px-2 font-medium">Narxi</th>
+                  <th className="py-3 px-2 font-medium">NDS Foyzi</th>
+                  <th className="py-3 px-2 font-medium">NDS Narxi</th>
+                  <th className="py-3 px-2 font-medium">Umumiy Narxi</th>
+                  <th className="py-3 px-2 font-medium">Sanasi</th>
 
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="text-left text-[#334F9D] text-[18px]">
-                <th className="py-3 px-2 font-medium">S/N</th>
-                <th className="py-3 px-3 font-medium">Mijoz Nomi</th>
-                <th className="py-3 font-medium">Tovar Nomi</th>
-                <th className="py-3 font-medium">Miqdori</th>
-                <th className="py-3 px-2 font-medium">Narxi</th>
-                <th className="py-3 px-2 font-medium">NDS Foyzi</th>
-                <th className="py-3 px-2 font-medium">NDS Narxi</th>
-                <th className="py-3 px-2 font-medium">Sanasi</th>
-
-                <th className="py-3 pr-2 font-medium flex justify-center">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {data.map((row, index) => (
-                <tr
-                  key={row.id}
-                  className="border-t border-[#D0D0D0] text-sm text-black"
-                >
-                  <td className="py-4 px-4">
-                    {String(index + 1).padStart(2, "0")}
-                  </td>
-                  <td className="py-4 px-5">{row.klientNomi}</td>
-                  <td className="py-4 px-4">{row.tovarNomi}</td>
-                  <td className="py-4 px-4">{row.miqdori}</td>
-                  <td className="py-4 px-2">{row.narxi}</td>
-                  <td className="py-4 px-8">{row.ndsFoyzi}</td>
-                  <td className="py-4 px-8">{row.ndsNarxi}</td>
-                  <td className="py-4">{row.sanasi}</td>
-                  <td className="py-4 justify-center gap-2 flex">
-                    <button
-                      type="button"
-                      className="text-white cursor-pointer bg-gradient-to-t from-[#1C96C8] to-[#334F9D] hover:bg-gradient-to-b from-[#1C96C8] to-[#334F9D] w-[70px] h-[28px] rounded-3xl"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      type="button"
-                      className="text-white cursor-pointer bg-gradient-to-l from-[#1C96C8] to-[#334F9D] hover:bg-gradient-to-r from-[#1C96C8] to-[#334F9D] w-[70px] h-[28px] rounded-3xl"
-                    >
-                      Delete
-                    </button>
-                  </td>
+                  <th className="py-3 pr-2 font-medium flex justify-center">
+                    Actions
+                  </th>
                 </tr>
-              ))}
+              </thead>
 
-              {data.length === 0 && (
-                <tr>
-                  <td colSpan={11} className="text-center py-6 text-slate-500">
-                    Hozircha yo‘q
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+              <tbody>
+                {data.map((row, index) => (
+                  <tr
+                    key={row.id}
+                    className="border-t border-[#D0D0D0] text-sm text-black"
+                  >
+                    <td className="py-4 px-4">
+                      {String(index + 1).padStart(2, "0")}
+                    </td>
+                    <td className="py-4 px-5">{row.client_name}</td>
+                    <td className="py-4 px-4">{row.product_title}</td>
+                    <td className="py-4 px-4">{row.item_quantity}</td>
+                    <td className="py-4 px-2">{row.item_price}</td>
+                    <td className="py-4 px-8">{row.nds_percent}</td>
+                    <td className="py-4 px-8">{row.price_with_nds}</td>
+                    <td className="py-4 px-8">{row.total_price}</td>
+                    <td className="py-4">{row.created_at}</td>
+                    <td className="py-4 justify-center gap-2 flex">
+                      <button
+                        type="button"
+                        className="text-white cursor-pointer bg-gradient-to-t from-[#1C96C8] to-[#334F9D] hover:bg-gradient-to-b from-[#1C96C8] to-[#334F9D] w-[70px] h-[28px] rounded-3xl"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        className="text-white cursor-pointer bg-gradient-to-l from-[#1C96C8] to-[#334F9D] hover:bg-gradient-to-r from-[#1C96C8] to-[#334F9D] w-[70px] h-[28px] rounded-3xl"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+
+                {data.length === 0 && (
+                  <tr>
+                    <td
+                      colSpan={11}
+                      className="text-center py-6 text-slate-500"
+                    >
+                      Hozircha yo‘q
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
       </section>
     </div>
   );

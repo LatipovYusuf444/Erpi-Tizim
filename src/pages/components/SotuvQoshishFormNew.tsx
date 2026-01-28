@@ -7,7 +7,7 @@ const options = ["Jasur", "Asad", "Wer", "Zoxid", "Rozmat"];
 const options2 = ["New Rar", "W.web", "Streat.ko", "Query", "Start"];
 const options3 = ["Kill bite", "H.web", "Lpik.crud", "Query J", "Www Staff"];
 const options4 = ["Vilka", "Qoshiq", "Konteyner", "Paket"];
-const options8 = ["Singan", "Shikastlangan", "Brak"];
+const options8 = [1200, 2555, 950, 25000];
 const options9 = ["Naqd", "Karta", "Bank"];
 
 export default function SotuvQoshishForm() {
@@ -90,7 +90,6 @@ function SotuvQoshishFormNew() {
   const [open9, setOpen9] = useState(false);
   const [value9, setValue9] = useState(options9[0]);
 
-  const [open8, setOpen8] = useState(false);
   const [value8, setValue8] = useState(options8[0]);
 
   const [value10, setValue10] = useState("");
@@ -119,7 +118,6 @@ function SotuvQoshishFormNew() {
       if (!ref2.current?.contains(t)) setOpen2(false);
       if (!ref3.current?.contains(t)) setOpen3(false);
       if (!ref4.current?.contains(t)) setOpen4(false);
-      if (!ref8.current?.contains(t)) setOpen8(false);
       if (!ref9.current?.contains(t)) setOpen9(false);
     };
 
@@ -132,7 +130,6 @@ function SotuvQoshishFormNew() {
     setOpen2(false);
     setOpen3(false);
     setOpen4(false);
-    setOpen8(false);
     setOpen9(false);
   };
 
@@ -158,7 +155,6 @@ function SotuvQoshishFormNew() {
                   setOpen2(false);
                   setOpen3(false);
                   setOpen4(false);
-                  setOpen8(false);
                   setOpen9(false);
                 }}
                 className="w-full h-11 px-4 rounded-xl text-left bg-[#EBF0FA] border  border-[#334F9D]
@@ -215,7 +211,6 @@ function SotuvQoshishFormNew() {
                   setOpen1(false);
                   setOpen3(false);
                   setOpen4(false);
-                  setOpen8(false);
                   setOpen9(false);
                 }}
                 className="w-full h-11 px-4 rounded-xl text-left bg-[#EBF0FA] border border-[#334F9D]
@@ -273,7 +268,6 @@ function SotuvQoshishFormNew() {
                   setOpen1(false);
                   setOpen2(false);
                   setOpen4(false);
-                  setOpen8(false);
                   setOpen9(false);
                 }}
                 className="w-full h-11 px-4 rounded-xl text-left bg-[#EBF0FA] border border-[#334F9D]
@@ -310,37 +304,29 @@ function SotuvQoshishFormNew() {
             )}
           </div>
 
-          <div ref={ref4} className="relative">
-            <label className="text-[18px] pl-8 text-slate-800">Mahsulot</label>
-
-            <div className="flex items-center gap-2 mt-2">
-              <button
-                type="button"
-                className="cursor-pointer text-[#334F9D] hover:text-[#1C96C8] transition-colors"
-              >
-                <CircleFadingPlus className="w-5 h-5" />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setOpen4((v) => !v);
-                  setOpen1(false);
-                  setOpen2(false);
-                  setOpen3(false);
-                  setOpen8(false);
-                  setOpen9(false);
-                }}
-                className="w-full h-11 px-4 rounded-xl text-left bg-[#EBF0FA] border border-[#334F9D]
+          <div ref={ref4} className="relative flex flex-col gap-2">
+            <label className="text-[18px]  text-slate-800">Mahsulot</label>
+            <button
+              type="button"
+              onClick={() => {
+                setOpen4((v) => !v);
+                setOpen1(false);
+                setOpen2(false);
+                setOpen3(false);
+                setOpen9(false);
+              }}
+              className="w-full h-11 px-4 rounded-xl text-left bg-[#EBF0FA] border border-[#334F9D]
                          flex items-center justify-between"
-              >
+            >
+              <div className="flex gap-24">
                 <span className="text-slate-800">{value4}</span>
-                <ChevronsDown
-                  className="w-5 h-5 text-[#334F9D]"
-                  strokeWidth={1}
-                />
-              </button>
-            </div>
+                <span className="text-slate-800">{}</span>
+              </div>
+              <ChevronsDown
+                className="w-5 h-5 text-[#334F9D]"
+                strokeWidth={1}
+              />
+            </button>
 
             {open4 && (
               <div className="absolute z-50 mt-2 w-full rounded-xl border border-[#334F9D] bg-white shadow-lg text-slate-800 overflow-hidden">
@@ -385,25 +371,6 @@ function SotuvQoshishFormNew() {
           </div>
 
           <div className="flex flex-col gap-2 pl-8">
-            <label className="text-[18px] text-slate-800">Narxi</label>
-            <input
-              type="text"
-              inputMode="decimal"
-              value={value6}
-              onChange={(e) => {
-                let v = e.target.value;
-                if (!/^\d*\.?\d*$/.test(v)) return;
-                if (v.length > 1 && v.startsWith("0") && !v.startsWith("0."))
-                  v = v.replace(/^0+/, "");
-                setValue6(v);
-              }}
-              placeholder="2 400"
-              className="w-full h-11 px-4 pr-10 rounded-xl text-slate-800 bg-[#EBF0FA]
-              border border-[#334F9D] outline-none focus:border-[#1C96C8]"
-            />
-          </div>
-
-          <div className="flex flex-col gap-2 pl-8">
             <label className="text-[18px] text-slate-800">NDS Foyzi</label>
             <input
               type="text"
@@ -435,61 +402,6 @@ function SotuvQoshishFormNew() {
               className="max-w-full h-11 px-4 rounded-xl bg-[#EBF0FA]
               border border-[#334F9D] text-[#334F9D] font-semibold outline-none"
             />
-          </div>
-
-          <div ref={ref8} className="relative">
-            <label className="text-[18px] pl-8 text-slate-800">Statusi</label>
-
-            <div className="flex items-center gap-2 mt-2">
-              <button
-                type="button"
-                className="cursor-pointer text-[#334F9D] hover:text-[#1C96C8] transition-colors"
-              >
-                <CircleFadingPlus className="w-5 h-5" />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setOpen8((v) => !v);
-                  setOpen1(false);
-                  setOpen2(false);
-                  setOpen3(false);
-                  setOpen4(false);
-                  setOpen9(false);
-                }}
-                className="w-full h-11 px-4 rounded-xl text-left bg-[#EBF0FA] border border-[#334F9D]
-                         flex items-center justify-between"
-              >
-                <span className="text-slate-800">{value8}</span>
-                <ChevronsDown
-                  className="w-5 h-5 text-[#334F9D]"
-                  strokeWidth={1}
-                />
-              </button>
-            </div>
-
-            {open8 && (
-              <div className="absolute z-50 mt-2 w-full rounded-xl border border-[#334F9D] bg-white shadow-lg text-slate-800 overflow-hidden">
-                {options8.map((op) => (
-                  <button
-                    key={op}
-                    type="button"
-                    onClick={() => {
-                      setValue8(op);
-                      setOpen8(false);
-                    }}
-                    className={`w-full text-left px-4 py-2 hover:bg-slate-100 ${
-                      op === value8
-                        ? "bg-[#EBF0FA] text-[#334F9D] font-semibold"
-                        : ""
-                    }`}
-                  >
-                    {op}
-                  </button>
-                ))}
-              </div>
-            )}
           </div>
 
           <div className="flex flex-col gap-2 pl-8">
@@ -524,7 +436,6 @@ function SotuvQoshishFormNew() {
                   setOpen2(false);
                   setOpen3(false);
                   setOpen4(false);
-                  setOpen8(false);
                 }}
                 className="w-full h-11 px-4 rounded-xl text-left bg-[#EBF0FA] border border-[#334F9D]
                          flex items-center justify-between"
