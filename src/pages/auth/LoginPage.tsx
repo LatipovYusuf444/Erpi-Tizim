@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { Input } from "@/components/ui/input"
 import { useNavigate } from "react-router-dom"
-
 import { toast } from "react-toastify"
 
 import { z } from "zod"
@@ -10,7 +9,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 
 const loginSchema = z.object({
   username: z.string().min(5, "Username kamida 5 ta harf bo‘lsin"),
-  password: z.string().min(8, "Password kamida 8 ta harf yoki sondan iborat bo‘lsin"),
+  password: z
+    .string()
+    .min(8, "Password kamida 8 ta harf yoki sondan iborat bo‘lsin"),
 })
 
 type LoginValues = z.infer<typeof loginSchema>
@@ -58,11 +59,9 @@ export default function LoginPage() {
           minWidth: 200,
           scale: 1,
           scaleMobile: 1,
-
           color: 0x14add6,
           backgroundColor: 0x384295,
           highlightColor: 0x14add6,
-
           shininess: 95,
           waveHeight: 20.5,
           waveSpeed: 1.2,
@@ -73,8 +72,8 @@ export default function LoginPage() {
 
     return () => {
       vantaEffectRef.current?.destroy?.()
-      document.body.removeChild(threeScript)
-      document.body.removeChild(vantaScript)
+      if (document.body.contains(threeScript)) document.body.removeChild(threeScript)
+      if (document.body.contains(vantaScript)) document.body.removeChild(vantaScript)
     }
   }, [])
 
@@ -82,21 +81,14 @@ export default function LoginPage() {
   const onSubmit = async (values: LoginValues) => {
     setLoading(true)
 
-    // ❗ vaqtinchalik to‘g‘ri login
     const CORRECT_USERNAME = "admin"
     const CORRECT_PASSWORD = "admin123"
 
     await new Promise((r) => setTimeout(r, 600))
 
-    if (
-      values.username === CORRECT_USERNAME &&
-      values.password === CORRECT_PASSWORD
-    ) {
+    if (values.username === CORRECT_USERNAME && values.password === CORRECT_PASSWORD) {
       toast.success("Login tasdiqlandi ✅")
-
-      // auth saqlaymiz
       localStorage.setItem("erp_auth", "true")
-
       navigate("/dashboard", { replace: true })
     } else {
       toast.error("Login yoki Parol noto‘g‘ri ❌")
@@ -105,62 +97,83 @@ export default function LoginPage() {
     setLoading(false)
   }
 
-
   return (
-    <div className="relative w-full h-[742px] overflow-hidden">
+    <div className="relative w-full min-h-screen overflow-hidden">
       {/* 3D background */}
       <div ref={vantaRef} className="absolute inset-0 -z-10" />
 
       {/* Premium overlay */}
       <div className="absolute inset-0 -z-9 bg-gradient-to-r from-[#14ADD6]/50 to-[#384295]/70 backdrop-blur-[2px]" />
 
-      <div className="flex justify-center items-center h-full">
-        <div className="relative w-[900px] h-[600px] bg-white/10 backdrop-blur-md shadow-lg rounded-[50px]">
-          <div className="flex -ml-5 items-center w-full h-full px-20">
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col text-white gap-4 items-center"
-            >
-              <h1 className="font-serif text-white text-2xl mb-4">
-                ERP tizimiga Xush kelibsiz
-              </h1>
-
-              <div className="w-[320px]">
-                <Input
-                  className="border pl-5 rounded-[24px] h-11"
-                  placeholder="Username"
-                  {...register("username")}
-                />
-                {errors.username && (
-                  <p className="text-[13px] text-[#FFE2AF] mt-1">
-                    {errors.username.message}
-                  </p>
-                )}
-              </div>
-
-              <div className="w-[320px]">
-                <Input
-                  type="password"
-                  className="border pl-5 rounded-[24px] h-11"
-                  placeholder="Password"
-                  {...register("password")}
-                />
-                {errors.password && (
-                  <p className="text-[13px] text-[#FFE2AF] mt-1">
-                    {errors.password.message}
-                  </p>
-                )}
-              </div>
-
-              <button
-                disabled={loading}
-                className="mt-5 w-[320px] h-11 rounded-[24px] bg-gradient-to-r from-[#079dc7] to-[#0b1cb8]  text-white font-medium disabled:opacity-60"
+      <div className="min-h-screen w-full flex items-center justify-center px-4 py-10">
+        <div
+          className="
+            relative w-full max-w-[900px]
+            rounded-[32px] sm:rounded-[50px]
+            bg-white/10 backdrop-blur-md shadow-lg
+            overflow-hidden
+          "
+        >
+          {/* ichki wrapper */}
+          <div className="relative flex flex-col md:flex-row items-stretch md:items-center min-h-[560px] md:min-h-[600px]">
+            {/* FORM SIDE */}
+            <div className="relative z-10 flex-1 flex items-center justify-center p-6 sm:p-10 md:p-14">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="w-full max-w-[360px] flex flex-col text-white gap-4 items-center"
               >
-                {loading ? "Kutilmoqda..." : "Login"}
-              </button>
-            </form>
+                <h1 className="font-serif text-white text-xl sm:text-2xl md:text-3xl mb-2 text-center">
+                  ERP tizimiga Xush kelibsiz
+                </h1>
 
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 w-[400px] h-[570px] rounded-[50px] bg-blue-500" />
+                <div className="w-full">
+                  <Input
+                    className="border pl-5 rounded-[24px] h-11 w-full bg-white/10 text-white placeholder:text-white/60"
+                    placeholder="Username"
+                    {...register("username")}
+                  />
+                  {errors.username && (
+                    <p className="text-[13px] text-[#FFE2AF] mt-1">
+                      {errors.username.message}
+                    </p>
+                  )}
+                </div>
+
+                <div className="w-full">
+                  <Input
+                    type="password"
+                    className="border pl-5 rounded-[24px] h-11 w-full bg-white/10 text-white placeholder:text-white/60"
+                    placeholder="Password"
+                    {...register("password")}
+                  />
+                  {errors.password && (
+                    <p className="text-[13px] text-[#FFE2AF] mt-1">
+                      {errors.password.message}
+                    </p>
+                  )}
+                </div>
+
+                <button
+                  disabled={loading}
+                  className="mt-3 w-full h-11 rounded-[24px] bg-gradient-to-r from-[#079dc7] to-[#0b1cb8] text-white font-medium disabled:opacity-60"
+                >
+                  {loading ? "Kutilmoqda..." : "Login"}
+                </button>
+              </form>
+            </div>
+
+            {/* RIGHT DECOR SIDE */}
+            {/* RIGHT DECOR SIDE */}
+            <div className="relative md:w-[420px] md:p-0 hidden md:block">
+              <div
+                className="
+              absolute right-6 top-1/2 -translate-y-1/2
+              h-[570px] w-[400px]
+              rounded-[50px]
+            bg-blue-500/90"
+              />
+            </div>
+
           </div>
         </div>
       </div>

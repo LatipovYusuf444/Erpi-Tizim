@@ -31,9 +31,10 @@ import Inventarizatsiya from "@/pages/components/Inventarizatsiya"
 import Qoldiqlash from "@/pages/components/Qoldiqlash"
 
 // Ombor layout/pages (seniki)
-import Navbar4 from "@/widgets/topbar4/Topbar4" 
+import Navbar4 from "@/widgets/topbar4/Topbar4"
 import QoldiqlashProduct from "@/pages/components/Qoldiqlaw1"
 import QoldiqlashIngredient from "@/pages/components/qoldiqlash2"
+import Profile from "@/pages/profile/profile"
 
 export const router = createBrowserRouter([
   // 🔒 PROTECTED APP
@@ -103,7 +104,13 @@ export const router = createBrowserRouter([
           // app fallback
           { path: "*", element: <Navigate to="/dashboard" replace /> }
         ]
+      },
+
+      {
+        path: "/profile",
+        element: <Profile />
       }
+
     ]
   },
 
