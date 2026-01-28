@@ -44,7 +44,10 @@ function CustomTooltip({
       <div className="space-y-1">
         {payload.map((p) => (
           <div key={p.name} className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full" style={{ background: p.color }} />
+            <span
+              className="h-2 w-2 rounded-full"
+              style={{ background: p.color }}
+            />
             <span className="opacity-80">{p.name}</span>
             <span className="ml-auto font-semibold">{p.value}</span>
           </div>
@@ -61,7 +64,7 @@ export default function SkyChart() {
     // - max-w-full: hech qachon tashqariga chiqmaydi
     // - min-w-0: flex/grid ichida overflow bo‘lishini to‘xtatadi
     <section className="w-full max-w-full min-w-0 rounded-2xl mt-8">
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-[#1C96C8] to-[#c1c6d1] p-6 -left-32 text-white">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-[#1C96C8] to-[#c1c6d1] p-6 -left-28.5 text-white">
         <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24  h-72 w-72 rounded-full bg-black/20 blur-3xl" />
 
@@ -74,8 +77,14 @@ export default function SkyChart() {
 
         <div className="relative mt-4 h-[275px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data} margin={{ top: 10, right: 12, left: 0, bottom: 0 }}>
-              <CartesianGrid stroke="rgba(255,255,255,0.12)" strokeDasharray="3 3" />
+            <LineChart
+              data={data}
+              margin={{ top: 10, right: 12, left: 0, bottom: 0 }}
+            >
+              <CartesianGrid
+                stroke="rgba(255,255,255,0.12)"
+                strokeDasharray="3 3"
+              />
 
               <XAxis
                 dataKey="month"
@@ -101,9 +110,30 @@ export default function SkyChart() {
                 iconType="circle"
                 wrapperStyle={{ color: "rgba(255,255,255,0.85)", fontSize: 12 }}
               />
-              <Line type="monotone" dataKey="tovar1" name="tovar 1" stroke="#05339C" strokeWidth={2.5} dot={false} />
-              <Line type="monotone" dataKey="tovar2" name="tovar 2" stroke="#FA812F" strokeWidth={2.5} dot={false} />
-              <Line type="monotone" dataKey="tovar3" name="tovar 3" stroke="#E8D1C5" strokeWidth={2.5} dot={false} />
+              <Line
+                type="monotone"
+                dataKey="tovar1"
+                name="tovar 1"
+                stroke="#05339C"
+                strokeWidth={2.5}
+                dot={false}
+              />
+              <Line
+                type="monotone"
+                dataKey="tovar2"
+                name="tovar 2"
+                stroke="#FA812F"
+                strokeWidth={2.5}
+                dot={false}
+              />
+              <Line
+                type="monotone"
+                dataKey="tovar3"
+                name="tovar 3"
+                stroke="#E8D1C5"
+                strokeWidth={2.5}
+                dot={false}
+              />
             </LineChart>
           </ResponsiveContainer>
         </div>
