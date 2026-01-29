@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 
 const tabs = [
   { label: "Statistika", to: "/sotuv" },
-  { label: "Sotuv Qoshish Form New", to: "/sotuv/sotuv-qoshish-form-new" },
   { label: "Sotuvlar ro'yhati", to: "/sotuv/sotuvlar-royhati" },
   { label: "Qaytarilgan tovarlar", to: "/sotuv/qaytarilgan-tovarlar" },
 ] as const;
@@ -22,7 +21,7 @@ export default function SotuvTabs() {
                 "px-3 rounded-2xl text-sm font-medium transition-all flex items-center duration-200 h-7",
                 !isActive && "text-black",
                 isActive &&
-                  "bg-gradient-to-r from-[#1C96C8] to-[#334F9D] text-white"
+                  "bg-gradient-to-r from-[#1C96C8] to-[#334F9D] text-white",
               )
             }
           >

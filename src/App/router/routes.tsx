@@ -16,7 +16,7 @@ import Topbar4 from "@/widgets/topbar4/Topbar4";
 import SotuvLayout from "@/pages/sotuv/SotuvLayout";
 import SotuvDashboard from "@/pages/sotuv/SotuvDashboard";
 import SotuvlarRoyhati from "@/pages/components/SotuvlarRoyhati";
-
+import QaytarilganTovarlar from "@/pages/components/QaytarilganTovarlar";
 // ✅ MOLIYA (modul)
 import FinanceLayout from "@/pages/finance/FinanceLayout";
 import FinanceDashboard from "@/pages/finance/FinanceDashboard";
@@ -39,7 +39,6 @@ import VolumePage from "@/pages/notification/VolumePage";
 // ✅ XODIMLAR
 import Xodimlar from "@/pages/xodimlar/Xodimlar";
 import Form from "@/pages/xodimlar/Form";
-import SotuvQoshishForm from "@/pages/components/SotuvQoshishFormNew";
 
 // ✅ Simple wrapper (nested route uchun)
 function XodimlarWrapper() {
@@ -111,7 +110,10 @@ export const router = createBrowserRouter([
               { index: true, element: <SotuvDashboard /> },
 
               { path: "sotuvlar-royhati", element: <SotuvlarRoyhati /> },
-              { path: "sotuv-qoshish-form", element: <SotuvQoshishForm /> },
+              {
+                path: "qaytarilgan-tovarlar",
+                element: <QaytarilganTovarlar />,
+              },
               { path: "*", element: <Navigate to="/sotuv" replace /> },
             ],
           },
