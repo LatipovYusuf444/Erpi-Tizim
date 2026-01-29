@@ -8,7 +8,6 @@ import { NavLink, useLocation } from "react-router-dom";
 const tabs = [
   { label: "Statistika", to: "/Statistika" },
   { label: "Sotuvlar ro'yhati", to: "/SotuvlarRoyhati" },
-  { label: "SotuvQoshishForm", to: "/SotuvQoshishForm" },
   { label: "Qaytarilgan tovarlar", to: "/QaytarilganTovarlar" },
 ] as const;
 

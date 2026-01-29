@@ -1,4 +1,4 @@
-import { api } from "@/data/api";
+import { api } from "@/api/api";
 
 export async function fetchOrders() {
   const res = await api.get("/api/v1/commerce/orders/");
