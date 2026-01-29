@@ -18,10 +18,11 @@ type Row = {
 };
 
 export default function QaytarilganTovarlar() {
-  const navigate = useNavigate();
+  const onlyDate = (iso?: string) => (iso ? iso.slice(0, 10) : "-");
   const [data, setData] = useState<Row[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
   useEffect(() => {
     setLoading(true);
     setError(null);
@@ -45,8 +46,30 @@ export default function QaytarilganTovarlar() {
       .catch((e) => {
         setError(e?.message ?? "Xatolik");
       })
-      .finally(() => setLoading(true));
+      .finally(() => setLoading(false));
   }, []);
+
+  const normalizedSearch = search.trim().toLowerCase();
+  const filteredData = normalizedSearch
+    ? data.filter((row) => {
+        const haystack = [
+          row.client_name,
+          row.product_title,
+          row.created_at,
+          row.status,
+          String(row.item_quantity),
+          String(row.item_price),
+          String(row.nds_percent),
+          String(row.price_with_nds),
+          String(row.total_price),
+          String(row.id),
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+        return haystack.includes(normalizedSearch);
+      })
+    : data;
 
   return (
     <div className="container mx-auto px-8 w-full">
@@ -55,6 +78,13 @@ export default function QaytarilganTovarlar() {
           <h2 className="font-bold text-[28px] text-black">
             Qaytarilgan Tovarlar Royhati
           </h2>
+          <input
+            type="text"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Qidiruv..."
+            className="w-[260px] h-[34px] rounded-3xl px-4 text-[15px] border border-[#334F9D] bg-white text-black outline-none focus:ring-2 focus:ring-[#1C96C8]"
+          />
         </div>
         {loading && (
           <div className="flex flex-col gap-4 items-center justify-center w-full h-[400px]">
@@ -69,7 +99,9 @@ export default function QaytarilganTovarlar() {
           </div>
         )}
         {!loading && error && (
-          <div className="text-center text-red-700 text-lg">Xatolik{error}</div>
+          <div className="text-center text-red-700 text-lg">
+            Xatolik: {error}
+          </div>
         )}
         {!loading && !error && (
           <div className="overflow-x-auto">
@@ -90,7 +122,7 @@ export default function QaytarilganTovarlar() {
               </thead>
 
               <tbody>
-                {data.map((row, index) => (
+                {filteredData.map((row, index) => (
                   <tr
                     key={row.id}
                     className="border-t border-[#D0D0D0] text-sm text-black"
@@ -105,18 +137,18 @@ export default function QaytarilganTovarlar() {
                     <td className="py-4 px-8">{row.nds_percent}</td>
                     <td className="py-4 px-8">{row.price_with_nds}</td>
                     <td className="py-4 px-8">{row.total_price}</td>
-                    <td className="py-4">{row.created_at}</td>
+                    <td>{onlyDate(row.created_at)}</td>
                     <td className="py-4">{row.status}</td>
                   </tr>
                 ))}
 
-                {data.length === 0 && (
+                {filteredData.length === 0 && (
                   <tr>
                     <td
                       colSpan={11}
                       className="text-center py-6 text-slate-500"
                     >
-                      Hozircha yo‘q
+                      {data.length === 0 ? "Hozircha yo'q" : "Topilmadi"}
                     </td>
                   </tr>
                 )}

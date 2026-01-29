@@ -16,7 +16,9 @@ import Topbar4 from "@/widgets/topbar4/Topbar4";
 import SotuvLayout from "@/pages/sotuv/SotuvLayout";
 import SotuvDashboard from "@/pages/sotuv/SotuvDashboard";
 import SotuvlarRoyhati from "@/pages/components/SotuvlarRoyhati";
+import SotuvQoshishFormNew from "@/pages/components/SotuvQoshishFormNew";
 import QaytarilganTovarlar from "@/pages/components/QaytarilganTovarlar";
+
 // ✅ MOLIYA (modul)
 import FinanceLayout from "@/pages/finance/FinanceLayout";
 import FinanceDashboard from "@/pages/finance/FinanceDashboard";
@@ -113,6 +115,10 @@ export const router = createBrowserRouter([
               {
                 path: "qaytarilgan-tovarlar",
                 element: <QaytarilganTovarlar />,
+              },
+              {
+                path: "sotuv-qoshish-form",
+                element: <SotuvQoshishFormNew />,
               },
               { path: "*", element: <Navigate to="/sotuv" replace /> },
             ],
