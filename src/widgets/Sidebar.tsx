@@ -20,8 +20,7 @@ export default function Sidebar() {
         "flex flex-col",
         "glass-strong rounded-[28px]",
         "w-24 hover:w-73",
-        // default: icon-only, hover: full (✅ tailwindga to‘g‘ri)
-        "w-24 hover:w-[292px]", // yoki hover:w-72
+         "w-24 hover:w-73", // yoki hover:w-72
         "transition-[width] duration-300 ease-out",
         "overflow-hidden",
         "group",
