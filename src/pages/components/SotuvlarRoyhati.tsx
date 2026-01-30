@@ -1,255 +1,182 @@
-import { useState } from "react";
-import SalesCreateForm from "./SalesCreateForm";
-import SalesList from "./SalesList";
-import SotuvQoshishRight from "./SotuvQoshishRight";
-type SalesFormValues = {
-  klientNomi: string;
-  tovarNomi: string;
-  sanasi: string;
-  miqdori: number;
-  narxi: number;
-  ndsNarxi: string;
-  status: string;
-};
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { fetchOrders } from "@/api/ApiFunction";
+import Loader from "@/pages/components/Loading";
+import { Loader2 } from "lucide-react";
 type Row = {
   id: number;
-  klientNomi: string;
-  tovarNomi: string;
-  sanasi: string;
-  miqdori: string;
-  narxi: string;
-  ndsNarxi: string;
-  status: string;
+  client_name: string;
+  product_title: string;
+  created_at: string;
+  item_quantity: number;
+  item_price: number;
+  nds_percent: number;
+  price_with_nds: number;
+  total_price: number;
 };
 
 export default function SotuvlarRoyhati() {
-  const [data, setData] = useState<Row[]>([
-    {
-      id: 1,
-      klientNomi: "Alibekov K",
-      tovarNomi: "Konteyner",
-      sanasi: "18.10.2025",
-      miqdori: "2000",
-      narxi: "800 000",
-      ndsNarxi: "12%",
-      status: "Tasdiqlangan",
-    },
-    {
-      id: 2,
-      klientNomi: "Alijanov R",
-      tovarNomi: "Vilka",
-      sanasi: "14.04.2025",
-      miqdori: "8000",
-      narxi: "400 000",
-      ndsNarxi: "1%",
-      status: "Tasdiqlangan",
-    },
-    {
-      id: 3,
-      klientNomi: "Jasurov T",
-      tovarNomi: "Tarelka",
-      sanasi: "17.08.2025",
-      miqdori: "7400",
-      narxi: "890 000",
-      ndsNarxi: "17%",
-      status: "Tasdiqlangan",
-    },
-    {
-      id: 4,
-      klientNomi: "Behruzov W",
-      tovarNomi: "Qoshiq",
-      sanasi: "11.08.2025",
-      miqdori: "7100",
-      narxi: "100 000",
-      ndsNarxi: "8%",
-      status: "Tasdiqlangan",
-    },
-    {
-      id: 5,
-      klientNomi: "Behruzjonov M",
-      tovarNomi: "Qoshiq",
-      sanasi: "19.01.2025",
-      miqdori: "7900",
-      narxi: "10 000",
-      ndsNarxi: "0.5%",
-      status: "Tasdiqlangan",
-    },
-    {
-      id: 6,
-      klientNomi: "Baburov K",
-      tovarNomi: "Konteyner",
-      sanasi: "10.09.2025",
-      miqdori: "700",
-      narxi: "190 000",
-      ndsNarxi: "17%",
-      status: "Tasdiqlangan",
-    },
-    {
-      id: 7,
-      klientNomi: "Asadbekov A",
-      tovarNomi: "Qoshiq",
-      sanasi: "15.05.2025",
-      miqdori: "5200",
-      narxi: "790 000",
-      ndsNarxi: "2%",
-      status: "Tasdiqlangan",
-    },
-    {
-      id: 8,
-      klientNomi: "Kaliev K",
-      tovarNomi: "Tarelka",
-      sanasi: "01.02.2025",
-      miqdori: "750",
-      narxi: "790 000",
-      ndsNarxi: "22%",
-      status: "Tasdiqlangan",
-    },
-  ]);
+  const onlyDate = (iso?: string) => (iso ? iso.slice(0, 10) : "-");
+  const navigate = useNavigate();
+  const [data, setData] = useState<Row[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
+  useEffect(() => {
+    setLoading(true);
+    setError(null);
+    fetchOrders()
+      .then((item) => {
+        const rows: Row[] = item.map((item) => ({
+          id: item.id,
+          client_name: item.client_name,
+          product_title: item.product_title,
+          created_at: String(item.created_at),
+          item_quantity: Number(item.item_quantity),
+          item_price: Number(item.item_price),
+          nds_percent: Number(item.nds_percent),
+          price_with_nds: Number(item.price_with_nds),
+          total_price: Number(item.total_price),
+        }));
 
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [mode, setMode] = useState<"create" | "edit">("create");
-  const [editingRow, setEditingRow] = useState<Row | null>(null);
+        setData(rows);
+      })
+      .catch((e) => {
+        setError(e?.message ?? "Xatolik");
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
-  function openCreate() {
-    setMode("create");
-    setEditingRow(null);
-    setDrawerOpen(true);
-  }
-
-  function openEdit(row: Row) {
-    setMode("edit");
-    setEditingRow(row);
-    setDrawerOpen(true);
-  }
-
-  function handleCreate(formData: SalesFormValues) {
-    const newRow: Row = {
-      id: Date.now(),
-      klientNomi: formData.klientNomi,
-      tovarNomi: formData.tovarNomi,
-      sanasi: formData.sanasi,
-      miqdori: String(formData.miqdori),
-      narxi: String(formData.narxi),
-      ndsNarxi: String(formData.ndsNarxi),
-      status: formData.status,
-    };
-    setData((prev) => [newRow, ...prev]);
-  }
-
-  function handleUpdate(formData: SalesFormValues) {
-    if (!editingRow) return;
-    setData((prev) =>
-      prev.map((r) =>
-        r.id === editingRow.id
-          ? {
-              ...r,
-              klientNomi: formData.klientNomi,
-              tovarNomi: formData.tovarNomi,
-              sanasi: formData.sanasi,
-              miqdori: String(formData.miqdori),
-              narxi: String(formData.narxi),
-              ndsNarxi: String(formData.ndsNarxi),
-              status: formData.status,
-            }
-          : r
-      )
-    );
-  }
-
-  function removeRow(id: number) {
-    if (!confirm("O‘chirasizmi?")) return;
-    setData((prev) => prev.filter((x) => x.id !== id));
-  }
+  const normalizedSearch = search.trim().toLowerCase();
+  const filteredData = normalizedSearch
+    ? data.filter((row) => {
+        const haystack = [
+          row.client_name,
+          row.product_title,
+          row.created_at,
+          String(row.item_quantity),
+          String(row.item_price),
+          String(row.nds_percent),
+          String(row.price_with_nds),
+          String(row.total_price),
+          String(row.id),
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+        return haystack.includes(normalizedSearch);
+      })
+    : data;
 
   return (
     <div className="container mx-auto px-8 w-full">
-      <section className="bg-[#EBF0FA] border border-[#334F9D] rounded-3xl shadow-sm px-6  max-w-[1402px] my-8">
-        <div className="flex items-center justify-between mb-4 mt-1">
+      <section className="bg-[#EBF0FA] border border-[#334F9D] rounded-3xl shadow-sm px-6 max-w-[1402px] my-8">
+        <div className="flex items-center justify-between mb-4 mt-6">
           <h2 className="font-bold text-[28px] text-black">Sotuv Ro'yhati</h2>
-
-          <SalesList onCreate={openCreate} />
+          <div className="flex items-center gap-3">
+            <input
+              type="text"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder="Qidiruv..."
+              className="w-[260px] h-[34px] rounded-3xl px-4 text-[15px] border border-[#334F9D] bg-white text-black outline-none focus:ring-2 focus:ring-[#1C96C8]"
+            />
+            <button
+              onClick={() => navigate("/sotuv/sotuv-qoshish-form")}
+              type="button"
+              className="text-white cursor-pointer bg-gradient-to-l from-[#1C96C8] to-[#334F9D] w-[110px] h-[34px] rounded-3xl text-[19px] hover:bg-gradient-to-t from-[#1C96C8] to-[#334F9D] "
+            >
+              Add
+            </button>
+          </div>
         </div>
+        {loading && (
+          <div className="flex flex-col gap-4 items-center justify-center w-full h-[400px]">
+            <Loader size={0.5} />
 
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="text-left text-[#334F9D] text-[18px]">
-                <th className="py-3 px-2 font-medium">S/N</th>
-                <th className="py-3 px-3 font-medium">Mijoz Nomi</th>
-                <th className="py-3 font-medium">Tovar Nomi</th>
-                <th className="py-3 font-medium">Miqdori</th>
-                <th className="py-3 px-2 font-medium">Narxi</th>
-                <th className="py-3 px-2 font-medium">NDS Narxi</th>
-                <th className="py-3 px-2 font-medium">Sanasi</th>
-                <th className="py-3 pr-4 font-medium text-right">Status</th>
-                <th className="py-3 pr-12 font-medium text-right">Actions</th>
-              </tr>
-            </thead>
+            <div className="flex flex-row gap-2">
+              <p className="text-[#334F9D] text-[25px] ">
+                Malumotlar yuklanmoqda
+              </p>
+              <Loader2 className="animate-spin mt-2 text-[#334F9D]" />
+            </div>
+          </div>
+        )}
+        {!loading && error && (
+          <div className="text-center text-red-700 text-lg">
+            Xatolik:{error}
+          </div>
+        )}
+        {!loading && !error && (
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="text-left text-[#334F9D] text-[18px]">
+                  <th className="py-3 px-2 font-medium">S/N</th>
+                  <th className="py-3 px-3 font-medium">Mijoz Nomi</th>
+                  <th className="py-3 font-medium">Tovar Nomi</th>
+                  <th className="py-3 font-medium">Miqdori</th>
+                  <th className="py-3 px-2 font-medium">Narxi</th>
+                  <th className="py-3 px-2 font-medium">NDS Foyzi</th>
+                  <th className="py-3 px-2 font-medium">NDS Narxi</th>
+                  <th className="py-3 px-2 font-medium">Umumiy Narxi</th>
+                  <th className="py-3 px-2 font-medium">Sanasi</th>
 
-            <tbody>
-              {data.map((row, index) => (
-                <tr
-                  key={row.id}
-                  className="border-t border-[#D0D0D0] text-sm text-black font-stretch-80%"
-                >
-                  <td className="py-4 px-4">
-                    {String(index + 1).padStart(2, "0")}
-                  </td>
-                  <td className="py-4 px-5">{row.klientNomi}</td>
-                  <td className="py-4 px-4">{row.tovarNomi}</td>
-                  <td className="py-4 px-4">{row.miqdori}</td>
-                  <td className="py-4 px-2">{row.narxi}</td>
-                  <td className="py-4 px-8">{row.ndsNarxi}</td>
-                  <td className="py-4">{row.sanasi}</td>
-                  <td className="py-4   text-right">
-                    <span className="text-[#1C96C8]">{row.status}</span>
-                  </td>
-                  <td className=" text-center space-x-3">
-                    <button
-                      type="button"
-                      onClick={() => openEdit(row)}
-                      className="text-white cursor-pointer bg-gradient-to-b from-[#3E7B27] to-[#387F39] w-[70px] h-[28px] rounded-3xl"
+                  <th className="py-3 pr-2 font-medium flex justify-center">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {filteredData.map((row, index) => (
+                  <tr
+                    key={row.id}
+                    className="border-t border-[#D0D0D0] text-sm text-black"
+                  >
+                    <td className="py-4 px-4">
+                      {String(index + 1).padStart(2, "0")}
+                    </td>
+                    <td className="py-4 px-5">{row.client_name}</td>
+                    <td className="py-4 px-4">{row.product_title}</td>
+                    <td className="py-4 px-4">{row.item_quantity}</td>
+                    <td className="py-4 px-2">{row.item_price}</td>
+                    <td className="py-4 px-8">{row.nds_percent}</td>
+                    <td className="py-4 px-8">{row.price_with_nds}</td>
+                    <td className="py-4 px-8">{row.total_price}</td>
+                    <td>{onlyDate(row.created_at)}</td>
+                    <td className="py-4 justify-center gap-2 flex">
+                      <button
+                        type="button"
+                        className="text-white cursor-pointer bg-gradient-to-t from-[#1C96C8] to-[#334F9D] hover:bg-gradient-to-b from-[#1C96C8] to-[#334F9D] w-[70px] h-[28px] rounded-3xl"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        className="text-white cursor-pointer bg-linear-to-l from-[#1C96C8] to-[#334F9D] hover:bg-linear-to-r from-[#1C96C8] to-[#334F9D] w-[70px] h-[28px] rounded-3xl"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+
+                {filteredData.length === 0 && (
+                  <tr>
+                    <td
+                      colSpan={11}
+                      className="text-center py-6 text-slate-500"
                     >
-                      Edit
-                    </button>
-                  </td>
-                </tr>
-              ))}
-
-              {data.length === 0 && (
-                <tr>
-                  <td colSpan={11} className="text-center py-6 text-slate-500">
-                    Hozircha yo‘q
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+                      {data.length === 0 ? "Hozircha yo'q" : "Topilmadi"}
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
       </section>
-
-      <SotuvQoshishRight open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-        <SalesCreateForm
-          mode={mode}
-          initialValues={
-            editingRow
-              ? {
-                  klientNomi: editingRow.klientNomi,
-                  tovarNomi: editingRow.tovarNomi,
-                  sanasi: editingRow.sanasi,
-                  miqdori: Number(editingRow.miqdori),
-                  narxi: Number(editingRow.narxi),
-                  status: editingRow.status,
-                }
-              : undefined
-          }
-          onClose={() => setDrawerOpen(false)}
-          onSubmitForm={(formData) => {
-            if (mode === "edit") handleUpdate(formData);
-            else handleCreate(formData);
-          }}
-        />
-      </SotuvQoshishRight>
     </div>
   );
 }

@@ -46,6 +46,7 @@ export const sidebarItems: SidebarItemType[] = [
   },
   {
     to: "/notifications", // hozircha page yo‘q bo‘lsa disable
+    to: "/notification", // hozircha page yo‘q bo‘lsa disable
     label: "Xabarlar",
     icon: Bell,
     disabled: true,

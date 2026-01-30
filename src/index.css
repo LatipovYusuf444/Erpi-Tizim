@@ -78,3 +78,13 @@ h2 {
     --chart-5: oklch(0.645 0.246 16.439);
   }
 }
+select option:checked {
+  background: #f1f5f9; /* slate-100 */
+  color: #0f172a;      /* slate-900 */
+}
+select option{
+
+}
+select option:hover {
+  background: #e2e8f0; /* slate-200 */
+}
