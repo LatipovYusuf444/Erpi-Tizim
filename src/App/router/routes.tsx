@@ -143,7 +143,7 @@ export const router = createBrowserRouter([
               { path: "*", element: <Navigate to="/ombor" replace /> },
             ],
           },
-
+// afdafafagfsagag
           // ✅ eski ombor url’lar sinmasin
           {
             path: "qoldiqlash",
