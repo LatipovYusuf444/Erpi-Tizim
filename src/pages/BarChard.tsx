@@ -1,14 +1,16 @@
 import { useEffect, useRef } from "react";
 import * as echarts from "echarts";
+import { useTranslation } from "react-i18next";
 
 type BarItem = {
-  name: string;
+  key: "kassa" | "confirmed" | "debt";
   value: number;
 };
 
 type FrameData = Record<string, BarItem[]>;
 
 export default function BarRaceChart() {
+  const { t, i18n } = useTranslation();
   const chartRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -16,55 +18,49 @@ export default function BarRaceChart() {
 
     const chart = echarts.init(chartRef.current);
 
-    // 🔹 DATA (key = frame / year / month)
     const frames: FrameData = {
       "2023": [
-        { name: "Kassa", value: 87_000 },
-        { name: "Tasdiqlangan", value: 32_000 },
-        { name: "Qarzdorlik", value: 65_000 },
+        { key: "kassa", value: 87_000 },
+        { key: "confirmed", value: 32_000 },
+        { key: "debt", value: 65_000 },
       ],
       "2024": [
-        { name: "Kassa", value: 110_000 },
-        { name: " Tasdiqlangan", value: 58_000 },
-        { name: "Qarzdorlik", value: 44_000 },
+        { key: "kassa", value: 110_000 },
+        { key: "confirmed", value: 58_000 },
+        { key: "debt", value: 44_000 },
       ],
       "2025": [
-        { name: "Kassa", value: 64_000 },
-        { name: "Tasdiqlangan", value: 85_000 },
-        { name: "Qarzdorlik", value: 25_000 },
+        { key: "kassa", value: 64_000 },
+        { key: "confirmed", value: 85_000 },
+        { key: "debt", value: 25_000 },
       ],
     };
 
-    const keys = Object.keys(frames);
+    const years = Object.keys(frames);
     let index = 0;
 
-    const render = (key: string) => {
-      const sorted = [...frames[key]].sort((a, b) => a.value - b.value);
+    const numberFmt = new Intl.NumberFormat(
+      i18n.language === "ru" ? "ru-RU" : "uz-UZ",
+    );
+
+    const render = (year: string) => {
+      const sorted = [...frames[year]].sort((a, b) => a.value - b.value);
 
       chart.setOption({
         title: {
-          text: `Yil: ${key}`,
+          text: `${t("barRace.titleYear")}: ${year}`,
           left: "center",
         },
-        grid: {
-          left: 120,
-          right: 40,
-          top: 60,
-          bottom: 20,
-        },
+        grid: { left: 120, right: 40, top: 60, bottom: 20 },
         xAxis: {
           type: "value",
-          axisLabel: {
-            formatter: (v: number) => new Intl.NumberFormat("ru-RU").format(v),
-          },
+          axisLabel: { formatter: (v: number) => numberFmt.format(v) },
         },
         yAxis: {
           type: "category",
           inverse: true,
-          data: sorted.map((i) => i.name),
-          axisLabel: {
-            fontSize: 13,
-          },
+          data: sorted.map((i) => t(`barRace.${i.key}`)), // ✅ перевод тут
+          axisLabel: { fontSize: 13 },
         },
         series: [
           {
@@ -74,8 +70,7 @@ export default function BarRaceChart() {
             label: {
               show: true,
               position: "right",
-              formatter: ({ value }) =>
-                new Intl.NumberFormat("ru-RU").format(value as number),
+              formatter: ({ value }) => numberFmt.format(value as number),
             },
           },
         ],
@@ -85,21 +80,27 @@ export default function BarRaceChart() {
       });
     };
 
-    render(keys[index]);
+    render(years[index]);
 
     const timer = setInterval(() => {
-      index = (index + 1) % keys.length;
-      render(keys[index]);
+      index = (index + 1) % years.length;
+      render(years[index]);
     }, 3000);
 
-    window.addEventListener("resize", chart.resize);
+    const onResize = () => chart.resize();
+    window.addEventListener("resize", onResize);
+
+    // ✅ при смене языка перерисовать
+    const rerender = () => render(years[index]);
+    i18n.on("languageChanged", rerender);
 
     return () => {
       clearInterval(timer);
-      window.removeEventListener("resize", chart.resize);
+      window.removeEventListener("resize", onResize);
+      i18n.off("languageChanged", rerender);
       chart.dispose();
     };
-  }, []);
+  }, [t, i18n]);
 
   return (
     <div ref={chartRef} className="max-w-[1200px]" style={{ height: 420 }} />

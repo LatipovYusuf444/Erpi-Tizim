@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronsDown, CircleFadingPlus, X } from "lucide-react";
-import { Overlay, Card } from "./ModalCard";
+import { Overlay, Card } from "@/pages/components/ModalCard";
 import { useNavigate } from "react-router-dom";
 
 // ------------------ demo options ------------------
