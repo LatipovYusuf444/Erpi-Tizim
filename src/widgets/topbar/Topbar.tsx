@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { Bell, Globe, Moon, Grid2X2, MessageSquareText, Search } from "lucide-react";
 
 /**
@@ -67,13 +67,13 @@ export default function Topbar() {
           <IconBtn><Bell size={18} /></IconBtn>
 
           {/* Profile (rasmda kichik bo'ladi) */}
-          <div className="flex items-center gap-3 rounded-2xl px-2 py-1 hover:bg-slate-900/5">
+          <Link to="/profile" className="flex items-center gap-3 rounded-2xl px-2 py-1 hover:bg-slate-900/5">
             <div className="h-9 w-9 rounded-2xl bg-slate-900/10" />
             <div className="leading-4 hidden sm:block">
               <div className="text-sm font-semibold">Yusuf</div>
               <div className="text-xs text-slate-500">Admin</div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
 

@@ -114,6 +114,7 @@ function DonutChart({
   )
 }
 
+
 // ✅ DEMO fallback (hech qachon undefined bo‘lmaydi)
 const demoData: DashboardResponse = {
   stats: [
@@ -240,6 +241,7 @@ export default function DashboardPage() {
             Mahsulotlar reytingi
           </div>
 
+
           <div className="mt-4 flex items-center gap-5">
             {/* legend + percent */}
             <div className="flex-1 space-y-2 text-xs text-slate-600">
@@ -334,6 +336,7 @@ export default function DashboardPage() {
             +
           </button>
         </div>
+
 
         <div className="mt-3">
           <input
