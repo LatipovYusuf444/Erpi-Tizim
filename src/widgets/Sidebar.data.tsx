@@ -15,7 +15,7 @@ export type SidebarItemType = {
   badge?: string | number
   disabled?: boolean
 }
-
+// sfbahgfhgahfjafj
 export const sidebarItems: SidebarItemType[] = [
   {
     to: "/dashboard",
@@ -45,7 +45,7 @@ export const sidebarItems: SidebarItemType[] = [
     icon: Users,
   },
   {
-    to: "/notification", // hozircha page yo‘q bo‘lsa disable
+    to: "/notifications", // hozircha page yo‘q bo‘lsa disable
     label: "Xabarlar",
     icon: Bell,
     disabled: true,

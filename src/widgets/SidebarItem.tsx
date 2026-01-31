@@ -10,9 +10,9 @@ export default function SidebarItem({ item }: { item: SidebarItemType }) {
           className={cn(
             "relative w-full h-14 rounded-2xl flex items-center",
             "transition-all duration-300",
-            "hover:translate-x-[2px]",
+            "hover:translate-x-0.5",
             isActive
-              ? "bg-gradient-to-r from-blue-600/10 to-indigo-600/10 ring-1 ring-blue-500/15 shadow-[0_18px_55px_-30px_rgba(37,99,235,0.65)]"
+              ? "bg-linear-to-r from-blue-600/10 to-indigo-600/10 ring-1 ring-blue-500/15 shadow-[0_18px_55px_-30px_rgba(37,99,235,0.65)]"
               : "hover:bg-slate-900/5"
           )}
         >
@@ -21,7 +21,7 @@ export default function SidebarItem({ item }: { item: SidebarItemType }) {
             className={cn(
               "absolute left-0 top-1/2 -translate-y-1/2",
               "h-8 w-1.5 rounded-full",
-              "bg-gradient-to-b from-sky-400 to-indigo-600",
+              "bg-linear-to-b from-sky-400 to-indigo-600",
               "opacity-0",
               isActive && "opacity-100"
             )}
@@ -44,7 +44,7 @@ export default function SidebarItem({ item }: { item: SidebarItemType }) {
                   "pointer-events-none absolute inset-0 rounded-2xl blur-xl",
                   "opacity-0",
                   isActive && "opacity-100",
-                  "bg-gradient-to-br from-sky-400/30 to-indigo-500/25"
+                  "bg-linear-to-br from-sky-400/30 to-indigo-500/25"
                 )}
               />
 
