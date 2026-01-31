@@ -1,22 +1,22 @@
-import React, { useMemo, useState } from "react"
-import { useDashboard } from "./useDashboard"
+import React, { useMemo, useState } from "react";
+import { useDashboard } from "./useDashboard";
 import type {
   DashboardCustomer,
   DashboardProductRank,
   DashboardResponse,
   DashboardSaleRow,
   DashboardStat,
-} from "@/shared/types/dashboard"
+} from "@/shared/types/dashboard";
 
 // ---------- utils ----------
-const fmt = (n: number) => new Intl.NumberFormat("ru-RU").format(n)
+const fmt = (n: number) => new Intl.NumberFormat("ru-RU").format(n);
 
 function CardShell({
   children,
   className = "",
 }: {
-  children: React.ReactNode
-  className?: string
+  children: React.ReactNode;
+  className?: string;
 }) {
   return (
     <div
@@ -28,7 +28,7 @@ function CardShell({
     >
       {children}
     </div>
-  )
+  );
 }
 
 // ---------- Donut (SVG) + percent ----------
@@ -37,42 +37,42 @@ function DonutChart({
   size = 150,
   stroke = 18,
 }: {
-  data: DashboardProductRank[]
-  size?: number
-  stroke?: number
+  data: DashboardProductRank[];
+  size?: number;
+  stroke?: number;
 }) {
-  const safe = Array.isArray(data) ? data : []
-  const total = safe.reduce((s, d) => s + (d?.value ?? 0), 0) || 1
+  const safe = Array.isArray(data) ? data : [];
+  const total = safe.reduce((s, d) => s + (d?.value ?? 0), 0) || 1;
 
-  const r = (size - stroke) / 2
-  const c = 2 * Math.PI * r
+  const r = (size - stroke) / 2;
+  const c = 2 * Math.PI * r;
 
-  const top = [...safe].sort((a, b) => (b?.value ?? 0) - (a?.value ?? 0))[0]
-  const topPct = Math.round((((top?.value ?? 0) / total) * 100) || 0)
+  const top = [...safe].sort((a, b) => (b?.value ?? 0) - (a?.value ?? 0))[0];
+  const topPct = Math.round(((top?.value ?? 0) / total) * 100 || 0);
 
-  let acc = 0
+  let acc = 0;
 
   return (
     <div className="relative" style={{ width: size, height: size }}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         {/* track */}
-        <circle
+        {/* <circle
           cx={size / 2}
           cy={size / 2}
           r={r}
           fill="none"
           stroke="rgba(148,163,184,0.35)"
           strokeWidth={stroke}
-        />
+        /> */}
 
         {/* segments */}
         {safe.map((d, i) => {
-          const v = d?.value ?? 0
-          const portion = v / total
-          const dash = portion * c
-          const gap = c - dash
-          const offset = c * acc
-          acc += portion
+          const v = d?.value ?? 0;
+          const portion = v / total;
+          const dash = portion * c;
+          const gap = c - dash;
+          const offset = c * acc;
+          acc += portion;
 
           return (
             <circle
@@ -88,7 +88,7 @@ function DonutChart({
               strokeLinecap="round"
               transform={`rotate(-90 ${size / 2} ${size / 2})`}
             />
-          )
+          );
         })}
 
         {/* hole */}
@@ -111,7 +111,7 @@ function DonutChart({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 
@@ -162,60 +162,63 @@ const demoData: DashboardResponse = {
     price: 200_000,
     status: "pending",
   })),
-}
+};
 
 export default function DashboardPage() {
-  const q = useDashboard()
+  const q = useDashboard();
 
   // ✅ data kelmasa ham DEMO ishlaydi
   const d: DashboardResponse =
-    (q.data as DashboardResponse) ??
-    (q.isError ? demoData : demoData) // har doim demoData bor
+    (q.data as DashboardResponse) ?? (q.isError ? demoData : demoData); // har doim demoData bor
 
   // percent util
-  const totalRank = d.productRank.reduce((s, x) => s + x.value, 0) || 1
-  const pct = (v: number) => Math.round((v / totalRank) * 100)
+  const totalRank = d.productRank.reduce((s, x) => s + x.value, 0) || 1;
+  const pct = (v: number) => Math.round((v / totalRank) * 100);
 
-  const [query, setQuery] = useState("")
+  const [query, setQuery] = useState("");
 
   const filteredSales = useMemo(() => {
-    const text = query.trim().toLowerCase()
-    if (!text) return d.sales
+    const text = query.trim().toLowerCase();
+    if (!text) return d.sales;
     return d.sales.filter(
       (r) =>
         r.client.toLowerCase().includes(text) ||
         r.clientId.includes(text) ||
-        r.saleId.includes(text)
-    )
-  }, [query, d.sales])
+        r.saleId.includes(text),
+    );
+  }, [query, d.sales]);
 
   const onAdd = () =>
-    alert("➕ Yangi sotuv qo‘shish (keyin drawer/modal ulaymiz)")
+    alert("➕ Yangi sotuv qo‘shish (keyin drawer/modal ulaymiz)");
 
   const onViewMore = (row: DashboardSaleRow) =>
     alert(
       `View more:\nClient: ${row.client}\nSale ID: ${row.saleId}\nPrice: ${fmt(
-        row.price
-      )}`
-    )
+        row.price,
+      )}`,
+    );
 
   const statusBadge = (c: DashboardCustomer) => {
     if (c.status === "plus")
-      return <span className="text-amber-400 font-semibold">{fmt(c.amount)}</span>
+      return (
+        <span className="text-amber-400 font-semibold">{fmt(c.amount)}</span>
+      );
     if (c.status === "minus")
       return (
         <span className="text-rose-500 font-semibold">
           -{fmt(Math.abs(c.amount))}
         </span>
-      )
-    return <span className="text-emerald-500 font-semibold">0</span>
-  }
+      );
+    return <span className="text-emerald-500 font-semibold">0</span>;
+  };
 
   return (
     <div className="w-full">
       {/* mini banner */}
       {q.isLoading && (
-        <div className="mb-3 text-xs text-slate-500">Dashboard yuklanmoqda...</div>
+        <div className="mb-3 text-xs text-slate-500">
+          Dashboard yuklanmoqda...
+        </div>
       )}
       {q.isError && (
         <div className="mb-3 text-xs text-rose-600">
@@ -227,7 +230,9 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {d.stats.map((s: DashboardStat, i: number) => (
           <CardShell key={i} className="px-5 py-4">
-            <div className="text-sm font-semibold text-slate-800">{s.value}</div>
+            <div className="text-sm font-semibold text-slate-800">
+              {s.value}
+            </div>
             <div className="text-[11px] text-slate-500 mt-1">{s.title}</div>
           </CardShell>
         ))}
@@ -255,7 +260,9 @@ export default function DashboardPage() {
 
                   <span className="ml-auto flex items-center gap-2">
                     <span className="text-slate-500">{pct(p.value)}%</span>
-                    <span className="font-semibold text-slate-800">{p.value}</span>
+                    <span className="font-semibold text-slate-800">
+                      {p.value}
+                    </span>
                   </span>
                 </div>
               ))}
@@ -270,16 +277,24 @@ export default function DashboardPage() {
 
         {/* Aktiv mijozlar */}
         <CardShell className="p-4">
-          <div className="text-sm font-semibold text-slate-800">Aktiv mijozlar</div>
+          <div className="text-sm font-semibold text-slate-800">
+            Aktiv mijozlar
+          </div>
 
           <div className="mt-4 overflow-hidden rounded-xl border border-white/60">
             <table className="w-full text-xs">
               <thead className="bg-slate-900/5 text-slate-600">
                 <tr>
-                  <th className="text-left px-3 py-2 font-semibold w-[56px]">S/N</th>
-                  <th className="text-left px-3 py-2 font-semibold">Mijoz nomi</th>
+                  <th className="text-left px-3 py-2 font-semibold w-[56px]">
+                    S/N
+                  </th>
+                  <th className="text-left px-3 py-2 font-semibold">
+                    Mijoz nomi
+                  </th>
                   <th className="text-left px-3 py-2 font-semibold">ID</th>
-                  <th className="text-left px-3 py-2 font-semibold">Telefon raqami</th>
+                  <th className="text-left px-3 py-2 font-semibold">
+                    Telefon raqami
+                  </th>
                   <th className="text-left px-3 py-2 font-semibold">Status</th>
                 </tr>
               </thead>
@@ -287,7 +302,9 @@ export default function DashboardPage() {
                 {d.customers.map((c) => (
                   <tr key={c.sn} className="border-t border-white/60">
                     <td className="px-3 py-2 text-slate-600">{c.sn}</td>
-                    <td className="px-3 py-2 text-slate-800 font-medium">{c.name}</td>
+                    <td className="px-3 py-2 text-slate-800 font-medium">
+                      {c.name}
+                    </td>
                     <td className="px-3 py-2 text-slate-600">{c.id}</td>
                     <td className="px-3 py-2 text-slate-600">{c.phone}</td>
                     <td className="px-3 py-2">{statusBadge(c)}</td>
@@ -311,7 +328,9 @@ export default function DashboardPage() {
                 className="rounded-xl bg-white/70 border border-white/60 shadow-[0_10px_20px_rgba(15,23,42,0.06)] px-4 py-3"
               >
                 <div
-                  className={["text-lg font-bold leading-5", w.tone ?? ""].join(" ")}
+                  className={["text-lg font-bold leading-5", w.tone ?? ""].join(
+                    " ",
+                  )}
                 >
                   {fmt(w.value)}
                 </div>
@@ -325,7 +344,9 @@ export default function DashboardPage() {
       {/* Bottom */}
       <CardShell className="mt-5 p-4">
         <div className="flex items-center justify-between">
-          <div className="text-sm font-semibold text-slate-800">Bugungi savdo</div>
+          <div className="text-sm font-semibold text-slate-800">
+            Bugungi savdo
+          </div>
 
           <button
             type="button"
@@ -352,10 +373,18 @@ export default function DashboardPage() {
             <table className="w-full text-xs">
               <thead className="sticky top-0 bg-slate-900/5 text-slate-600">
                 <tr>
-                  <th className="text-left px-3 py-2 font-semibold w-[60px]">S/N</th>
-                  <th className="text-left px-3 py-2 font-semibold">Klient nomi</th>
-                  <th className="text-left px-3 py-2 font-semibold">Mijoz ID</th>
-                  <th className="text-left px-3 py-2 font-semibold">Sotuv ID</th>
+                  <th className="text-left px-3 py-2 font-semibold w-[60px]">
+                    S/N
+                  </th>
+                  <th className="text-left px-3 py-2 font-semibold">
+                    Klient nomi
+                  </th>
+                  <th className="text-left px-3 py-2 font-semibold">
+                    Mijoz ID
+                  </th>
+                  <th className="text-left px-3 py-2 font-semibold">
+                    Sotuv ID
+                  </th>
                   <th className="text-left px-3 py-2 font-semibold">Soati</th>
                   <th className="text-left px-3 py-2 font-semibold">Narxi</th>
                   <th className="text-left px-3 py-2 font-semibold">Status</th>
@@ -366,11 +395,15 @@ export default function DashboardPage() {
                 {filteredSales.map((r) => (
                   <tr key={r.sn} className="border-t border-white/60">
                     <td className="px-3 py-2 text-slate-600">{r.sn}</td>
-                    <td className="px-3 py-2 text-slate-800 font-medium">{r.client}</td>
+                    <td className="px-3 py-2 text-slate-800 font-medium">
+                      {r.client}
+                    </td>
                     <td className="px-3 py-2 text-slate-600">{r.clientId}</td>
                     <td className="px-3 py-2 text-slate-600">{r.saleId}</td>
                     <td className="px-3 py-2 text-slate-600">{r.time}</td>
-                    <td className="px-3 py-2 text-slate-800 font-semibold">{fmt(r.price)}</td>
+                    <td className="px-3 py-2 text-slate-800 font-semibold">
+                      {fmt(r.price)}
+                    </td>
                     <td className="px-3 py-2">
                       <button
                         type="button"
@@ -385,7 +418,10 @@ export default function DashboardPage() {
 
                 {filteredSales.length === 0 && (
                   <tr>
-                    <td colSpan={7} className="px-3 py-8 text-center text-slate-500">
+                    <td
+                      colSpan={7}
+                      className="px-3 py-8 text-center text-slate-500"
+                    >
                       Hech narsa topilmadi
                     </td>
                   </tr>
@@ -402,5 +438,5 @@ export default function DashboardPage() {
         </div>
       </CardShell>
     </div>
-  )
+  );
 }

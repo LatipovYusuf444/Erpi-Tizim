@@ -14,31 +14,32 @@ import {
   type ChartConfig,
 } from "@/components/ui/chart";
 
-const chartData = [
-  { month: "Yan", value: 330000 },
-  { month: "Fev", value: 540000 },
-  { month: "Mart", value: 500000 },
-  { month: "Apr", value: 420000 },
-  { month: "May", value: 140000 },
-  { month: "Iyun", value: 380000 },
-  { month: "Iyul", value: 480000 },
-  { month: "Avg", value: 430000 },
-  { month: "Sen", value: 340000 },
-  { month: "Oct", value: 210000 },
-  { month: "Noy", value: 500000 },
-  { month: "Dek", value: 600000 },
-];
-
-const chartConfig = {
-  value: {
-    label: "Tovar 1",
-    color: "#3F9AAE",
-  },
-} satisfies ChartConfig;
+import { useTranslation } from "react-i18next";
 
 const kTick = (v: number) => `${Math.round(v / 1000)}k`;
 
 export default function ChartCard() {
+  const { t } = useTranslation();
+  const chartData = [
+    { month: t("chart.months.jan"), value: 330000 },
+    { month: t("chart.months.feb"), value: 540000 },
+    { month: t("chart.months.mar"), value: 500000 },
+    { month: t("chart.months.apr"), value: 420000 },
+    { month: t("chart.months.may"), value: 140000 },
+    { month: t("chart.months.jun"), value: 380000 },
+    { month: t("chart.months.jul"), value: 480000 },
+    { month: t("chart.months.aug"), value: 430000 },
+    { month: t("chart.months.sep"), value: 340000 },
+    { month: t("chart.months.oct"), value: 210000 },
+    { month: t("chart.months.nov"), value: 500000 },
+    { month: t("chart.months.dec"), value: 600000 },
+  ];
+  const chartConfig = {
+    value: {
+      label: t("chart.product1"),
+      color: "#3F9AAE",
+    },
+  } satisfies ChartConfig;
   return (
     <section className="p-6 max-w-[360px] rounded-2xl bg-white">
       <div className="flex items-start justify-between">
