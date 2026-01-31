@@ -59,7 +59,7 @@ export default function BarRaceChart() {
         yAxis: {
           type: "category",
           inverse: true,
-          data: sorted.map((i) => t(`barRace.${i.key}`)), // ✅ перевод тут
+          data: sorted.map((i) => t(`barRace.${i.key}`)),
           axisLabel: { fontSize: 13 },
         },
         series: [
@@ -90,7 +90,6 @@ export default function BarRaceChart() {
     const onResize = () => chart.resize();
     window.addEventListener("resize", onResize);
 
-    // ✅ при смене языка перерисовать
     const rerender = () => render(years[index]);
     i18n.on("languageChanged", rerender);
 

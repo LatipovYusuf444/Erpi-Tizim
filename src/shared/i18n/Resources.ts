@@ -47,6 +47,9 @@ barRace: {
         edit: "Tahrirlash",
         delete: "O‘chirish",
         actions: "Amallar",
+        closeSelects: "Selectni yopish",
+          save: "Saqlash",
+
       },
 
       table: {
@@ -61,7 +64,36 @@ barRace: {
         date: "Sanasi",
         status: "Statusi",
       },
+          salesCreate: {
+  title: "Sotuv qo‘shish",
+  subtitle: "Mijoz, mahsulot, narx va to‘lov ma’lumotlarini kiriting",
+  client: "Mijoz",
+  staffFrom: "Shtab",
+  from: "qattan",
+  staffTo: "Shtab",
+  to: "qayerga",
+
+  product: "Mahsulot",
+  selectProduct: "Mahsulot tanlang",
+  productRequired: "Mahsulot tanlanishi shart",
+
+  quantity: "Miqdori",
+  quantityRequired: "Miqdori kiritilishi shart",
+
+  price: "Narxi",
+  ndsPercent: "NDS Foizi",
+  priceWithNds: "Narxi",
+  withNds: "NDS bilan",
+
+},
+
     },
+    
+    // kassa:{
+    //   hujjatRaqami:"Hujjat Raqami",
+    //   sana:"Sana",
+      
+    // }
   },
 
   ru: {
@@ -107,11 +139,36 @@ barRace: {
   confirmed: "Подтверждено",
   debt: "Долг",
 },
+salesCreate: {
+  title: "Добавить продажу",
+  subtitle: "Введите данные клиента, товара, цену и оплату",
+
+  client: "Клиент",
+  staffFrom: "Склад",
+  from: "откуда",
+  staffTo: "Склад",
+  to: "куда",
+
+  product: "Товар",
+  selectProduct: "Выберите товар",
+  productRequired: "Нужно выбрать товар",
+
+  quantity: "Количество",
+  quantityRequired: "Количество обязательно",
+
+  price: "Цена",
+  ndsPercent: "НДС %",
+  priceWithNds: "Цена",
+  withNds: "с НДС",
+},
       common: {
         add: "Добавить",
         edit: "Изменить",
         delete: "Удалить",
         actions: "Действия",
+        closeSelects: "Закрыть селекты",
+         save: "Сохранить",
+
       },
 
       table: {

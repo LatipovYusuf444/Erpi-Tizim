@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronsDown, CircleFadingPlus, X } from "lucide-react";
 import { Overlay, Card } from "@/pages/components/ModalCard";
 import { useNavigate } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 // ------------------ demo options ------------------
 const options = ["Jasur", "Asad", "Wer", "Zoxid", "Rozmat"];
 const options2 = ["New Rar", "W.web", "Streat.ko", "Query", "Start"];
@@ -45,6 +45,7 @@ function HintBubble({ show, text }: HintBubbleProps) {
 }
 
 export default function SotuvQoshishForm() {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
 
@@ -80,11 +81,11 @@ export default function SotuvQoshishForm() {
           <div className="content">
             <div className="flex items-center justify-between w-full h-auto gap-3">
               <div>
-                <h2 className="text-2xl text-white font-semibold">
-                  Sotuv qo‘shish
+                <h2 className="text-[28px] text-white font-semibold">
+                  {t("salesCreate.title")}
                 </h2>
                 <p className="text-white/80 text-sm">
-                  Mijoz, mahsulot, narx va to‘lov ma’lumotlarini kiriting
+                  {t("salesCreate.subtitle")}
                 </p>
               </div>
 
@@ -211,7 +212,7 @@ function SotuvQoshishFormNew() {
       priceWithNds,
     });
   };
-
+  const { t } = useTranslation();
   return (
     <div className="container mx-auto min-h-[392px] px-2 mt-4">
       <ScreenDim
@@ -222,7 +223,9 @@ function SotuvQoshishFormNew() {
       <div className="rounded-3xl bg-white border border-white/50 p-4">
         <div className="grid grid-cols-4 gap-6">
           <div ref={ref1} className="relative">
-            <label className="text-[18px] pl-8 text-slate-800">Mijoz</label>
+            <label className="text-[18px] pl-8 text-slate-800">
+              {t("salesCreate.client")}
+            </label>
 
             <div className="flex items-center gap-2 mt-2">
               <button
@@ -275,8 +278,12 @@ function SotuvQoshishFormNew() {
             )}
           </div>
           <div ref={ref2} className="relative">
-            <label className="text-[18px] pl-8 text-slate-800">
-              Shtab <span className="text-[16px] text-gray-600"> qattan</span>
+            <label className="text-[18px] pl-8 gap-2 text-slate-800">
+              {t("salesCreate.staffFrom")}{" "}
+              <span className="text-[16px] text-gray-600">
+                {" "}
+                {t("salesCreate.from")}
+              </span>
             </label>
 
             <div className="flex items-center gap-2 mt-2">
@@ -331,7 +338,11 @@ function SotuvQoshishFormNew() {
           </div>
           <div ref={ref3} className="relative">
             <label className="text-[18px] pl-8 text-slate-800">
-              Shtab <span className="text-[16px] text-gray-600"> qayerga</span>
+              {t("salesCreate.staffTo")}{" "}
+              <span className="text-[16px] text-gray-600">
+                {" "}
+                {t("salesCreate.to")}
+              </span>
             </label>
 
             <div className="flex items-center gap-2 mt-2">
@@ -387,7 +398,9 @@ function SotuvQoshishFormNew() {
           <div ref={ref4} className="relative">
             <HighlightWrap active={focusError === "product"}>
               <div ref={productBoxRef} className="relative flex flex-col gap-2">
-                <label className="text-[18px] text-slate-800">Mahsulot</label>
+                <label className="text-[18px] text-slate-800">
+                  {t("salesCreate.product")}
+                </label>
 
                 <button
                   type="button"
@@ -407,14 +420,14 @@ function SotuvQoshishFormNew() {
                   ].join(" ")}
                 >
                   <span className="text-slate-800">
-                    {value4 || "Mahsulot tanlang"}
+                    {value4 || t("salesCreate.selectProduct")}
                   </span>
                   <ChevronsDown className="w-5 h-5 text-[#334F9D]" />
                 </button>
 
                 <HintBubble
                   show={focusError === "product"}
-                  text="Mahsulot tanlanishi shart"
+                  text={t("salesCreate.productRequired")}
                 />
 
                 {open4 && (
@@ -447,7 +460,9 @@ function SotuvQoshishFormNew() {
               ref={quantityBoxRef}
               className="relative flex flex-col gap-2 pl-8"
             >
-              <label className="text-[18px] text-slate-800">Miqdori</label>
+              <label className="text-[18px] text-slate-800">
+                {t("salesCreate.quantity")}
+              </label>
               <input
                 type="text"
                 inputMode="decimal"
@@ -470,12 +485,14 @@ function SotuvQoshishFormNew() {
               />
               <HintBubble
                 show={focusError === "quantity"}
-                text="Miqdori kiritilishi shart"
+                text={t("salesCreate.quantityRequired")}
               />
             </div>
           </HighlightWrap>
           <div className="relative flex flex-col gap-2 pl-8 ">
-            <label className="text-[18px] text-slate-800">Narxi</label>
+            <label className="text-[18px] text-slate-800">
+              {t("salesCreate.price")}
+            </label>
             <input
               type="text"
               inputMode="decimal"
@@ -493,7 +510,9 @@ function SotuvQoshishFormNew() {
             />
           </div>
           <div className="flex flex-col gap-2 pl-8">
-            <label className="text-[18px] text-slate-800">NDS Foyzi</label>
+            <label className="text-[18px] text-slate-800">
+              {t("salesCreate.ndsPercent")}
+            </label>
             <input
               type="text"
               inputMode="decimal"
@@ -511,8 +530,11 @@ function SotuvQoshishFormNew() {
           </div>
           <div className="flex flex-col gap-2 pl-8">
             <label className="text-[18px] text-slate-800">
-              Narxi
-              <span className="text-[15px] text-gray-600"> NDS bilan</span>
+              {t("salesCreate.priceWithNds")}
+              <span className="text-[15px] text-gray-600">
+                {" "}
+                {t("salesCreate.withNds")}
+              </span>
             </label>
             <input
               type="text"
@@ -528,7 +550,7 @@ function SotuvQoshishFormNew() {
               onClick={closeOthers}
               className="px-5 py-2 rounded-xl border bg-linear-to-t from-[#1C96C8] to-[#334F9D] hover:bg-linear-to-b transition cursor-pointer text-white"
             >
-              Close selects
+              {t("common.closeSelects")}
             </button>
 
             <button
@@ -536,7 +558,7 @@ function SotuvQoshishFormNew() {
               onClick={onSave}
               className="px-6 py-2 rounded-xl bg-linear-to-l from-[#1C96C8] to-[#334F9D] hover:bg-linear-to-r transition cursor-pointer text-white"
             >
-              Saqlash
+              {t("common.save")}
             </button>
           </div>
         </div>

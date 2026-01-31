@@ -5,7 +5,7 @@ export default function KassaPage() {
       hujjatNomi: "265413554",
       sana: "09.03.2023",
       masulShaxs: "Komil",
-      summa: "30.000",
+      summa: "300.000",
       status: "Tasdiqlangan",
     },
     {
