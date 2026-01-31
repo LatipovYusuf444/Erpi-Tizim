@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { fetchOrders } from "@/api/ApiFunction";
 import Loader from "@/pages/components/Loading";
 import { Loader2 } from "lucide-react";
@@ -40,7 +39,7 @@ export default function QaytarilganTovarlar() {
           total_price: Number(item.total_price),
           status: String(item.status),
         }));
-
+// afasfafafaf
         setData(rows);
       })
       .catch((e) => {
