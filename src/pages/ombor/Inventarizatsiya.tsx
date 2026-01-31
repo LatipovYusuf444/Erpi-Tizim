@@ -158,7 +158,7 @@ export default function Inventarizatsiya() {
 
   return (
     <div className="px-8 py-6">
-      <div className="mx-auto w-full max-w-[1200px]">
+      <div className="mx-auto w-full max-w-300">
         <div className="flex items-center justify-between gap-4 mb-5">
           <div>
             <h1 className="text-2xl font-semibold text-slate-800">Inventarizatsiya</h1>
