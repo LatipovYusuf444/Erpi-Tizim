@@ -15,9 +15,9 @@ import Topbar4 from "@/widgets/topbar4/Topbar4";
 // Sotuv
 import SotuvLayout from "@/pages/sotuv/SotuvLayout";
 import SotuvDashboard from "@/pages/sotuv/SotuvDashboard";
-import SotuvlarRoyhati from "@/pages/components/SotuvlarRoyhati";
-import SotuvQoshishFormNew from "@/pages/components/SotuvQoshishFormNew";
-import QaytarilganTovarlar from "@/pages/components/QaytarilganTovarlar";
+import SotuvlarRoyhati from "@/pages/sotuv/SotuvlarRoyhati";
+import SotuvQoshishFormNew from "@/pages/sotuv/SotuvQoshishFormNew";
+import QaytarilganTovarlar from "@/pages/sotuv/QaytarilganTovarlar";
 
 // ✅ MOLIYA (modul)
 import FinanceLayout from "@/pages/finance/FinanceLayout";

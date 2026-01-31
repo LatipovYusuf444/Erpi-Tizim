@@ -1,98 +1,119 @@
-import { useEffect, useRef } from "react"
-import * as echarts from "echarts"
+import { useEffect, useRef } from "react";
+import * as echarts from "echarts";
+import { useTranslation } from "react-i18next";
 
 type BarItem = {
-  name: string
-  value: number
-}
+  key: "kassa" | "confirmed" | "debt";
+  value: number;
+};
 
-type FrameData = Record<string, BarItem[]>
+type FrameData = Record<string, BarItem[]>;
 
 export default function BarRaceChart() {
-  const chartRef = useRef<HTMLDivElement | null>(null)
+  const { t, i18n } = useTranslation();
+  const chartRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!chartRef.current) return
+    if (!chartRef.current) return;
 
-    const chart = echarts.init(chartRef.current)
+    const chart = echarts.init(chartRef.current);
 
     const frames: FrameData = {
       "2023": [
-        { name: "Kassa", value: 87_000 },
-        { name: "Tasdiqlangan", value: 32_000 },
-        { name: "Qarzdorlik", value: 65_000 },
+        { key: "kassa", value: 87_000 },
+        { key: "confirmed", value: 32_000 },
+        { key: "debt", value: 65_000 },
       ],
       "2024": [
-        { name: "Kassa", value: 110_000 },
-        { name: "Tasdiqlangan", value: 58_000 }, // bosh joyni olib tashladim
-        { name: "Qarzdorlik", value: 44_000 },
+        { key: "kassa", value: 110_000 },
+        { key: "confirmed", value: 58_000 },
+        { key: "debt", value: 44_000 },
       ],
       "2025": [
-        { name: "Kassa", value: 64_000 },
-        { name: "Tasdiqlangan", value: 85_000 },
-        { name: "Qarzdorlik", value: 25_000 },
+        { key: "kassa", value: 64_000 },
+        { key: "confirmed", value: 85_000 },
+        { key: "debt", value: 25_000 },
       ],
-    }
+    };
 
-    const keys = Object.keys(frames)
-    let index = 0
+    const years = Object.keys(frames);
+    let index = 0;
 
-    const render = (key: string) => {
-      const sorted = [...frames[key]].sort((a, b) => a.value - b.value)
+    const getNumberFmt = () =>
+      new Intl.NumberFormat(i18n.language === "ru" ? "ru-RU" : "uz-UZ");
 
-      chart.setOption({
-        title: { text: `Yil: ${key}`, left: "center" },
-        grid: { left: 120, right: 40, top: 60, bottom: 20 },
-        xAxis: {
-          type: "value",
-          axisLabel: {
-            formatter: (v: number) => new Intl.NumberFormat("ru-RU").format(v),
+    const render = (year: string) => {
+      const numberFmt = getNumberFmt();
+      const sorted = [...frames[year]].sort((a, b) => a.value - b.value);
+
+      chart.setOption(
+        {
+          title: {
+            text: `${t("barRace.titleYear")}: ${year}`,
+            left: "center",
+            textStyle: { fontSize: 16, fontWeight: "bold" },
           },
-        },
-        yAxis: {
-          type: "category",
-          inverse: true,
-          data: sorted.map((i) => i.name),
-          axisLabel: { fontSize: 13 },
-        },
-        series: [
-          {
-            type: "bar",
-            data: sorted.map((i) => i.value),
-            barWidth: 24,
-            label: {
-              show: true,
-              position: "right",
-              formatter: (params: { value: unknown }) =>
-                new Intl.NumberFormat("ru-RU").format(Number(params.value)),
+          grid: { left: 120, right: 40, top: 60, bottom: 20 },
+          xAxis: {
+            type: "value",
+            axisLabel: {
+              formatter: (v: number) => numberFmt.format(v),
             },
           },
-        ],
-        animationDuration: 0,
-        animationDurationUpdate: 900,
-        animationEasing: "linear",
-      })
-    }
+          yAxis: {
+            type: "category",
+            inverse: true,
+            data: sorted.map((i) => t(`barRace.${i.key}`)),
+            axisLabel: { fontSize: 13 },
+          },
+          series: [
+            {
+              type: "bar",
+              data: sorted.map((i) => i.value),
+              barWidth: 24,
+              label: {
+                show: true,
+                position: "right",
+                formatter: (params: { value?: unknown }) =>
+                  numberFmt.format(Number(params.value ?? 0)),
+              },
+            },
+          ],
+          animationDuration: 0,
+          animationDurationUpdate: 900,
+          animationEasing: "linear",
+        },
+        // important: merge emas, yangilab qo'yamiz
+        { notMerge: true },
+      );
+    };
 
-    render(keys[index])
+    render(years[index]);
 
     const timer = window.setInterval(() => {
-      index = (index + 1) % keys.length
-      render(keys[index])
-    }, 3000)
+      index = (index + 1) % years.length;
+      render(years[index]);
+    }, 3000);
 
-    // ✅ to‘g‘ri resize handler
-    const handleResize = () => chart.resize()
-    window.addEventListener("resize", handleResize)
+    const onResize = () => chart.resize();
+    window.addEventListener("resize", onResize);
+
+    const rerender = () => render(years[index]);
+    i18n.on("languageChanged", rerender);
 
     return () => {
-      window.clearInterval(timer)
-      window.removeEventListener("resize", handleResize)
-      chart.dispose()
-    }
-  }, [])
+      window.clearInterval(timer);
+      window.removeEventListener("resize", onResize);
+      i18n.off("languageChanged", rerender);
+      chart.dispose();
+    };
+  }, [t, i18n]);
 
   return (
-    <div ref={chartRef} className="w-full max-w-[1200px]" style={{ height: 420 }} />
-  )
+    <div
+      ref={chartRef}
+      className="w-full max-w-[1200px]"
+      style={{ height: 420 }}
+    />
+  );
 }

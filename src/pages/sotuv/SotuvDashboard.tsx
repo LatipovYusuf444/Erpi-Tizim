@@ -1,7 +1,7 @@
 import ChartCard from "@/pages/components/ChartCard";
 import ChartCard2 from "@/pages/components/ChartCard2";
 import ChartCard3 from "@/pages/components/ChartCard3";
-
+import { LangToggle } from "@/shared/i18n/LangToggle";
 import BarRaceChart from "@/pages/BarChard";
 export default function SotuvDashboard() {
   return (
@@ -12,7 +12,9 @@ export default function SotuvDashboard() {
           <ChartCard2 />
           <ChartCard3 />
         </div>
-
+        {/* Til ozgartiriw knopkasi */}
+        <LangToggle />
+        {/* /////////////////////////// */}
         <div className="mt-6 max-w-[800px] max-h-[500px] rounded-2xl">
           <BarRaceChart />
         </div>
