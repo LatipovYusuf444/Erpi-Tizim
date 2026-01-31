@@ -1,3 +1,4 @@
+
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 
 import AppLayout from "@/layouts/AppLayout";
@@ -43,12 +44,51 @@ import Xodimlar from "@/pages/xodimlar/Xodimlar";
 import Form from "@/pages/xodimlar/Form";
 
 // ✅ Simple wrapper (nested route uchun)
+=======
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom"
+
+import AppLayout from "@/layouts/AppLayout"
+import AuthLayout from "@/layouts/AuthLayout"
+
+import DashboardPage from "@/pages/Dashboard/DashboardPage"
+import LoginPage from "@/pages/auth/LoginPage"
+
+import ProtectedRoute from "@/pages/auth/ProtectedRoute"
+import PublicOnlyRoute from "@/pages/auth/PublicOnlyRoute"
+
+import SotuvLayout from "@/pages/sotuv/SotuvLayout"
+import SotuvDashboard from "@/pages/sotuv/SotuvDashboard"
+import SotuvlarRoyhati from "@/pages/components/SotuvlarRoyhati"
+import SotuvQoshishForm from "@/pages/components/SotuvQoshishFormNew"
+
+import FinanceLayout from "@/pages/finance/FinanceLayout"
+import FinanceDashboard from "@/pages/finance/FinanceDashboard"
+import Kassa from "@/pages/components/Kassa"
+import KunlikTopshirish from "@/pages/components/KunlikTopshirish"
+import Qarzdozlik from "@/pages/components/Qarzdozlik"
+
+import OmborLayout from "@/pages/ombor/OmborLayout"
+import QoldiqlashLayout from "@/pages/ombor/QoldiqlashLayout"
+import ProductForm from "@/pages/ombor/ProductForm"
+import IngredientForm from "@/pages/ombor/IngredientForm"
+import KirimForm from "@/pages/ombor/KirimForm"
+import Inventarizatsiya from "@/pages/ombor/Inventarizatsiya"
+import Kochirish from "@/pages/components/Kochirish"
+
+import NotificationPage from "@/pages/notification/notification"
+import VolumePage from "@/pages/notification/VolumePage"
+
+import Xodimlar from "@/pages/xodimlar/Xodimlar"
+import Form from "@/pages/xodimlar/Form"
+
+import Profile from "@/pages/profile/profile"
+import Topbar4 from "@/widgets/topbar4/Topbar4"
 function XodimlarWrapper() {
-  return <Outlet />;
+  return <Outlet />
 }
 
 export const router = createBrowserRouter([
-  // 🔒 Protected routes
+  // 🔒 PROTECTED
   {
     element: <ProtectedRoute />,
     children: [
@@ -59,28 +99,18 @@ export const router = createBrowserRouter([
           { index: true, element: <Navigate to="dashboard" replace /> },
           { path: "dashboard", element: <DashboardPage /> },
 
-          // ✅ NOTIFICATION (asosiy route)
           { path: "notification", element: <NotificationPage /> },
           { path: "volume", element: <VolumePage /> },
 
-          // ✅ eski url sinmasin (agar oldin /notifications bo'lgan bo'lsa)
-          {
-            path: "notifications",
-            element: <Navigate to="/notification" replace />,
-          },
-
-          // ✅ XODIMLAR (modul)
           {
             path: "xodimlar",
             element: <XodimlarWrapper />,
             children: [
               { index: true, element: <Xodimlar /> },
               { path: "form", element: <Form /> },
-              { path: "*", element: <Navigate to="/xodimlar" replace /> },
             ],
           },
 
-          // ✅ MOLIYA
           {
             path: "moliya",
             element: <FinanceLayout />,
@@ -89,28 +119,14 @@ export const router = createBrowserRouter([
               { path: "kassa", element: <Kassa /> },
               { path: "kunlik-yopish", element: <KunlikTopshirish /> },
               { path: "qarzdorlik", element: <Qarzdozlik /> },
-              { path: "*", element: <Navigate to="/moliya" replace /> },
             ],
           },
 
-          // ✅ eski finance url’lar sinmasin
-          { path: "kassa", element: <Navigate to="/moliya/kassa" replace /> },
-          {
-            path: "kunlik-yopish",
-            element: <Navigate to="/moliya/kunlik-yopish" replace />,
-          },
-          {
-            path: "qarzdorlik",
-            element: <Navigate to="/moliya/qarzdorlik" replace />,
-          },
-
-          // ✅ SOTUV
           {
             path: "sotuv",
-            element: <SotuvLayout />,
+            element: <SotuvLayout />, 
             children: [
               { index: true, element: <SotuvDashboard /> },
-
               { path: "sotuvlar-royhati", element: <SotuvlarRoyhati /> },
               {
                 path: "qaytarilgan-tovarlar",
@@ -121,20 +137,18 @@ export const router = createBrowserRouter([
                 element: <SotuvQoshishFormNew />,
               },
               { path: "*", element: <Navigate to="/sotuv" replace /> },
+              { path: "sotuv-qoshish-form", element: <SotuvQoshishForm /> },
             ],
           },
 
-          // ✅ OMBOR
           {
             path: "ombor",
             element: <OmborLayout />,
             children: [
-              { index: true, element: <Navigate to="qoldiqlash" replace /> },
               {
                 path: "qoldiqlash",
                 element: <QoldiqlashLayout />,
                 children: [
-                  { index: true, element: <Navigate to="product" replace /> },
                   { path: "product", element: <ProductForm /> },
                   { path: "ingredient", element: <IngredientForm /> },
                 ],
@@ -142,40 +156,20 @@ export const router = createBrowserRouter([
               { path: "kirim", element: <KirimForm /> },
               { path: "kochirish", element: <Kochirish /> },
               { path: "inventarizatsiya", element: <Inventarizatsiya /> },
-              { path: "*", element: <Navigate to="/ombor" replace /> },
             ],
           },
-
-          // ✅ eski ombor url’lar sinmasin
-          {
-            path: "qoldiqlash",
-            element: <Navigate to="/ombor/qoldiqlash" replace />,
-          },
-          { path: "kirim", element: <Navigate to="/ombor/kirim" replace /> },
-          {
-            path: "kochirish",
-            element: <Navigate to="/ombor/kochirish" replace />,
-          },
-          {
-            path: "kochirish",
-            element: <Navigate to="/ombor/kochirish" replace />,
-          },
-          {
-            path: "inventarizatsiya",
-            element: <Navigate to="/ombor/inventarizatsiya" replace />,
-          },
-
-          // ✅ ixtiyoriy eski url
-          { path: "rasm", element: <Navigate to="/xodimlar" replace /> },
-
-          // fallback
-          { path: "*", element: <Navigate to="/dashboard" replace /> },
         ],
+      },
+
+      // ✅ PROFILE (protected)
+      {
+        path: "/profile",
+        element: <Profile />,
       },
     ],
   },
 
-  // 🔓 Auth routes
+  // 🔓 AUTH
   {
     element: <PublicOnlyRoute />,
     children: [
@@ -190,8 +184,9 @@ export const router = createBrowserRouter([
     ],
   },
 
-  // test route
-  { path: "topbar4", element: <Topbar4 /> },
+  // 🧪 TEST
+  { path: "/topbar4", element: <Topbar4 /> },
 
+  // ❌ FALLBACK
   { path: "*", element: <Navigate to="/dashboard" replace /> },
-]);
+])

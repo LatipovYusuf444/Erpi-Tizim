@@ -49,7 +49,6 @@ barRace: {
         actions: "Amallar",
         closeSelects: "Selectni yopish",
           save: "Saqlash",
-
       },
 
       table: {
