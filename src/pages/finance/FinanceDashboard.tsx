@@ -19,6 +19,7 @@ export default function FinanceDashboard() {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
+              {/* dflsfksjfgnak */}
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
