@@ -30,7 +30,7 @@ export default function FinanceDashboard() {
             <span className="text-xs font-medium"> +2.000 </span>
           </div>
         </article>
-{/* ksjkfjlkajfkajkfja */}
+        {/* ksjkfjlkajfkajkfja */}
         <article className="m-4 flex items-end justify-between bg-gradient-to-t from-[#1C96C8] to-[#334F9D] p-6 w-[280px] rounded-2xl">
           <div>
             <p className="text-sm text-gray-300">Kirimlar</p>
