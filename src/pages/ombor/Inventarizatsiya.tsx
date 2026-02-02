@@ -1,263 +1,230 @@
-import { useEffect, useMemo, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 type Status = "pending" | "sent" | "accepted";
+type Kind = "product" | "ingredient";
 
-type InventoryRow = {
+type BaseRow = {
   id: string;
-  tovarId: string;
-  yuboruvchi: string;
-  qabulQiluvchi: string;
-  tovarNomi: string;
-  miqdori: number;
-  narhi: string;
-  sana: string;
+  kind: Kind;
+  title: string;        // product label yoki ingredient name
+  miqdor: string;       // numeric string
+  narx: string;         // numeric string (total yoki narx)
+  sana: string;         // yyyy-mm-dd
   status: Status;
 };
 
-type ProductData = {
+type ProductRow = BaseRow & {
+  kind: "product";
   tovarId: string;
-  tovarLabel?: string;
-
   omborQattan: string;
-  omborQattanLabel?: string;
-
   omborQayerga: string;
-  omborQayergaLabel?: string;
-
-  miqdor: string;
-  nds: string;
-  narxNdsBilan: string;
-  sana: string;
-
   tolovTuri: string;
-  tolovTuriLabel?: string;
-
-  status?: Status;
+  nds: string;          // "12%"
+  narxNdsBilan: string; // numeric string
 };
 
-const LS_KEY = "inventarizatsiya_rows";
+type IngredientRow = BaseRow & {
+  kind: "ingredient";
+  ingredientName: string;
+  narxKg: string;        // numeric string
+  miqdorKg: string;      // numeric string
+  donaSoni: string;      // numeric string
+  jamiPul: string;       // numeric string
+  birDonaNarx: string;   // numeric string
+};
 
-export default function Inventarizatsiya() {
+const LS_ROWS = "inv_rows_v1";
+
+function lsGet<T>(key: string, fallback: T): T {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return fallback;
+    return JSON.parse(raw) as T;
+  } catch {
+    return fallback;
+  }
+}
+function lsSet<T>(key: string, value: T) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+const statusLabel: Record<Status, string> = {
+  pending: "Kutilmoqda",
+  sent: "Yuborilgan",
+  accepted: "Qabul qilingan",
+};
+
+function StatusPill({ status }: { status: Status }) {
+  const base =
+    "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold";
+  if (status === "pending")
+    return (
+      <span className={`${base} border-amber-300 bg-amber-50 text-amber-700`}>
+        <span className="h-2 w-2 rounded-full bg-amber-500" />
+        {statusLabel[status]}
+      </span>
+    );
+  if (status === "sent")
+    return (
+      <span className={`${base} border-sky-300 bg-sky-50 text-sky-700`}>
+        <span className="h-2 w-2 rounded-full bg-sky-500" />
+        {statusLabel[status]}
+      </span>
+    );
+  return (
+    <span className={`${base} border-emerald-300 bg-emerald-50 text-emerald-700`}>
+      <span className="h-2 w-2 rounded-full bg-emerald-500" />
+      {statusLabel[status]}
+    </span>
+  );
+}
+
+export default function InventarizatsiyaPage() {
   const navigate = useNavigate();
-  const location = useLocation();
+  const [tab, setTab] = useState<Kind>("product");
 
-  const demoRows: InventoryRow[] = useMemo(
-    () => [
-      {
-        id: "demo-1",
-        tovarId: "20202020",
-        yuboruvchi: "Jasmina",
-        qabulQiluvchi: "Omina",
-        tovarNomi: "Tarelka (25sm) — 100 dona",
-        miqdori: 1500,
-        narhi: "1 000 000",
-        sana: "20.09.25",
-        status: "sent",
-      },
-      {
-        id: "demo-2",
-        tovarId: "33001122",
-        yuboruvchi: "Sardor",
-        qabulQiluvchi: "Dilshod",
-        tovarNomi: "Vilka — plastik (qora)",
-        miqdori: 800,
-        narhi: "420 000",
-        sana: "19.09.25",
-        status: "accepted",
-      },
-      {
-        id: "demo-3",
-        tovarId: "88440011",
-        yuboruvchi: "Madina",
-        qabulQiluvchi: "Zuhra",
-        tovarNomi: "Stakan 200ml — shaffof",
-        miqdori: 2400,
-        narhi: "780 000",
-        sana: "19.09.25",
-        status: "pending",
-      },
-    ],
-    []
+  const [rows, setRows] = useState<(ProductRow | IngredientRow)[]>(
+    () => lsGet<(ProductRow | IngredientRow)[]>(LS_ROWS, [])
   );
 
-  const [rows, setRows] = useState<InventoryRow[]>([]);
+  const filtered = useMemo(() => rows.filter((r) => r.kind === tab), [rows, tab]);
 
-  const readLS = (): InventoryRow[] => {
-    try {
-      const raw = localStorage.getItem(LS_KEY);
-      const parsed = raw ? JSON.parse(raw) : [];
-      return Array.isArray(parsed) ? parsed : [];
-    } catch {
-      return [];
-    }
+  const updateStatus = (id: string, status: Status) => {
+    const next = rows.map((r) => (r.id === id ? { ...r, status } : r));
+    setRows(next);
+    lsSet(LS_ROWS, next);
   };
-
-  const writeLS = (data: InventoryRow[]) => {
-    localStorage.setItem(LS_KEY, JSON.stringify(data));
-  };
-
-  useEffect(() => {
-    const saved = readLS();
-    if (saved.length > 0) setRows(saved);
-    else {
-      setRows(demoRows);
-      writeLS(demoRows);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [demoRows]);
-
-  // ✅ add new row from ProductQoshishPage
-  useEffect(() => {
-    const state = location.state as { productData?: ProductData } | undefined;
-    const pd = state?.productData;
-    if (!pd) return;
-
-    const newRow: InventoryRow = {
-      id: makeId(),
-      tovarId: pd.tovarId || "—",
-      yuboruvchi: pd.omborQattanLabel || pd.omborQattan || "—",
-      qabulQiluvchi: pd.omborQayergaLabel || pd.omborQayerga || "—",
-      tovarNomi: pd.tovarLabel || "—",
-      miqdori: Number(pd.miqdor || 0),
-      narhi: pd.narxNdsBilan ? formatMoney(pd.narxNdsBilan) : "—",
-      sana: pd.sana ? formatDate(pd.sana) : "—",
-      status: pd.status || "pending",
-    };
-
-    setRows((prev) => {
-      const updated = [newRow, ...prev];
-      writeLS(updated);
-      return updated;
-    });
-
-    navigate(location.pathname, { replace: true, state: null });
-  }, [location.pathname, location.state, navigate]);
-
-  // ✅ status change handler (select)
-  const changeStatus = (id: string, status: Status) => {
-    setRows((prev) => {
-      const updated = prev.map((r) => (r.id === id ? { ...r, status } : r));
-      writeLS(updated);
-      return updated;
-    });
-  };
-
-  const selectContentClass =
-    "z-[9999] bg-white text-slate-900 border border-slate-200 shadow-2xl rounded-xl";
-  const triggerClass =
-    "h-10 rounded-full border border-slate-200 bg-white px-4 text-xs font-semibold";
 
   return (
-    <div className="px-8 py-6">
-      <div className="mx-auto w-full max-w-300">
-        <div className="flex items-center justify-between gap-4 mb-5">
-          <div>
-            <h1 className="text-2xl font-semibold text-slate-800">Inventarizatsiya</h1>
-            <p className="text-sm text-slate-500 mt-1">
-              Product qo‘shilgandan keyin kelgan ma’lumotlar shu yerda chiqadi
-            </p>
+    <div className="p-8">
+      {/* top header */}
+      <div className="flex items-start justify-between gap-6">
+        <div>
+          <div className="text-3xl font-bold text-slate-900">Inventarizatsiya</div>
+          <div className="mt-1 text-slate-500">
+            Product yoki Ingredient qo‘shilgan ma’lumotlar shu yerda turadi
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3">
+          {/* Qoldiqlashga o‘xshagan switch */}
+          <div className="rounded-full border border-[#334F9D] p-1 bg-white">
+            <button
+              onClick={() => {
+                setTab("product");
+                navigate("/ombor/inventarizatsiya");
+              }}
+              className={[
+                "px-5 py-2 rounded-full font-semibold",
+                tab === "product"
+                  ? "bg-linear-to-r from-[#1C96C8] to-[#334F9D] text-white"
+                  : "text-slate-600",
+              ].join(" ")}
+            >
+              Productlar
+            </button>
+            <button
+              onClick={() => {
+                setTab("ingredient");
+                navigate("/ombor/inventarizatsiya");
+              }}
+              className={[
+                "px-5 py-2 rounded-full font-semibold",
+                tab === "ingredient"
+                  ? "bg-linear-to-r from-[#1C96C8] to-[#334F9D] text-white"
+                  : "text-slate-600",
+              ].join(" ")}
+            >
+              Ingredientlar
+            </button>
           </div>
 
-          <Button
-            className="rounded-xl bg-[#334F9D] text-white hover:opacity-95"
-            onClick={() => navigate("/ombor/qoldiqlash/product")}
+          <button
+            onClick={() =>
+              navigate(
+                tab === "product"
+                  ? "/ombor/inventarizatsiya/product-qoshish"
+                  : "/ombor/inventarizatsiya/ingredient-qoshish"
+              )
+            }
+            className="rounded-xl bg-[#334F9D] px-6 py-3 font-semibold text-white shadow hover:opacity-95"
           >
-            Yana product qo‘shish
-          </Button>
+            {tab === "product" ? "Product qo‘shish" : "Ingredient qo‘shish"}
+          </button>
         </div>
+      </div>
 
-        <div className="rounded-3xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-          <div className="overflow-auto">
-            <table className="w-full text-sm">
-              <thead className="bg-slate-50 text-slate-500 border-b">
-                <tr>
-                  <Th>S/N</Th>
-                  <Th>Tovar ID</Th>
-                  <Th>Yuboruvchi</Th>
-                  <Th>Qabul qiluvchi</Th>
-                  <Th>Tovar nomi</Th>
-                  <Th>Miqdori</Th>
-                  <Th>Narhi</Th>
-                  <Th>Sana</Th>
-                  <Th>Status</Th>
+      {/* table */}
+      <div className="mt-8 rounded-3xl border bg-white shadow-sm overflow-hidden">
+        <table className="w-full">
+          <thead className="bg-slate-50 text-slate-600">
+            <tr className="text-left">
+              <th className="px-6 py-5 font-semibold">S/N</th>
+              <th className="px-6 py-5 font-semibold">{tab === "product" ? "Tovar ID" : "Ingredient"}</th>
+              <th className="px-6 py-5 font-semibold">{tab === "product" ? "Shtab qattan" : "Narx/kg"}</th>
+              <th className="px-6 py-5 font-semibold">{tab === "product" ? "Shtab qayerga" : "Miqdor (kg)"}</th>
+              <th className="px-6 py-5 font-semibold">{tab === "product" ? "To‘lov turi" : "Dona"}</th>
+              <th className="px-6 py-5 font-semibold">Narhi</th>
+              <th className="px-6 py-5 font-semibold">Sana</th>
+              <th className="px-6 py-5 font-semibold">Status</th>
+              <th className="px-6 py-5 font-semibold">O‘zgartirish</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {filtered.length === 0 ? (
+              <tr>
+                <td className="px-6 py-10 text-slate-500" colSpan={9}>
+                  Hozircha ma’lumot yo‘q.
+                </td>
+              </tr>
+            ) : (
+              filtered.map((r, idx) => (
+                <tr key={r.id} className="border-t">
+                  <td className="px-6 py-6 text-slate-700">{String(idx + 1).padStart(2, "0")}</td>
+
+                  {r.kind === "product" ? (
+                    <>
+                      <td className="px-6 py-6 font-semibold text-slate-900">{r.tovarId}</td>
+                      <td className="px-6 py-6 text-slate-700">{r.omborQattan}</td>
+                      <td className="px-6 py-6 text-slate-700">{r.omborQayerga}</td>
+                      <td className="px-6 py-6 text-slate-700">{r.tolovTuri}</td>
+                      <td className="px-6 py-6 font-bold text-slate-900">{r.narxNdsBilan}</td>
+                    </>
+                  ) : (
+                    <>
+                      <td className="px-6 py-6 font-semibold text-slate-900">{r.ingredientName}</td>
+                      <td className="px-6 py-6 text-slate-700">{r.narxKg}</td>
+                      <td className="px-6 py-6 text-slate-700">{r.miqdorKg}</td>
+                      <td className="px-6 py-6 text-slate-700">{r.donaSoni}</td>
+                      <td className="px-6 py-6 font-bold text-slate-900">{r.jamiPul}</td>
+                    </>
+                  )}
+
+                  <td className="px-6 py-6 text-slate-700">{r.sana}</td>
+
+                  <td className="px-6 py-6">
+                    <StatusPill status={r.status} />
+                  </td>
+
+                  <td className="px-6 py-6">
+                    <select
+                      className="h-10 rounded-xl border px-3 font-semibold text-slate-700"
+                      value={r.status}
+                      onChange={(e) => updateStatus(r.id, e.target.value as Status)}
+                    >
+                      <option value="pending">Kutilmoqda</option>
+                      <option value="sent">Yuborilgan</option>
+                      <option value="accepted">Qabul qilingan</option>
+                    </select>
+                  </td>
                 </tr>
-              </thead>
-
-              <tbody>
-                {rows.map((r, idx) => (
-                  <tr key={r.id} className="border-b last:border-b-0 hover:bg-slate-50/60 transition">
-                    <Td className="text-slate-700">{String(idx + 1).padStart(2, "0")}</Td>
-                    <Td className="text-slate-800">{r.tovarId}</Td>
-                    <Td className="text-slate-800">{r.yuboruvchi}</Td>
-                    <Td className="text-slate-800">{r.qabulQiluvchi}</Td>
-                    <Td className="font-semibold text-slate-900">{r.tovarNomi}</Td>
-                    <Td className="text-slate-800">{r.miqdori}</Td>
-                    <Td className="font-semibold text-slate-900">{r.narhi}</Td>
-                    <Td className="text-slate-800">{r.sana}</Td>
-
-                    {/* ✅ SELECT STATUS */}
-                    <Td>
-                      <Select value={r.status} onValueChange={(v: Status) => changeStatus(r.id, v)}>
-                        <SelectTrigger className={triggerClass}>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className={selectContentClass}>
-                          <SelectItem value="pending">Kutilmoqda</SelectItem>
-                          <SelectItem value="sent">Yuborilgan</SelectItem>
-                          <SelectItem value="accepted">Qabul qilingan</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </Td>
-                  </tr>
-                ))}
-
-                {rows.length === 0 && (
-                  <tr>
-                    <td className="px-6 py-10 text-center text-slate-500" colSpan={9}>
-                      Hozircha ma’lumot yo‘q
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );
-}
-
-/* table helpers */
-function Th({ children }: { children: React.ReactNode }) {
-  return <th className="px-6 py-4 text-left font-medium whitespace-nowrap">{children}</th>;
-}
-function Td({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <td className={`px-6 py-5 align-middle ${className}`}>{children}</td>;
-}
-
-/* helpers */
-function makeId() {
-  return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-}
-function formatDate(iso: string) {
-  const [y, m, d] = iso.split("-");
-  if (!y || !m || !d) return iso;
-  return `${d}.${m}.${y.slice(-2)}`;
-}
-function formatMoney(x: string) {
-  const n = String(x).replace(/\s+/g, "");
-  if (!/^\d+(\.\d+)?$/.test(n)) return x;
-  const [int, dec] = n.split(".");
-  const withSpace = int.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-  return dec ? `${withSpace}.${dec}` : withSpace;
 }

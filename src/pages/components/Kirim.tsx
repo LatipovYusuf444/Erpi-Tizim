@@ -107,11 +107,8 @@ export default function Kirim() {
                 <tr>
                   <th className="px-6 py-4 text-left">S/N</th>
                   <th className="px-6 py-4 text-left">Title</th>
-                  <th className="px-6 py-4 text-left">Description</th>
                   <th className="px-6 py-4 text-left">Quantity</th>
                   <th className="px-6 py-4 text-left">Unit</th>
-                  <th className="px-6 py-4 text-left">Cost</th>
-                  <th className="px-6 py-4 text-left">Price (no NDS)</th>
                   <th className="px-6 py-4 text-left">NDS %</th>
                   <th className="px-6 py-4 text-left">Status</th>
                   <th className="px-6 py-4 text-left">Action</th>
@@ -126,12 +123,9 @@ export default function Kirim() {
                     <tr key={row.id} className="border-b hover:bg-[#EEF2FF] transition">
                       <td className="px-6 py-4">{String(index + 1).padStart(2, "0")}</td>
                       <td className="px-6 py-4 font-medium">{row.title}</td>
-                      <td className="px-6 py-4">{row.description}</td>
                       <td className="px-6 py-4">{row.quantity}</td>
                       <td className="px-6 py-4">{row.unit}</td>
-                      <td className="px-6 py-4">{row.cost_price}</td>
                       <td className="px-6 py-4">{row.price_without_nds}</td>
-                      <td className="px-6 py-4">{row.nds_percent}</td>
 
                       <td className="px-6 py-4">
                         {confirmed ? (
