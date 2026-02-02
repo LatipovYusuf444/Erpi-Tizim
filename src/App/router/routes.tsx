@@ -25,6 +25,7 @@ import FinanceDashboard from "@/pages/finance/FinanceDashboard";
 import Kassa from "@/pages/components/Kassa";
 import KunlikTopshirish from "@/pages/components/KunlikTopshirish";
 import Qarzdozlik from "@/pages/components/Qarzdozlik";
+import KassaJadvaliForm from "@/pages/finance/KassaJadvaliForm";
 
 // ✅ OMBOR (modul)
 import OmborLayout from "@/pages/ombor/OmborLayout";
@@ -87,6 +88,7 @@ export const router = createBrowserRouter([
             children: [
               { index: true, element: <FinanceDashboard /> },
               { path: "kassa", element: <Kassa /> },
+              { path: "kassa-jadvali-form", element: <KassaJadvaliForm /> },
               { path: "kunlik-yopish", element: <KunlikTopshirish /> },
               { path: "qarzdorlik", element: <Qarzdozlik /> },
               { path: "*", element: <Navigate to="/moliya" replace /> },
@@ -100,6 +102,11 @@ export const router = createBrowserRouter([
             element: <Navigate to="/moliya/kunlik-yopish" replace />,
           },
           {
+            path: "kassa-jadvali-form",
+            element: <Navigate to="/moliya/kassa-jadvali-form" replace />,
+          },
+
+          {
             path: "qarzdorlik",
             element: <Navigate to="/moliya/qarzdorlik" replace />,
           },
@@ -109,7 +116,8 @@ export const router = createBrowserRouter([
             path: "sotuv",
             element: <SotuvLayout />,
             children: [
-              { index: true, element: <SotuvDashboard /> }, { path: "sotuvlar-royhati", element: <SotuvlarRoyhati /> },
+              { index: true, element: <SotuvDashboard /> },
+              { path: "sotuvlar-royhati", element: <SotuvlarRoyhati /> },
               {
                 path: "qaytarilgan-tovarlar",
                 element: <QaytarilganTovarlar />,
@@ -143,7 +151,7 @@ export const router = createBrowserRouter([
               { path: "*", element: <Navigate to="/ombor" replace /> },
             ],
           },
-// afdafafagfsagag
+          // afdafafagfsagag
           // ✅ eski ombor url’lar sinmasin
           {
             path: "qoldiqlash",
