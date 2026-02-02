@@ -6,6 +6,7 @@ const Xodimlar = () => {
     <div className="flex justify-center gap-[150px] ">
       <Rasm />
       <Form />
+      {/* dnsjnsnjsndgjsnm */}
     </div>
   )
 }
