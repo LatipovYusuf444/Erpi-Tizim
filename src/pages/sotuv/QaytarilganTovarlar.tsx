@@ -41,7 +41,8 @@ export default function QaytarilganTovarlar() {
           total_price: Number(item.total_price),
           // status: String(item.status),
         }));
-
+          status: String(item.status),
+        }));
         setData(rows);
       })
       .catch((e) => {
@@ -58,6 +59,7 @@ export default function QaytarilganTovarlar() {
           row.product_title,
           row.created_at,
           // row.status,
+          row.status,
           String(row.item_quantity),
           String(row.item_price),
           String(row.nds_percent),
@@ -149,6 +151,7 @@ export default function QaytarilganTovarlar() {
                     <td className="py-4 px-8">{row.total_price}</td>
                     <td>{onlyDate(row.created_at)}</td>
                     {/* <td className="py-4">{row.status}</td> */}
+                    <td className="py-4">{row.status}</td>
                   </tr>
                 ))}
 

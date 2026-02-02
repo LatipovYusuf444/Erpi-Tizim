@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchOrders } from "@/api/ApiFunction";
@@ -71,7 +72,81 @@ export default function Kassa() {
         return haystack.includes(normalizedSearch);
       })
     : data;
-
+export default function KassaPage() {
+  const data = [
+    {
+      id: 1,
+      hujjatNomi: "265413554",
+      sana: "09.03.2023",
+      masulShaxs: "Komil",
+      summa: "300.000",
+      status: "Tasdiqlangan",
+    },
+    {
+      id: 2,
+      hujjatNomi: "03555546544",
+      sana: "28.10.2025",
+      masulShaxs: "Laziz",
+      summa: "428.100",
+      status: "Qaytarilgan",
+    },
+    {
+      id: 3,
+      hujjatNomi: "1235554454",
+      sana: "23.11.2023",
+      masulShaxs: "Jasur",
+      summa: "10.000",
+      status: "Tasdiqlangan",
+    },
+    {
+      id: 4,
+      hujjatNomi: "1585545545",
+      sana: "05.11.2025",
+      masulShaxs: "Jas",
+      summa: "412.000",
+      status: "Tasdiqlangan",
+    },
+    {
+      id: 5,
+      hujjatNomi: "415154555555",
+      sana: "09.10.2024",
+      masulShaxs: "Farruh",
+      summa: "202.000",
+      status: "Qaytarilgan",
+    },
+    {
+      id: 6,
+      hujjatNomi: "41555455544",
+      sana: "22.12.2022",
+      masulShaxs: "Dilshod",
+      summa: "2.000",
+      status: "Tasdiqlangan",
+    },
+    {
+      id: 7,
+      hujjatNomi: "542156554",
+      sana: "03.01.2025",
+      masulShaxs: "sher",
+      summa: "240.000",
+      status: "Tasdiqlangan",
+    },
+    {
+      id: 8,
+      hujjatNomi: "854556514",
+      sana: "02.11.2025",
+      masulShaxs: "Saman",
+      summa: "2.000",
+      status: "Tasdiqlangan",
+    },
+    {
+      id: 9,
+      hujjatNomi: "861556554",
+      sana: "22.11.2025",
+      masulShaxs: "Sardor",
+      summa: "28.000",
+      status: "Tasdiqlangan",
+    },
+  ];
   return (
     <div className="container mx-auto px-8 w-full">
       <section className="bg-[#EBF0FA] border border-[#334F9D] rounded-3xl shadow-sm px-6 max-w-[1402px] my-8">
