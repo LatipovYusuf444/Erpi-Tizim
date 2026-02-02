@@ -1,13 +1,17 @@
 import SkyChart from "@/pages/components/SkiCart";
+import { useTranslation } from "react-i18next";
 
 export default function FinanceDashboard() {
+  const { t } = useTranslation();
   return (
     <div className="max-w-[1200px] h-[775px] rounded-2xl mt-[20px] mx-auto container">
       {/* Top stat cards */}
       <div className="flex  mx-auto  ">
         <article className="m-4 flex items-end justify-between bg-gradient-to-t from-[#1C96C8] to-[#334F9D] p-6 w-[280px] rounded-2xl">
           <div>
-            <p className="text-sm text-gray-300">Umimiy Balans</p>
+            <p className="text-sm text-gray-300">
+              {t("kassaDashboard.umimiyBalans")}
+            </p>
             <p className="text-2xl font-medium text-white">$25.000</p>
           </div>
 
@@ -33,7 +37,9 @@ export default function FinanceDashboard() {
 {/* ksjkfjlkajfkajkfja */}
         <article className="m-4 flex items-end justify-between bg-gradient-to-t from-[#1C96C8] to-[#334F9D] p-6 w-[280px] rounded-2xl">
           <div>
-            <p className="text-sm text-gray-300">Kirimlar</p>
+            <p className="text-sm text-gray-300">
+              {t("kassaDashboard.kirimlar")}
+            </p>
             <p className="text-2xl font-medium text-white">$84.000</p>
           </div>
 
@@ -58,7 +64,9 @@ export default function FinanceDashboard() {
 
         <article className="m-4 flex items-end justify-between bg-gradient-to-t from-[#1C96C8] to-[#334F9D] p-6 w-[280px] rounded-2xl">
           <div>
-            <p className="text-sm text-gray-300">Chiqimlar</p>
+            <p className="text-sm text-gray-300">
+              {t("kassaDashboard.chiqimlar")}
+            </p>
             <p className="text-2xl font-medium text-white">$-54.000</p>
           </div>
 
@@ -83,7 +91,9 @@ export default function FinanceDashboard() {
 
         <article className="m-4 flex items-end justify-between bg-gradient-to-t from-[#1C96C8] to-[#334F9D] p-6 w-[280px] rounded-2xl">
           <div>
-            <p className="text-sm text-gray-300">Qarzdorlik</p>
+            <p className="text-sm text-gray-300">
+              {t("kassaDashboard.qarzdorlik")}
+            </p>
             <p className="text-2xl font-medium text-white">$-5.000</p>
           </div>
 
@@ -108,8 +118,10 @@ export default function FinanceDashboard() {
       </div>
 
       {/* Chart + right side */}
-      <div className="flex gap-6 ml-32">
-        <SkyChart />
+      <div className="flex gap-6 ml-4">
+        <div className="w-full max-w-[620px] mr-[110px]">
+          <SkyChart />
+        </div>
 
         <div className="flex gap-4 items-start">
           {/* Progress circles */}
@@ -151,7 +163,9 @@ export default function FinanceDashboard() {
                   </span>
                 </div>
               </div>
-              <p className="mt-2 text-md text-gray-700">Plus</p>
+              <p className="mt-2 text-md text-gray-700">
+                {t("kassaDashboard.plus")}
+              </p>
             </div>
 
             {/* 45% */}
@@ -191,7 +205,9 @@ export default function FinanceDashboard() {
                   </span>
                 </div>
               </div>
-              <p className="mt-2 text-md text-gray-700">Minus</p>
+              <p className="mt-2 text-md text-gray-700">
+                {t("kassaDashboard.minus")}
+              </p>
             </div>
 
             {/* 25% */}
@@ -231,15 +247,18 @@ export default function FinanceDashboard() {
                   </span>
                 </div>
               </div>
-              <p className="mt-2 text-sm text-gray-700">Qoshimcha</p>
+              <p className="mt-2 text-sm text-gray-700">
+                {t("kassaDashboard.qoshimcha")}
+              </p>
             </div>
           </div>
 
-          {/* Right big cards */}
           <div className="flex flex-col gap-3 items-end mt-3">
             <article className="m-4 flex items-end justify-between bg-gradient-to-t from-[#1C96C8] to-[#334F9D] p-6 w-[400px] rounded-2xl">
               <div>
-                <p className="text-sm text-gray-300">Sotuv</p>
+                <p className="text-sm text-gray-300">
+                  {t("kassaDashboard.sotuv")}
+                </p>
                 <p className="text-2xl font-medium text-white">$50.000</p>
               </div>
 
@@ -267,7 +286,9 @@ export default function FinanceDashboard() {
 
             <article className="m-4 flex items-end justify-between bg-gradient-to-t from-[#1C96C8] to-[#334F9D] p-6 w-[400px] rounded-2xl">
               <div>
-                <p className="text-sm text-gray-300">Tushlik</p>
+                <p className="text-sm text-gray-300">
+                  {t("kassaDashboard.tushlik")}
+                </p>
                 <p className="text-2xl font-medium text-white">$-33.000</p>
               </div>
 
@@ -295,7 +316,9 @@ export default function FinanceDashboard() {
 
             <article className="m-4 flex items-end justify-between bg-gradient-to-t from-[#1C96C8] to-[#334F9D] p-6 w-[400px] rounded-2xl">
               <div>
-                <p className="text-sm text-gray-300">Shtraf</p>
+                <p className="text-sm text-gray-300">
+                  {t("kassaDashboard.shtraf")}
+                </p>
                 <p className="text-2xl font-medium text-white">$-17.000</p>
               </div>
 
