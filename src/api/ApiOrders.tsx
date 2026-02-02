@@ -13,7 +13,7 @@ export type ApiOrderRow = {
 };
 
 export async function fetchOrders(): Promise<ApiOrderRow[]> {
-  const res = await api.get("/api/v1/commerce/orders/");
+  const res = await api.get("api/v1/commerce/orders_report/");
   const data = res.data;
   console.log(res.data);
 

@@ -6,7 +6,7 @@ export const api = axios.create({
 
 api.interceptors.request.use((config) => {
    config.headers.Authorization =
-  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY5NzgxNjg2LCJpYXQiOjE3Njk2MDg4ODYsImp0aSI6ImY4MDc4MzQ2N2E3NTQ0ZjI4NDg5ZDcyZmE0OWI5OWQ3IiwidXNlcl9pZCI6IjEifQ.g0NZwRkVZ1pOfm7c2ohnIE3YgitoqSeA0HGNZdRpqdU";
+  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY5ODY4OTY1LCJpYXQiOjE3Njk4NjUzNjUsImp0aSI6IjAzMzQyOTJlMTU1YTQzMWY5MGQ0ZTY0ZDYxZTBmZjI4IiwidXNlcl9pZCI6IjEifQ.Zyj4rTf6IiAb00TlAIWwUGOwFIGx-FkGdYFjLEMrZbg";
   
   return config;
 });
