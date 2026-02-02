@@ -1,4 +1,3 @@
-
 // import { cn } from "@/lib/utils";
 // import { NavLink, useLocation } from "react-router-dom";
 // import { cn } from "@/lib/utils";
@@ -87,7 +86,7 @@ export default function Navbar4() {
     return filtered.slice(start, start + perPage);
   }, [filtered, page, totalPages, perPage]);
 
-  // ✅ side-effect → useEffect
+  // side-effect → useEffect
   useEffect(() => {
     setPage(1);
   }, [query, status]);
@@ -164,7 +163,7 @@ export default function Navbar4() {
                       <td className="px-6 py-4">
                         {String((page - 1) * perPage + idx + 1).padStart(
                           2,
-                          "0"
+                          "0",
                         )}
                       </td>
                       <td className="px-6 py-4">{r.tovarId}</td>

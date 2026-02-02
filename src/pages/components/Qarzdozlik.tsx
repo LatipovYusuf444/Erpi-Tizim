@@ -1,152 +1,283 @@
-export default function Qarzdorlik() {
-  const data = [
-    {
-      id: 1,
-      kontragent: "265413554",
-      qarzTuri: "Naqt",
-      jamiQarz: "28.000",
-      tolanganSumma: "3.000",
-      qolganQarz: "25.000",
-      muudati: "25.12.2025",
-      ohirgiTolovSanasi: "28.01.2026",
-      status: "Qabul Qilingan",
-    },
-    {
-      id: 2,
-      kontragent: "265413554",
-      qarzTuri: "Naqt",
-      jamiQarz: "28.000",
-      tolanganSumma: "3.000",
-      qolganQarz: "25.000",
-      muudati: "25.12.2025",
-      ohirgiTolovSanasi: "28.01.2026",
-      status: "Qabul Qilingan",
-    },
-    {
-      id: 3,
-      kontragent: "56113554",
-      qarzTuri: "Naqt",
-      jamiQarz: "20.000",
-      tolanganSumma: "13.000",
-      qolganQarz: "7.000",
-      muudati: "11.02.2025",
-      ohirgiTolovSanasi: "08.03.2025",
-      status: "Qabul Qilingan",
-    },
-    {
-      id: 4,
-      kontragent: "62113554",
-      qarzTuri: "Karta",
-      jamiQarz: "10.000",
-      tolanganSumma: "3.000",
-      qolganQarz: "7.000",
-      muudati: "15.05.2025",
-      ohirgiTolovSanasi: "08.08.2025",
-      status: "Yuborilgan",
-    },
-    {
-      id: 5,
-      kontragent: "156487",
-      qarzTuri: "Naqt",
-      jamiQarz: "85.000",
-      tolanganSumma: "13.000",
-      qolganQarz: "72.000",
-      muudati: "05.12.2024",
-      ohirgiTolovSanasi: "08.03.2025",
-      status: "Qabul Qilingan",
-    },
-    {
-      id: 6,
-      kontragent: "02315654",
-      qarzTuri: "Naqt",
-      jamiQarz: "44.000",
-      tolanganSumma: "22.000",
-      qolganQarz: "22.000",
-      muudati: "18.08.2025",
-      ohirgiTolovSanasi: "18.03.2026",
-      status: "Yuborilgan",
-    },
-    {
-      id: 7,
-      kontragent: "1256554",
-      qarzTuri: "Karta",
-      jamiQarz: "28.000",
-      tolanganSumma: "3.000",
-      qolganQarz: "18.000",
-      muudati: "05.01.2025",
-      ohirgiTolovSanasi: "08.03.2026",
-      status: "Qabul Qilingan",
-    },
-    {
-      id: 8,
-      kontragent: "15154854",
-      qarzTuri: "Naqt",
-      jamiQarz: "50.000",
-      tolanganSumma: "20.000",
-      qolganQarz: "30.000",
-      muudati: "31.05.2025",
-      ohirgiTolovSanasi: "08.03.2026",
-      status: "Yuborilgan",
-    },
-    {
-      id: 9,
-      kontragent: "0584844",
-      qarzTuri: "Naqt",
-      jamiQarz: "800.000",
-      tolanganSumma: "200.000",
-      qolganQarz: "500.000",
-      muudati: "19.09.2025",
-      ohirgiTolovSanasi: "18.03.2026",
-      status: "Yuborilgan",
-    },
-  ];
+import { useState, useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import { fetchOrders } from "@/api/ApiFunction";
+import Loader from "@/pages/components/Loading";
+import { Loader2 } from "lucide-react";
+import { LangToggle } from "@/shared/i18n/LangToggle";
+import { useTranslation } from "react-i18next";
+
+type Row = {
+  id: number;
+  client_name: string;
+  product_title: string;
+  created_at: string;
+  item_quantity: number;
+  item_price: number;
+  nds_percent: number;
+  price_with_nds: number;
+  total_price: number;
+};
+
+// ФЕЙК ДАННЫЕ (если backend off)
+const FAKE_DATA: Row[] = [
+  {
+    id: 1,
+    client_name: "Kamron",
+    product_title: "Konteyner",
+    created_at: "2025-08-19T10:00:00Z",
+    item_quantity: 20,
+    item_price: 895200,
+    nds_percent: 9.5,
+    price_with_nds: 945000,
+    total_price: 98910000,
+  },
+  {
+    id: 2,
+    client_name: "Bek",
+    product_title: "Paket",
+    created_at: "2026-01-29T08:20:00Z",
+    item_quantity: 54,
+    item_price: 395010,
+    nds_percent: 82,
+    price_with_nds: 18500,
+    total_price: 3910000,
+  },
+  {
+    id: 3,
+    client_name: "Samandar",
+    product_title: "Karton quti",
+    created_at: "2025-02-02T12:45:00Z",
+    item_quantity: 27,
+    item_price: 955000,
+    nds_percent: 89,
+    price_with_nds: 6220000,
+    total_price: 24185000,
+  },
+];
+
+export default function KunlikTopshirish() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const onlyDate = (iso?: string) => (iso ? String(iso).slice(0, 10) : "-");
+
+  const [data, setData] = useState<Row[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [isFallback, setIsFallback] = useState(false); //  показываем что это фейк
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    let mounted = true;
+    setLoading(true);
+    setIsFallback(false);
+
+    fetchOrders()
+      .then((items: any[]) => {
+        if (!mounted) return;
+
+        const rows: Row[] = items.map((item) => ({
+          id: Number(item.id),
+          client_name: String(item.client_name ?? ""),
+          product_title: String(item.product_title ?? ""),
+          created_at: String(item.created_at ?? ""),
+          item_quantity: Number(item.item_quantity ?? 0),
+          item_price: Number(item.item_price ?? 0),
+          nds_percent: Number(item.nds_percent ?? 0),
+          price_with_nds: Number(item.price_with_nds ?? 0),
+          total_price: Number(item.total_price ?? 0),
+        }));
+
+        //  если с бэка пришло пусто — тоже можно показать фейк (опционально)
+        if (rows.length === 0) {
+          setData(FAKE_DATA);
+          setIsFallback(true);
+        } else {
+          setData(rows);
+        }
+      })
+      .catch(() => {
+        if (!mounted) return;
+        // backend не работает → подставляем фейк
+        setData(FAKE_DATA);
+        setIsFallback(true);
+      })
+      .finally(() => {
+        if (!mounted) return;
+        setLoading(false);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const filteredData = useMemo(() => {
+    const normalizedSearch = search.trim().toLowerCase();
+    if (!normalizedSearch) return data;
+
+    return data.filter((row) => {
+      const haystack = [
+        row.client_name,
+        row.product_title,
+        row.created_at,
+        String(row.item_quantity),
+        String(row.item_price),
+        String(row.nds_percent),
+        String(row.price_with_nds),
+        String(row.total_price),
+        String(row.id),
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+      return haystack.includes(normalizedSearch);
+    });
+  }, [data, search]);
 
   return (
-    <div className=" container mx-auto px-8 ">
-      <section className="bg-[#EBF0FA] border border-[#6049E3] rounded-2xl shadow-sm p-6 max-w-[1402px] my-8">
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="text-left text-sm text-[#334F9D]">
-                <th className="py-3 px-2 font-medium">S/N</th>
-                <th className="py-3 font-medium">Kontragent </th>
-                <th className="py-3 font-medium">Qarz Turi</th>
-                <th className="py-3 font-medium">Jami Qarz</th>
-                <th className="py-3 font-medium">To'langan Summa</th>
-                <th className="py-3 font-medium">Qolgan Qarz</th>
-                <th className="py-3 font-medium">Muddati</th>
-                <th className="py-3 font-medium">O'xirgi To'lov Sanasi</th>
+    <div className="container mx-auto px-8 w-full">
+      <section className="bg-[#EBF0FA] border border-[#334F9D] rounded-3xl shadow-sm px-6 max-w-[1402px] my-8">
+        <div className="flex items-center justify-between mb-4 mt-6">
+          <div className="flex items-center gap-3">
+            <h2 className="font-bold text-[28px] text-black">
+              {t("qarzdorlik.qarzdorlik")}
+            </h2>
 
-                <th className="py-3 font-medium text-right">Status</th>
-              </tr>
-            </thead>
+            {/*  если бэк off — покажем маленький бейдж */}
+            {isFallback && (
+              <span className="text-xs px-3 py-1 rounded-full bg-white border border-[#334F9D] text-[#334F9D]">
+                Demo (backend off)
+              </span>
+            )}
+          </div>
 
-            <tbody>
-              {data.map((row, index) => (
-                <tr
-                  key={row.id}
-                  className="border-t border-[#D0D0D0] text-black font-stretch-80%  text-sm "
-                >
-                  <td className="py-4 px-4  ">
-                    {String(index + 1).padStart(2, "0")}
-                  </td>
-                  <td className="py-4  ">{row.kontragent}</td>
-                  <td className="py-4 px-4">{row.qarzTuri}</td>
-                  <td className="py-4 px-4">{row.jamiQarz}</td>
-                  <td className="py-4 px-9">{row.tolanganSumma}</td>
-                  <td className="py-4 px-4">{row.qolganQarz}</td>
-                  <td className="py-4">{row.muudati}</td>
-                  <td className="py-4 px-8">{row.ohirgiTolovSanasi}</td>
-                  <td className="py-4 text-right">
-                    <button className="text-[#1C96C8] hover:underline">
-                      {row.status}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="flex items-center gap-3">
+            <input
+              type="text"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder={t("salesList.searchPlaceholder")}
+              className="w-[260px] h-[34px] rounded-3xl px-4 text-[15px] border border-[#334F9D] bg-white text-black outline-none focus:ring-2 focus:ring-[#1C96C8]"
+            />
+            <button
+              onClick={() => navigate("/sotuv/sotuv-qoshish-form")}
+              type="button"
+              className="text-white cursor-pointer bg-gradient-to-l from-[#1C96C8] to-[#334F9D] w-[110px] h-[34px] rounded-3xl text-[19px] hover:bg-gradient-to-t"
+            >
+              {t("common.add")}
+            </button>
+            <LangToggle />
+          </div>
         </div>
+
+        {loading && (
+          <div className="flex flex-col gap-4 items-center justify-center w-full h-[400px]">
+            <Loader size={0.5} />
+            <div className="flex flex-row gap-2">
+              <p className="text-[#334F9D] text-[25px]">
+                {t("salesList.loading")}
+              </p>
+              <Loader2 className="animate-spin mt-2 text-[#334F9D]" />
+            </div>
+          </div>
+        )}
+
+        {/*  error вообще не показываем, потому что мы подставляем FAKE_DATA */}
+
+        {!loading && (
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="text-left text-[#334F9D] text-[18px]">
+                  <th className="py-3 text-center font-medium">
+                    {t("table.sn")}
+                  </th>
+                  <th className="py-3 text-center font-medium">
+                    {t("table.clientName")}
+                  </th>
+                  <th className="py-3 text-center font-medium">
+                    {t("table.productName")}
+                  </th>
+                  <th className="py-3 text-center font-medium">
+                    {t("table.quantity")}
+                  </th>
+                  <th className="py-3 text-center font-medium">
+                    {t("table.price")}
+                  </th>
+                  <th className="py-3 text-center font-medium">
+                    {t("table.ndsPercent")}
+                  </th>
+                  <th className="py-3 text-center font-medium">
+                    {t("table.ndsPrice")}
+                  </th>
+                  <th className="py-3 text-center font-medium">
+                    {t("table.totalPrice")}
+                  </th>
+                  <th className="py-3 text-center font-medium">
+                    {t("table.date")}
+                  </th>
+                  <th className="py-3 text-center font-medium">
+                    {t("common.actions")}
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {filteredData.map((row, index) => (
+                  <tr
+                    key={row.id}
+                    className="border-t border-[#D0D0D0] text-sm text-black"
+                  >
+                    <td className="py-4 text-center">
+                      {String(index + 1).padStart(2, "0")}
+                    </td>
+                    <td className="py-4 text-center">{row.client_name}</td>
+                    <td className="py-4 text-center">{row.product_title}</td>
+                    <td className="py-4 text-center">{row.item_quantity}</td>
+                    <td className="py-4 text-center">{row.item_price}</td>
+                    <td className="py-4 text-center">{row.nds_percent}</td>
+                    <td className="py-4 text-center">{row.price_with_nds}</td>
+                    <td className="py-4 text-center">{row.total_price}</td>
+                    <td className="py-4 text-center">
+                      {onlyDate(row.created_at)}
+                    </td>
+
+                    <td className="py-4">
+                      <div className="flex justify-center gap-2">
+                        <button
+                          type="button"
+                          className="text-white cursor-pointer bg-gradient-to-t from-[#1C96C8] to-[#334F9D] hover:bg-gradient-to-b w-[80px] h-[30px] rounded-3xl"
+                        >
+                          {t("common.edit")}
+                        </button>
+                        <button
+                          type="button"
+                          className="text-white cursor-pointer bg-gradient-to-l from-[#1C96C8] to-[#334F9D] hover:bg-gradient-to-r w-[80px] h-[30px] rounded-3xl"
+                        >
+                          {t("common.delete")}
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+
+                {filteredData.length === 0 && (
+                  <tr>
+                    <td
+                      colSpan={10}
+                      className="text-center py-6 text-slate-500"
+                    >
+                      {data.length === 0
+                        ? t("salesList.emptyNow")
+                        : t("salesList.notFound")}
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
       </section>
     </div>
   );
