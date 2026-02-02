@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchOrders } from "@/api/ApiFunction";
 import Loader from "@/pages/components/Loading";
@@ -18,67 +18,140 @@ type Row = {
   total_price: number;
 };
 
+// ФЕЙК ДАННЫЕ (если backend off)
+const FAKE_DATA: Row[] = [
+  {
+    id: 1,
+    client_name: "Asil",
+    product_title: "Konteyner",
+    created_at: "2025-12-29T10:00:00Z",
+    item_quantity: 28,
+    item_price: 805200,
+    nds_percent: 1.5,
+    price_with_nds: 845000,
+    total_price: 17320000,
+  },
+  {
+    id: 2,
+    client_name: "Aziz",
+    product_title: "Paket",
+    created_at: "2026-01-05T08:20:00Z",
+    item_quantity: 10,
+    item_price: 395000,
+    nds_percent: 2,
+    price_with_nds: 3986000,
+    total_price: 3210000,
+  },
+  {
+    id: 3,
+    client_name: "Saman",
+    product_title: "Karton quti",
+    created_at: "2025-11-12T12:45:00Z",
+    item_quantity: 50,
+    item_price: 555000,
+    nds_percent: 15,
+    price_with_nds: 960000,
+    total_price: 2810000,
+  },
+];
+
 export default function SotuvlarRoyhati() {
   const { t } = useTranslation();
-  const onlyDate = (iso?: string) => (iso ? iso.slice(0, 10) : "-");
   const navigate = useNavigate();
+
+  const onlyDate = (iso?: string) => (iso ? String(iso).slice(0, 10) : "-");
+
   const [data, setData] = useState<Row[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [isFallback, setIsFallback] = useState(false); //  показываем что это фейк
   const [search, setSearch] = useState("");
+
   useEffect(() => {
+    let mounted = true;
     setLoading(true);
-    setError(null);
+    setIsFallback(false);
+
     fetchOrders()
-      .then((item) => {
-        const rows: Row[] = item.map((item) => ({
-          id: item.id,
-          client_name: item.client_name,
-          product_title: item.product_title,
-          created_at: String(item.created_at),
-          item_quantity: Number(item.item_quantity),
-          item_price: Number(item.item_price),
-          nds_percent: Number(item.nds_percent),
-          price_with_nds: Number(item.price_with_nds),
-          total_price: Number(item.total_price),
+      .then((items: any[]) => {
+        if (!mounted) return;
+
+        const rows: Row[] = items.map((item) => ({
+          id: Number(item.id),
+          client_name: String(item.client_name ?? ""),
+          product_title: String(item.product_title ?? ""),
+          created_at: String(item.created_at ?? ""),
+          item_quantity: Number(item.item_quantity ?? 0),
+          item_price: Number(item.item_price ?? 0),
+          nds_percent: Number(item.nds_percent ?? 0),
+          price_with_nds: Number(item.price_with_nds ?? 0),
+          total_price: Number(item.total_price ?? 0),
         }));
 
-        setData(rows);
+        //  если с бэка пришло пусто — тоже можно показать фейк (опционально)
+        if (rows.length === 0) {
+          setData(FAKE_DATA);
+          setIsFallback(true);
+        } else {
+          setData(rows);
+        }
       })
-      .catch((e) => {
-        setError(e?.message ?? "Xatolik");
+      .catch(() => {
+        if (!mounted) return;
+        // backend не работает → подставляем фейк
+        setData(FAKE_DATA);
+        setIsFallback(true);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (!mounted) return;
+        setLoading(false);
+      });
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
-  const normalizedSearch = search.trim().toLowerCase();
-  const filteredData = normalizedSearch
-    ? data.filter((row) => {
-        const haystack = [
-          row.client_name,
-          row.product_title,
-          row.created_at,
-          String(row.item_quantity),
-          String(row.item_price),
-          String(row.nds_percent),
-          String(row.price_with_nds),
-          String(row.total_price),
-          String(row.id),
-        ]
-          .filter(Boolean)
-          .join(" ")
-          .toLowerCase();
-        return haystack.includes(normalizedSearch);
-      })
-    : data;
+  const filteredData = useMemo(() => {
+    const normalizedSearch = search.trim().toLowerCase();
+    if (!normalizedSearch) return data;
+
+    return data.filter((row) => {
+      const haystack = [
+        row.client_name,
+        row.product_title,
+        row.created_at,
+        String(row.item_quantity),
+        String(row.item_price),
+        String(row.nds_percent),
+        String(row.price_with_nds),
+        String(row.total_price),
+        String(row.id),
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+      return haystack.includes(normalizedSearch);
+    });
+  }, [data, search]);
 
   return (
     <div className="container mx-auto px-8 w-full">
       <section className="bg-[#EBF0FA] border border-[#334F9D] rounded-3xl shadow-sm px-6 max-w-[1402px] my-8">
         <div className="flex items-center justify-between mb-4 mt-6">
-          <h2 className="font-bold text-[28px] text-black">
-            {t("salesList.sotuv_rouhati")}
-          </h2>
+          <div className="flex items-center gap-3">
+            <h2 className="font-bold text-[28px] text-black">
+              {t("salesList.sotuv_rouhati")}
+            </h2>
+
+            {/*  если бэк off — покажем маленький бейдж */}
+            {isFallback && (
+              <span className="text-xs px-3 py-1 rounded-full bg-white border border-[#334F9D] text-[#334F9D]">
+                Demo (backend off)
+              </span>
+            )}
+          </div>
+
           <div className="flex items-center gap-3">
             <input
               type="text"
@@ -90,59 +163,61 @@ export default function SotuvlarRoyhati() {
             <button
               onClick={() => navigate("/sotuv/sotuv-qoshish-form")}
               type="button"
-              className="text-white cursor-pointer bg-gradient-to-l from-[#1C96C8] to-[#334F9D] w-[110px] h-[34px] rounded-3xl text-[19px] hover:bg-gradient-to-t from-[#1C96C8] to-[#334F9D] "
+              className="text-white cursor-pointer bg-gradient-to-l from-[#1C96C8] to-[#334F9D] w-[110px] h-[34px] rounded-3xl text-[19px] hover:bg-gradient-to-t"
             >
               {t("common.add")}
             </button>
-            {/* Til ozgartiriw knopkasi */}
             <LangToggle />
-            {/* /////////////////////////// */}
           </div>
         </div>
+
         {loading && (
           <div className="flex flex-col gap-4 items-center justify-center w-full h-[400px]">
             <Loader size={0.5} />
-
             <div className="flex flex-row gap-2">
-              <p className="text-[#334F9D] text-[25px] ">
+              <p className="text-[#334F9D] text-[25px]">
                 {t("salesList.loading")}
               </p>
               <Loader2 className="animate-spin mt-2 text-[#334F9D]" />
             </div>
           </div>
         )}
-        {!loading && error && (
-          <div className="text-center text-[#D84040] text-lg">
-            {t("salesList.errorApi")}
-            {error}
-          </div>
-        )}
-        {!loading && !error && (
+
+        {/*  error вообще не показываем, потому что мы подставляем FAKE_DATA */}
+
+        {!loading && (
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
               <thead>
                 <tr className="text-left text-[#334F9D] text-[18px]">
-                  <th className="py-3 px-2 font-medium">{t("table.sn")}</th>
-                  <th className="py-3 px-3 font-medium">
+                  <th className="py-3 text-center font-medium">
+                    {t("table.sn")}
+                  </th>
+                  <th className="py-3 text-center font-medium">
                     {t("table.clientName")}
                   </th>
-                  <th className="py-3 px-4 font-medium">
+                  <th className="py-3 text-center font-medium">
                     {t("table.productName")}
                   </th>
-                  <th className="py-3 font-medium">{t("table.quantity")}</th>
-                  <th className="py-3 px-2  font-medium">{t("table.price")}</th>
-                  <th className="py-3 px-4 font-medium">
+                  <th className="py-3 text-center font-medium">
+                    {t("table.quantity")}
+                  </th>
+                  <th className="py-3 text-center font-medium">
+                    {t("table.price")}
+                  </th>
+                  <th className="py-3 text-center font-medium">
                     {t("table.ndsPercent")}
                   </th>
-                  <th className="py-3 px-5 font-medium">
+                  <th className="py-3 text-center font-medium">
                     {t("table.ndsPrice")}
                   </th>
-                  <th className="py-3 px-2 font-medium">
+                  <th className="py-3 text-center font-medium">
                     {t("table.totalPrice")}
                   </th>
-                  <th className="py-3 px-2.5 font-medium">{t("table.date")}</th>
-
-                  <th className="py-3 pr-2 font-medium flex justify-center">
+                  <th className="py-3 text-center font-medium">
+                    {t("table.date")}
+                  </th>
+                  <th className="py-3 text-center font-medium">
                     {t("common.actions")}
                   </th>
                 </tr>
@@ -154,30 +229,35 @@ export default function SotuvlarRoyhati() {
                     key={row.id}
                     className="border-t border-[#D0D0D0] text-sm text-black"
                   >
-                    <td className="py-4 px-4">
+                    <td className="py-4 text-center">
                       {String(index + 1).padStart(2, "0")}
                     </td>
-                    <td className="py-4 px-7">{row.client_name}</td>
-                    <td className="py-4 px-5">{row.product_title}</td>
-                    <td className="py-4 px-4">{row.item_quantity}</td>
-                    <td className="py-4 px-3">{row.item_price}</td>
-                    <td className="py-4 px-8">{row.nds_percent}</td>
-                    <td className="py-4 px-8">{row.price_with_nds}</td>
-                    <td className="py-4 px-8">{row.total_price}</td>
-                    <td>{onlyDate(row.created_at)}</td>
-                    <td className="py-4 justify-center gap-2 flex">
-                      <button
-                        type="button"
-                        className="text-white cursor-pointer bg-gradient-to-t from-[#1C96C8] to-[#334F9D] hover:bg-gradient-to-b from-[#1C96C8] to-[#334F9D] w-[80px] h-[30px] rounded-3xl"
-                      >
-                        {t("common.edit")}
-                      </button>
-                      <button
-                        type="button"
-                        className="text-white cursor-pointer bg-linear-to-l from-[#1C96C8] to-[#334F9D] hover:bg-linear-to-r from-[#1C96C8] to-[#334F9D] w-[80px] h-[30px] rounded-3xl"
-                      >
-                        {t("common.delete")}
-                      </button>
+                    <td className="py-4 text-center">{row.client_name}</td>
+                    <td className="py-4 text-center">{row.product_title}</td>
+                    <td className="py-4 text-center">{row.item_quantity}</td>
+                    <td className="py-4 text-center">{row.item_price}</td>
+                    <td className="py-4 text-center">{row.nds_percent}</td>
+                    <td className="py-4 text-center">{row.price_with_nds}</td>
+                    <td className="py-4 text-center">{row.total_price}</td>
+                    <td className="py-4 text-center">
+                      {onlyDate(row.created_at)}
+                    </td>
+
+                    <td className="py-4">
+                      <div className="flex justify-center gap-2">
+                        <button
+                          type="button"
+                          className="text-white cursor-pointer bg-gradient-to-t from-[#1C96C8] to-[#334F9D] hover:bg-gradient-to-b w-[80px] h-[30px] rounded-3xl"
+                        >
+                          {t("common.edit")}
+                        </button>
+                        <button
+                          type="button"
+                          className="text-white cursor-pointer bg-gradient-to-l from-[#1C96C8] to-[#334F9D] hover:bg-gradient-to-r w-[80px] h-[30px] rounded-3xl"
+                        >
+                          {t("common.delete")}
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -185,7 +265,7 @@ export default function SotuvlarRoyhati() {
                 {filteredData.length === 0 && (
                   <tr>
                     <td
-                      colSpan={11}
+                      colSpan={10}
                       className="text-center py-6 text-slate-500"
                     >
                       {data.length === 0

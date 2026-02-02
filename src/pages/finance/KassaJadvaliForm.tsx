@@ -169,12 +169,10 @@ function KassaJadvaliForm() {
       quantity: quantityBoxRef,
     };
 
-    if (which) {
-      map[which].current?.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    }
+    map[which].current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
   };
 
   const onSave = () => {
@@ -461,7 +459,7 @@ function KassaJadvaliForm() {
                   setValue5(v);
                   if (v) setFocusError(null);
                 }}
-                placeholder={t("kassaCreate.quantityPlaceholder")}
+                placeholder="0"
                 className={[
                   "w-full h-11 px-4 pr-10 rounded-xl cursor-pointer text-slate-800 bg-[#EBF0FA] border outline-none focus:border-[#1C96C8]",
                   focusError === "quantity"
@@ -492,7 +490,7 @@ function KassaJadvaliForm() {
                   v = v.replace(/^0+/, "");
                 setValue11(v);
               }}
-              placeholder={t("kassaCreate.pricePlaceholder")}
+              placeholder="0"
               className="w-full h-11 px-4 pr-10 cursor-pointer rounded-xl text-slate-800 bg-[#EBF0FA] border border-[#334F9D] outline-none focus:border-[#1C96C8]"
             />
           </div>
@@ -513,7 +511,7 @@ function KassaJadvaliForm() {
                   v = v.replace(/^0+/, "");
                 setValue7(v);
               }}
-              placeholder={t("kassaCreate.ndsPlaceholder")}
+              placeholder="0"
               className="w-full h-11 px-4 pr-10 rounded-xl cursor-pointer bg-[#EBF0FA] border border-[#334F9D] outline-none text-slate-800 focus:border-[#1C96C8]"
             />
           </div>
