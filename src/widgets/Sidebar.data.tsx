@@ -6,6 +6,9 @@ import {
   Wallet,
   Users,
   Bell,
+  Cog,
+  User,
+  Package,
 } from "lucide-react"
 
 export type SidebarItemType = {
@@ -41,13 +44,12 @@ export const sidebarItems: SidebarItemType[] = [
   },
   {
     to: "/xodimlar", // ✅ TO‘G‘RI
-    label: "Xodimlar",
-    icon: Users,
+    label: "Tovar va Narx",
+    icon: Package,
   },
   {
-    to: "/notifications", // hozircha page yo‘q bo‘lsa disable
-    label: "Xabarlar",
-    icon: Bell,
-    disabled: true,
+    to: "/bildirishnomalar",
+    label: "Mijoz va Ishchi",
+    icon: Users, 
   },
 ]

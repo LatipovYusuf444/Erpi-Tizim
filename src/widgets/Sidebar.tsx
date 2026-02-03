@@ -48,25 +48,6 @@ export default function Sidebar() {
           <SidebarItem key={it.to} item={it} />
         ))}
       </nav>
-
-      <div className="mt-auto px-4 pb-4">
-        <div className="glass rounded-2xl p-3 flex items-center gap-3">
-          <div className="h-11 w-11 rounded-2xl bg-slate-900/10" />
-
-          <div className="min-w-0 flex-1 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-            <div className="text-sm font-semibold truncate">Mike</div>
-            <div className="text-xs text-slate-500 truncate">Admin</div>
-          </div>
-
-          <button
-            type="button"
-            onClick={onLogout}
-            className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xs px-3 py-1.5 rounded-xl bg-slate-900/5 hover:bg-slate-900/10"
-          >
-            Logout
-          </button>
-        </div>
-      </div>
     </aside>
   )
 }
