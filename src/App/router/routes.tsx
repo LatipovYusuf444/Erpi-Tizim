@@ -29,11 +29,11 @@ export const router = createBrowserRouter([
         element: <AppLayout />,
         children: [
           { index: true, element: <Navigate to="dashboard" replace /> },
-          { path: "dashboard", element: <DashboardPage /> },
+          // { path: "dashboard", element: <DashboardPage /> },
 
           // ✅ NOTIFICATION (asosiy route)
-          { path: "notification", element: <NotificationPage /> },
-          { path: "volume", element: <VolumePage /> },
+          // { path: "notification", element: <NotificationPage /> },
+          // { path: "volume", element: <VolumePage /> },
 
           // ✅ eski url sinmasin (agar oldin /notifications bo'lgan bo'lsa)
           {
@@ -55,13 +55,13 @@ export const router = createBrowserRouter([
           // ✅ MOLIYA
           {
             path: "moliya",
-            element: <FinanceLayout />,
+            // element: <FinanceLayout />,
             children: [
-              { index: true, element: <FinanceDashboard /> },
-              { path: "kassa", element: <Kassa /> },
-              { path: "kassa-jadvali-form", element: <KassaJadvaliForm /> },
-              { path: "kunlik-yopish", element: <KunlikTopshirish /> },
-              { path: "qarzdorlik", element: <Qarzdozlik /> },
+              // { index: true, element: <FinanceDashboard /> },
+              // { path: "kassa", element: <Kassa /> },
+              // { path: "kassa-jadvali-form", element: <KassaJadvaliForm /> },
+              // { path: "kunlik-yopish", element: <KunlikTopshirish /> },
+              // { path: "qarzdorlik", element: <Qarzdozlik /> },
               { path: "*", element: <Navigate to="/moliya" replace /> },
             ],
           },
@@ -85,17 +85,17 @@ export const router = createBrowserRouter([
           // ✅ SOTUV
           {
             path: "sotuv",
-            element: <SotuvLayout />,
+            // element: <SotuvLayout />,
             children: [
-              { index: true, element: <SotuvDashboard /> },
-              { path: "sotuvlar-royhati", element: <SotuvlarRoyhati /> },
+              // { index: true, element: <SotuvDashboard /> },
+              // { path: "sotuvlar-royhati", element: <SotuvlarRoyhati /> },
               {
                 path: "qaytarilgan-tovarlar",
-                element: <QaytarilganTovarlar />,
+                // element: <QaytarilganTovarlar />,
               },
               {
                 path: "sotuv-qoshish-form",
-                element: <SotuvQoshishFormNew />,
+                // element: <SotuvQoshishFormNew />,
               },
               { path: "*", element: <Navigate to="/sotuv" replace /> },
             ],
@@ -104,21 +104,21 @@ export const router = createBrowserRouter([
           // ✅ OMBOR
           {
             path: "ombor",
-            element: <OmborLayout />,
+            // element: <OmborLayout />,
             children: [
               { index: true, element: <Navigate to="qoldiqlash" replace /> },
               {
                 path: "qoldiqlash",
-                element: <QoldiqlashLayout />,
+                // element: <QoldiqlashLayout />,
                 children: [
                   { index: true, element: <Navigate to="product" replace /> },
-                  { path: "product", element: <ProductForm /> },
-                  { path: "ingredient", element: <IngredientForm /> },
+                  // { path: "product", element: <ProductForm /> },
+                  // { path: "ingredient", element: <IngredientForm /> },
                 ],
               },
-              { path: "kirim", element: <KirimForm /> },
-              { path: "kochirish", element: <Kochirish /> },
-              { path: "inventarizatsiya", element: <Inventarizatsiya /> },
+              // { path: "kirim", element: <KirimForm /> },
+              // { path: "kochirish", element: <Kochirish /> },
+              // { path: "inventarizatsiya", element: <Inventarizatsiya /> },
               { path: "*", element: <Navigate to="/ombor" replace /> },
             ],
           },
