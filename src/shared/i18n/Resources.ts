@@ -1,4 +1,3 @@
-import KunlikTopshirish from "@/pages/components/KunlikTopshirish";
 
 export const resources = {
   uz: {

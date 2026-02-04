@@ -7,12 +7,13 @@ import LoginPage from "@/pages/auth/LoginPage";
 
 import ProtectedRoute from "@/pages/auth/ProtectedRoute";
 import PublicOnlyRoute from "@/pages/auth/PublicOnlyRoute";
-import Topbar4 from "@/widgets/topbar4/Topbar4";
+// import Topbar4 from "@/widgets/topbar4/Topbar4";
 
 
 // ✅ XODIMLAR
 import Xodimlar from "@/pages/xodimlar/Xodimlar";
 import Form from "@/pages/xodimlar/Form";
+import DashboardPage from "@/pages/Dashboard/Dashboard";
 
 // ✅ Simple wrapper (nested route uchun)
 function XodimlarWrapper() {
@@ -29,7 +30,7 @@ export const router = createBrowserRouter([
         element: <AppLayout />,
         children: [
           { index: true, element: <Navigate to="dashboard" replace /> },
-          // { path: "dashboard", element: <DashboardPage /> },
+          { path: "dashboard", element: <DashboardPage /> },
 
           // ✅ NOTIFICATION (asosiy route)
           // { path: "notification", element: <NotificationPage /> },
@@ -168,7 +169,7 @@ export const router = createBrowserRouter([
   },
 
   // test route
-  { path: "topbar4", element: <Topbar4 /> },
+  // { path: "topbar4", element: <Topbar4 /> },
 
   { path: "*", element: <Navigate to="/dashboard" replace /> },
 ]);
