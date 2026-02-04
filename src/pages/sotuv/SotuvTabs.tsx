@@ -13,7 +13,7 @@ export default function SotuvTabs() {
 
   return (
     <div className="w-full max-w-[1402px] mx-auto px-8 mt-4">
-      <nav className="w-full flex flex-wrap gap-2 border border-[#6049E3] rounded-3xl px-3 py-2 bg-muted">
+      <nav className="w-full flex flex-wrap gap-2 border border-[#334F9D] rounded-3xl px-3 py-2 bg-muted">
         {tabs.map((tab) => (
           <NavLink
             key={tab.to}
